@@ -62,12 +62,19 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+Jokler is the first social media platform that was purposefully created with an unusual and unwelcoming user interface in order to draw attention to a crucial problem: the way large corporations exploit dark design patterns in order to manipulate users and make money.
+
+Our project functions as an instructional tool in addition to a fully functional social media application. Jokler will attract visitors with its amusing and engaging User Interface while gradually introducing them to the strategies used to influence online behavior. By immersing users in a practical demonstration of these manipulative techniques, this dual-purpose design offers a unique chance to teach and promote deeper awareness through firsthand experience.
+
+Jokler provides a distinctive experience that will not only amuse users but also provide them with the ability to understand the various ways in which technology can influence their choices.
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Home page - A typical home page where users can see recommended or trending posts, activities, stories, etc.
+* User Profile page - A page where users can interact, edit and preview their own profile.
+* Post page - A page where users can look at a post, its comments, reactions, etc.
+* Search page - A page where users can use key-word search in order to find specific users, posts, comments, etc.
+* Conversations page - A page where users can engage in conversation about a certain topic. All messages for this topic/theme will be comprised here.
 
 ### Entity-Relationship (ER) Diagram
 
