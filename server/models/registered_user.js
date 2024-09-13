@@ -1,3 +1,9 @@
+/*
+    The followers and following fields in this user schema will be arrays of the ID's 
+    of each other user that follows/is followed. 
+    Each User can have many posts that will be stored with the Post Id in a similar array.
+*/
+
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -26,7 +32,7 @@ const RegisteredUserSchema = new Schema({
         required: false,
         maxLength: 150,
     },
-    followers: [{
+    followers: [{                 
         type: mongoose.isValidObjectId, 
         ref: 'User',
     }],
