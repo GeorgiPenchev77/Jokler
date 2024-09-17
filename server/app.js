@@ -106,7 +106,7 @@ app.post('/posts', function(req, res) {
         "dislikes": req.body.dislies,
         "madeBy": req.body.madeBy
     }
-    users.push(newPost);
+    posts.push(newPost);
     res.status(201).json(newPost);
 });
 
@@ -128,20 +128,20 @@ app.put('/posts/:id', function(req, res) {
     res.json(updated_post);
 })
 
-app.patch('/users/:id', function(req, res) {
+app.patch('/posts/:id', function(req, res) {
     let id = req.params.id;
-    let user = users[id];
-    let updated_user = {
+    let post = posts[id];
+    let updated_post = {
         "id": id,
         "content": req.body.content
     }
-    users[id] = updated_user;
-    res.json(updated_user);
+    posts[id] = updated_pos;
+    res.json(updated_post);
 })
 
 app.delete('/posts/:id', function(req, res) {
     let id = req.params.id;
-    let user = posts[id];
+    let post = posts[id];
     delete post[id];
     res.json(post);
 })
