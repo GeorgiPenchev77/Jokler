@@ -37,6 +37,8 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
+//#region Users
+
 app.post('/users', function(req, res) {
     let newUser = {
         "id": users.length,
@@ -90,7 +92,66 @@ app.delete('/users', function(req, res) {
     res.json("Users deleted");
 })
 
+//#endregion
 
+//#region Post
+
+app.post('/posts', function(req, res) {
+    let newPost = {
+        "id": posts.length,
+        "type": req.body.type,
+        "content": req.body.content,
+        "image": req.body.image,
+        "date": req.body.date,
+        "dislikes": req.body.dislies,
+        "madeBy": req.body.madeBy
+    }
+    users.push(newPost);
+    res.status(201).json(newPost);
+});
+
+app.get('/posts', function(req, res) {
+    res.json({"posts": posts});
+})
+
+app.get('/posts/:id', function(req, res) {
+    res.json(posts[req.params.id])
+})
+
+app.put('/posts/:id', function(req, res) {
+    let id = req.params.id;
+    let updated_post = {
+        "id": id,
+        "content": req.body.content
+    }
+    posts[id] = updated_post;
+    res.json(updated_post);
+})
+
+app.patch('/users/:id', function(req, res) {
+    let id = req.params.id;
+    let user = users[id];
+    let updated_user = {
+        "id": id,
+        "content": req.body.content
+    }
+    users[id] = updated_user;
+    res.json(updated_user);
+})
+
+app.delete('/posts/:id', function(req, res) {
+    let id = req.params.id;
+    let user = posts[id];
+    delete post[id];
+    res.json(post);
+})
+
+app.delete('/post', function(req, res) {
+    posts = [];
+    res.json("Posts deleted");
+})
+
+//#endregion
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
