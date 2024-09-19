@@ -31,6 +31,8 @@ app.use(cors());
 
 
 let users = [];
+let posts = [];
+let admins = [];
 
 // Import routes
 app.get('/api', function(req, res) {
