@@ -142,7 +142,7 @@ app.patch('/posts/:id', function(req, res) {
 app.delete('/posts/:id', function(req, res) {
     let id = req.params.id;
     let post = posts[id];
-    delete post[id];
+    posts = posts.filter((post) => post.id != id)
     res.json(post);
 })
 
@@ -199,7 +199,7 @@ app.patch('/admins/:id', function(req, res) {
 app.delete('/admins/:id', function(req, res) {
     let id = req.params.id;
     let admin = admins[id];
-    delete admin[id];
+    admins = admins.filter((admin) => admin.id != id)
     res.json(admin);
 })
 
