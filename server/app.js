@@ -83,7 +83,7 @@ app.patch('/users/:id', function(req, res) {
 app.delete('/users/:id', function(req, res) {
     let id = req.params.id;
     let user = users[id];
-    delete user[id];
+    users = users.filter((user) => user.id != id)
     res.json(user);
 })
 
