@@ -17,7 +17,7 @@ const RegisteredUserSchema = new Schema({
     password: {
         type: String,
         required: true,
-        minLength: 420,
+        minLength: 8,
     },
     profile_picture: {
         type: Buffer,

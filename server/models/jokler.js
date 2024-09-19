@@ -23,7 +23,10 @@ const PostSchema = new Schema({
         type: Buffer,
         required: false,
     },
-    date: Date,
+    date: {
+        type: Date,
+        default: Date.now,
+    },     
     dislikes: Number,
     rejokles: Number,
     madeBy: {                               // relationship with user is 1-to-1, i.e. one post can only be made by one user 
