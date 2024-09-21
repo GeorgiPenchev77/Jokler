@@ -62,11 +62,11 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-Jokler is the first social media platform that was purposefully created with an unusual and unwelcoming user interface in order to draw attention to a crucial problem: the way large corporations exploit dark design patterns in order to manipulate users and make money.
+The Jokler App is the first social media platform that was purposefully created with an unusual and unwelcoming User Interface. Our project's mission is to draw attention to a crucial problem in the online experience of today's world: the various ways large corporations exploit dark design patterns in order to manipulate users for corporate profit.
 
-Our project functions as an instructional tool in addition to a fully functional social media application. Jokler will attract visitors with its amusing and engaging User Interface while gradually introducing them to the strategies used to influence online behavior. By immersing users in a practical demonstration of these manipulative techniques, this dual-purpose design offers a unique chance to teach and promote deeper awareness through firsthand experience.
+Our Social Media application will serve as completely functional platform where You will be able to connect with your friends, share experiences and more. The other half of the experience though, will be provided by our uniquely crafted UI & UX. They will openly incorporate dark and anti design patterns, as well as, specially crafted tooltips with information on their effects and purpose. By immersing users in a practical demonstration of these manipulative techniques, this dual-purpose design offers a unique chance to teach and promote deeper awareness through first-hand experience, while still retaining the functionality of a typical Social Media.
 
-Jokler provides a distinctive experience that will not only amuse users but also provide them with the ability to understand the various ways in which technology can influence their choices.
+The Jokler App provides a distinctive experience that will not only amuse users but also provide them with the ability to understand the various ways in which technology can influence their choices.
 
 ### Pages
 
@@ -74,11 +74,11 @@ Jokler provides a distinctive experience that will not only amuse users but also
 * User Profile page - A page where users can interact, edit and preview their own profile.
 * Post page - A page where users can look at a post, its comments, reactions, etc.
 * Search page - A page where users can use key-word search in order to find specific users, posts, comments, etc.
-* Conversations page - A page where users can engage in conversation about a certain topic. All messages for this topic/theme will be comprised here.
+* Trending Hashtags page - A page where users can find trending, popular topics and the posts related to them.
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/ER_Diagram.png)
 
 ## Teaser (MS3)
 
