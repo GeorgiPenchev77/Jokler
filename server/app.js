@@ -29,10 +29,186 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
+
+let users = [];
+
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+
+//#region Users
+
+app.post('/users', function(req, res) {
+    let newUser = {
+        "id": users.length,
+        "username": req.body.username,
+        "password": req.body.password
+    }
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
+app.get('/users', function(req, res) {
+    res.json({"users": users});
+})
+
+app.get('/users/:id', function(req, res) {
+    res.json(users[req.params.id])
+})
+
+app.put('/users/:id', function(req, res) {
+    let id = req.params.id;
+    let updated_user = {
+        "id": id,
+        "username": req.body.username,
+        "password": req.body.password
+    }
+    users[id] = updated_user;
+    res.json(updated_user);
+})
+
+app.patch('/users/:id', function(req, res) {
+    let id = req.params.id;
+    let user = users[id];
+    let updated_user = {
+        "id": id,
+        "username": req.body.username || user.username,
+        "password": req.body.password || user.password
+    }
+    users[id] = updated_user;
+    res.json(updated_user);
+})
+
+app.delete('/users/:id', function(req, res) {
+    let id = req.params.id;
+    let user = users[id];
+    users = users.filter((user) => user.id != id)
+    res.json(user);
+})
+
+app.delete('/users', function(req, res) {
+    users = [];
+    res.json("Users deleted");
+})
+
+//#endregion
+
+//#region Post
+
+app.post('/posts', function(req, res) {
+    let newPost = {
+        "id": posts.length,
+        "type": req.body.type,
+        "content": req.body.content,
+        "image": req.body.image,
+        "date": req.body.date,
+        "dislikes": req.body.dislies,
+        "madeBy": req.body.madeBy
+    }
+    posts.push(newPost);
+    res.status(201).json(newPost);
+});
+
+app.get('/posts', function(req, res) {
+    res.json({"posts": posts});
+})
+
+app.get('/posts/:id', function(req, res) {
+    res.json(posts[req.params.id])
+})
+
+app.put('/posts/:id', function(req, res) {
+    let id = req.params.id;
+    let updated_post = {
+        "id": id,
+        "content": req.body.content
+    }
+    posts[id] = updated_post;
+    res.json(updated_post);
+})
+
+app.patch('/posts/:id', function(req, res) {
+    let id = req.params.id;
+    let post = posts[id];
+    let updated_post = {
+        "id": id,
+        "content": req.body.content
+    }
+    posts[id] = updated_pos;
+    res.json(updated_post);
+})
+
+app.delete('/posts/:id', function(req, res) {
+    let id = req.params.id;
+    let post = posts[id];
+    posts = posts.filter((post) => post.id != id)
+    res.json(post);
+})
+
+app.delete('/post', function(req, res) {
+    posts = [];
+    res.json("Posts deleted");
+})
+
+//#endregion
+
+//#region Admin
+
+app.post('/admins', function(req, res) {
+    let newAdmin = {
+        "id": admins.length,
+        "username": req.body.username,
+        "password": req.body.password
+    }
+    admins.push(newAdmin);
+    res.status(201).json(newAdmin);
+});
+
+app.get('/admins', function(req, res) {
+    res.json({"admins": admins});
+})
+
+app.get('/admins/:id', function(req, res) {
+    res.json(admins[req.params.id])
+})
+
+app.put('/admins/:id', function(req, res) {
+    let id = req.params.id;
+    let updated_admins = {
+        "id": id,
+        "username": req.body.username,
+        "password": req.body.password
+    }
+    admins[id] = updated_admin;
+    res.json(updated_admin);
+})
+
+app.patch('/admins/:id', function(req, res) {
+    let id = req.params.id;
+    let admin = admins[id];
+    let updated_admin = {
+        "id": id,
+        "username": req.body.username || admin.username,
+        "password": req.body.password || admin.password
+    }
+    admins[id] = updated_admin;
+    res.json(updated_admin);
+})
+
+app.delete('/admins/:id', function(req, res) {
+    let id = req.params.id;
+    let admin = admins[id];
+    admins = admins.filter((admin) => admin.id != id)
+    res.json(admin);
+})
+
+app.delete('/admins', function(req, res) {
+    admins = [];
+    res.json("Admins deleted");
+})
+
+//#endregion
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
