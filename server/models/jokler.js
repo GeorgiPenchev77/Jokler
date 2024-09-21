@@ -13,7 +13,6 @@ const PostSchema = new Schema({
     type: {
         type: String,
         required: true,
-        enum: [public, private, physcopaths-only],
     },
     content: {
         type: String,
@@ -29,10 +28,7 @@ const PostSchema = new Schema({
     },     
     dislikes: Number,
     rejokles: Number,
-    madeBy: {                               // relationship with user is 1-to-1, i.e. one post can only be made by one user 
-        type: mongoose.isValidObjectId, 
-        ref: 'User',
-    }
+    madeBy: { type: Schema.Types.ObjectId, ref: "RegisteredUser" },
 });
 
 module.exports = mongoose.model('Post', PostSchema);  // export the Post schema to use in other scripts

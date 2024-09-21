@@ -32,18 +32,9 @@ const RegisteredUserSchema = new Schema({
         required: false,
         maxLength: 150,
     },
-    followers: [{                 
-        type: mongoose.isValidObjectId, 
-        ref: 'User',
-    }],
-    following: [{
-        type: mongoose.isValidObjectId, 
-        ref: 'User',
-    }],
-    posts: [{
-        type: mongoose.isValidObjectId,
-        ref: 'Post',
-    }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "RegisteredUser" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "RegisteredUser" }],
+    posts:     [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
-module.exports = mongoose.model('User', RegisteredUserSchema);
+module.exports = mongoose.model('RegisteredUser', RegisteredUserSchema);
