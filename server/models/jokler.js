@@ -26,9 +26,16 @@ const PostSchema = new Schema({
         type: Date,
         default: Date.now,
     },     
-    dislikes: Number,
-    rejokles: Number,
+    dislikes: {
+        type: Number,
+        default: 0,
+    },    
+    rejokles: {
+        type: Number,
+        default: 0,
+    },
     madeBy: { type: Schema.Types.ObjectId, ref: "RegisteredUser" },
+    hashtags: [{ type: Schema.Types.ObjectId, ref: "Hashtag" }],
 });
 
 module.exports = mongoose.model('Post', PostSchema);  // export the Post schema to use in other scripts

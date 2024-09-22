@@ -15,6 +15,8 @@ const HashtagSchema = new Schema({
        required: true,
        unique: true, 
     },
+    
+    related_posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 
 });
 
