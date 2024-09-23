@@ -41,10 +41,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -82,10 +83,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -132,10 +134,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -173,10 +176,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -205,10 +209,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -237,10 +242,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -277,10 +283,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/0",
+							"raw": "localhost:3001/users/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
 								"0"
@@ -319,10 +326,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/1",
+							"raw": "localhost:3001/users/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
 								"1"
@@ -361,10 +369,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/2",
+							"raw": "localhost:3001/users/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
 								"2"
@@ -402,10 +411,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/1",
+							"raw": "localhost:3001/users/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
 								"1"
@@ -444,10 +454,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -492,10 +503,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -533,10 +545,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -574,10 +587,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -615,10 +629,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -659,10 +674,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -699,10 +715,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/0",
+							"raw": "localhost:3001/posts/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
 								"0"
@@ -740,10 +757,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/1",
+							"raw": "localhost:3001/posts/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
 								"1"
@@ -754,20 +772,6 @@
 				},
 				{
 					"name": "Change type for post 2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -781,10 +785,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/2",
+							"raw": "localhost:3001/posts/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
 								"2"
@@ -813,10 +818,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/posts/1",
+							"raw": "localhost:3001/posts/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
 								"1"
@@ -845,10 +851,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -893,10 +900,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -934,10 +942,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -984,10 +993,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1025,10 +1035,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1057,10 +1068,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1089,10 +1101,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/admins/1",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
 								"1"
@@ -1130,10 +1143,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/0",
+							"raw": "localhost:3001/admins/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
 								"0"
@@ -1172,10 +1186,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/1",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
 								"1"
@@ -1214,10 +1229,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/2",
+							"raw": "localhost:3001/admins/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
 								"2"
@@ -1255,10 +1271,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/1",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
 								"1"
@@ -1297,10 +1314,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1309,35 +1327,6 @@
 					"response": []
 				}
 			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "testUrl",
-			"value": "http://localhost:3001",
-			"type": "string"
 		}
 	]
 }
