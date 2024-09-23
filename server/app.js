@@ -178,7 +178,7 @@ app.get('/admins/:id', function(req, res) {
 
 app.put('/admins/:id', function(req, res) {
     let id = req.params.id;
-    let updated_admins = {
+    let updated_admin = {
         "id": id,
         "username": req.body.username,
         "password": req.body.password
