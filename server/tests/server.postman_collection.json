@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ebbba2a1-e651-427c-a7c8-d7b4006146e6",
+		"_postman_id": "65b41a9b-e51e-4f2d-9cee-8a674d655002",
 		"name": "Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38318237"
+		"_exporter_id": "38277047"
 	},
 	"item": [
 		{
@@ -53,7 +53,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user 0",
+					"name": "Create user Stefan",
 					"event": [
 						{
 							"listen": "test",
@@ -94,7 +94,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user 1",
+					"name": "Create user Pavlo",
 					"event": [
 						{
 							"listen": "test",
@@ -144,7 +144,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user 2",
+					"name": "Create user Georgi",
 					"event": [
 						{
 							"listen": "test",
@@ -217,7 +217,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user id 1",
+					"name": "Get user Pavlo",
 					"event": [
 						{
 							"listen": "test",
@@ -237,19 +237,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "{{testUrl}}/users/Pavlo",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"users"
+								"users",
+								"Pavlo"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Change data for user 0",
+					"name": "Replace user Stefan with user Stefannie",
 					"event": [
 						{
 							"listen": "test",
@@ -277,62 +278,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/0",
+							"raw": "{{testUrl}}/users/Stefan",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
 								"users",
-								"0"
+								"Stefan"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Change username for user 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"username\": \"Pavli\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/1",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Change password for user 2",
+					"name": "Change password for user Georgi",
 					"event": [
 						{
 							"listen": "test",
@@ -361,20 +320,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/2",
+							"raw": "{{testUrl}}/users/Georgi",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
 								"users",
-								"2"
+								"Georgi"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete user 1",
+					"name": "Delete user Stefannie",
 					"event": [
 						{
 							"listen": "test",
@@ -402,13 +361,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/1",
+							"raw": "{{testUrl}}/users/Stefannie",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
 								"users",
-								"1"
+								"Stefannie"
 							]
 						}
 					},
