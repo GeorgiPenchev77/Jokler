@@ -30,16 +30,20 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-
-let users = [];
-let posts = [];
-let admins = [];
-let tags = [];
-
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+
+var usersController = require('./controllers/usersController');
+var postController = require('./controllers/joklersController')
+var adminController = require('./controllers/adminsController')
+var tagController = require('./controllers/tagsController')
+
+app.use('/users', usersController);
+app.use('/posts', postController)
+app.use('/admins', adminController)
+app.use('/tags', tagController)
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
