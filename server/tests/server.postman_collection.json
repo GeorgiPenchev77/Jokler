@@ -838,7 +838,7 @@
 			]
 		},
 		{
-			"name": "User tests Copy",
+			"name": "Admins tests",
 			"item": [
 				{
 					"name": "Get Admins",
@@ -885,7 +885,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user 0",
+					"name": "Create admins 0",
 					"event": [
 						{
 							"listen": "test",
@@ -927,7 +927,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user 1",
+					"name": "Create admins 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1020,7 +1020,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all users",
+					"name": "Get all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -1053,7 +1053,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user id 1",
+					"name": "Get admin id 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1087,7 +1087,7 @@
 					"response": []
 				},
 				{
-					"name": "Change data for user 0",
+					"name": "Change data for admin 0",
 					"event": [
 						{
 							"listen": "test",
@@ -1129,7 +1129,7 @@
 					"response": []
 				},
 				{
-					"name": "Change username for user 1",
+					"name": "Change username for admin 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1172,7 +1172,7 @@
 					"response": []
 				},
 				{
-					"name": "Change password for user 2",
+					"name": "Change password for admin 2",
 					"event": [
 						{
 							"listen": "test",
@@ -1215,7 +1215,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete user 1",
+					"name": "Delete admin 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1257,7 +1257,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete all users",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
