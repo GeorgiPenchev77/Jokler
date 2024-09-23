@@ -8,7 +8,7 @@ var history = require('connect-history-api-fallback');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/JoklerDB';
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 
 // Connect to MongoDB
 mongoose.connect(mongoURI).catch(function(err) {

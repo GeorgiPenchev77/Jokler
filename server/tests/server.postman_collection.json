@@ -41,11 +41,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -83,11 +83,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -134,11 +134,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -176,11 +176,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -209,11 +209,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -242,11 +242,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/users/1",
+							"raw": "localhost:3001/users/1",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users",
 								"1"
@@ -284,11 +284,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users/0",
+							"raw": "localhost:3001/users/0",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users",
 								"0"
@@ -327,11 +327,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users/1",
+							"raw": "localhost:3001/users/1",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users",
 								"1"
@@ -370,11 +370,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users/2",
+							"raw": "localhost:3001/users/2",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users",
 								"2"
@@ -412,11 +412,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users/1",
+							"raw": "localhost:3001/users/1",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users",
 								"1"
@@ -455,11 +455,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/users",
+							"raw": "localhost:3001/users",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -504,11 +504,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -546,11 +546,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -588,11 +588,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -630,11 +630,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -675,11 +675,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -716,11 +716,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts/0",
+							"raw": "localhost:3001/posts/0",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts",
 								"0"
@@ -758,11 +758,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/posts/1",
+							"raw": "localhost:3001/posts/1",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts",
 								"1"
@@ -791,11 +791,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/posts/1",
+							"raw": "localhost:3001/posts/1",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts",
 								"1"
@@ -824,11 +824,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"posts"
 							]
