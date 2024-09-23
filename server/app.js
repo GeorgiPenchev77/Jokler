@@ -125,7 +125,8 @@ app.put('/posts/:id', function(req, res) {
     let id = req.params.id;
     let updated_post = {
         "id": id,
-        "content": req.body.content
+        "type": req.body.type,
+        "content": req.body.content,
     }
     posts[id] = updated_post;
     res.json(updated_post);
@@ -136,7 +137,8 @@ app.patch('/posts/:id', function(req, res) {
     let post = posts[id];
     let updated_post = {
         "id": id,
-        "content": req.body.content
+        "type": req.body.type || post.type,
+        "content": req.body.content || post.content,
     }
     posts[id] = updated_post;
     res.json(updated_post);
