@@ -138,7 +138,7 @@ app.patch('/posts/:id', function(req, res) {
     let updated_post = {
         "id": id,
         "type": req.body.type || post.type,
-        "content": req.body.content || post.content,
+        "content": req.body.content || post.content
     }
     posts[id] = updated_post;
     res.json(updated_post);
