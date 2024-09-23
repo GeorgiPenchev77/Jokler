@@ -8,7 +8,7 @@ var history = require('connect-history-api-fallback');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/JoklerDB';
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 
 // Connect to MongoDB
 mongoose.connect(mongoURI).catch(function(err) {
@@ -32,6 +32,8 @@ app.use(cors());
 
 
 let users = [];
+let posts = [];
+let admins = [];
 
 // Import routes
 app.get('/api', function(req, res) {
@@ -123,7 +125,8 @@ app.put('/posts/:id', function(req, res) {
     let id = req.params.id;
     let updated_post = {
         "id": id,
-        "content": req.body.content
+        "type": req.body.type,
+        "content": req.body.content,
     }
     posts[id] = updated_post;
     res.json(updated_post);
@@ -134,9 +137,10 @@ app.patch('/posts/:id', function(req, res) {
     let post = posts[id];
     let updated_post = {
         "id": id,
-        "content": req.body.content
+        "type": req.body.type || post.type,
+        "content": req.body.content || post.content
     }
-    posts[id] = updated_pos;
+    posts[id] = updated_post;
     res.json(updated_post);
 })
 
@@ -147,7 +151,7 @@ app.delete('/posts/:id', function(req, res) {
     res.json(post);
 })
 
-app.delete('/post', function(req, res) {
+app.delete('/posts', function(req, res) {
     posts = [];
     res.json("Posts deleted");
 })
@@ -176,7 +180,7 @@ app.get('/admins/:id', function(req, res) {
 
 app.put('/admins/:id', function(req, res) {
     let id = req.params.id;
-    let updated_admins = {
+    let updated_admin = {
         "id": id,
         "username": req.body.username,
         "password": req.body.password
