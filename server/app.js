@@ -5,8 +5,9 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/JoklerDB';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -31,8 +32,6 @@ app.use(cors());
 
 
 let users = [];
-let posts = [];
-let admins = [];
 
 // Import routes
 app.get('/api', function(req, res) {
