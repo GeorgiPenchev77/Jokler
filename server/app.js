@@ -149,7 +149,7 @@ app.delete('/posts/:id', function(req, res) {
     res.json(post);
 })
 
-app.delete('/post', function(req, res) {
+app.delete('/posts', function(req, res) {
     posts = [];
     res.json("Posts deleted");
 })
