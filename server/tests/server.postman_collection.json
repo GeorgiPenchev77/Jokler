@@ -1345,11 +1345,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1387,11 +1386,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1438,11 +1436,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1480,11 +1477,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1513,11 +1509,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1546,11 +1541,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3001/tags/1",
+							"raw": "{{testUrl}}/tags/1",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags",
 								"1"
@@ -1588,11 +1582,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags/0",
+							"raw": "{{testUrl}}/tags/0",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags",
 								"0"
@@ -1631,11 +1624,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags/1",
+							"raw": "{{testUrl}}/tags/1",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags",
 								"1"
@@ -1673,11 +1665,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags/1",
+							"raw": "{{testUrl}}/tags/1",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags",
 								"1"
@@ -1716,11 +1707,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
