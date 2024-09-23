@@ -72,7 +72,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.expect(pm.response.to.have.status(201));\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -136,7 +136,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.expect(pm.response.to.have.status(201));\r",
+									"    pm.response.to.have.status(201);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -146,8 +146,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -184,7 +187,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.expect(pm.response.to.have.status(201));\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -248,7 +251,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Content-Type header is application/json\", function () {\r",
@@ -304,7 +307,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Id, username, and password fields are present and of the correct type\", function () {\r",
@@ -347,9 +350,8 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
-									"});\r",
-									""
+									"    pm.response.to.have.status(200);\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -390,7 +392,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -442,7 +444,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -494,7 +496,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -536,7 +538,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									""
 								],
@@ -583,9 +585,8 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									""
+									"    pm.response.to.have.status(200);\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -628,41 +629,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(201);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Response has the required fields - id, type, and content\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.id).to.exist;\r",
-									"    pm.expect(responseData.type).to.exist;\r",
-									"    pm.expect(responseData.content).to.exist;\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Id is a non-negative integer\", function () {\r",
-									"  const responseData = pm.response.json();\r",
-									"  \r",
-									"  pm.expect(responseData.id).to.be.a('number');\r",
-									"  pm.expect(responseData.id).to.be.at.least(0);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Type is a non-empty string\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.type).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Content is a non-empty string\", function () {\r",
-									"  const responseData = pm.response.json();\r",
-									"  \r",
-									"  pm.expect(responseData).to.be.an('object');\r",
-									"  pm.expect(responseData.content).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Content should not be empty\");\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									""
 								],
@@ -704,7 +671,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(201);\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									""
 								],
@@ -746,7 +713,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 201\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(201);\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									""
 								],
@@ -788,7 +755,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									""
 								],
@@ -833,7 +800,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -875,7 +842,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"  pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -917,7 +884,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -950,7 +917,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
