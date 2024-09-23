@@ -51,7 +51,7 @@ async function createRegisteredUser(index, name, pass, bio) {      // the functi
 }
 
 async function createUnregisteredUser(index, example) {    // the function takes the parameters we want the instances to have
-    const URuser = new UnregisteredUser({valuableInformation: example});
+    const URuser = new UnregisteredUser({cookies: example});
     await URuser.save();              // save the instance created
     unregisteredUsers[index] = URuser;
     console.log(201);
