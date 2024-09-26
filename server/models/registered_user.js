@@ -13,11 +13,12 @@ const RegisteredUserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+        immutable: true,
     },
     password: {
         type: String,
         required: true,
-        minLength: 8,
+        minLength: 0,
     },
     profile_picture: {
         type: Buffer,

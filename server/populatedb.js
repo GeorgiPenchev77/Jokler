@@ -10,7 +10,7 @@ var MongoURI =  process.env.MONGODB_URI || 'mongodb://localhost:27017/JoklerDB';
 //import Mongoose models
 const RegisteredUser = require("./models/registered_user");
 const UnregisteredUser = require("./models/unregistered_user");
-const Post = require("./models/jokler");
+const Post = require("./models/jokle");
 const Hashtag = require("./models/hashtag");
 const Admin = require("./models/admin");
 
@@ -51,7 +51,7 @@ async function createRegisteredUser(index, name, pass, bio) {      // the functi
 }
 
 async function createUnregisteredUser(index, example) {    // the function takes the parameters we want the instances to have
-    const URuser = new UnregisteredUser({valuableInformation: example});
+    const URuser = new UnregisteredUser({cookies: example});
     await URuser.save();              // save the instance created
     unregisteredUsers[index] = URuser;
     console.log(201);
