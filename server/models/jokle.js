@@ -37,7 +37,7 @@ const PostSchema = new Schema({
         type: Number,
         default: 0,
     },
-    comments: [{ type: Schema.Types.ObjectId, ref: "Post", unique: true }],
+    comments: [{ type: Schema.Types.ObjectId, ref: "Post"}],
     madeBy: { type: Schema.Types.ObjectId, ref: "RegisteredUser" },
     hashtags: [{ type: Schema.Types.ObjectId, ref: "Hashtag" }],
 });

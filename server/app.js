@@ -37,8 +37,8 @@ let admins = [];
 
 //import Mongoose models
 const RegisteredUser = require("./models/registered_user");
-
-
+const Admin = require("./models/admin")
+const Jokle = require("./models/jokle")
 
 
 
@@ -134,8 +134,12 @@ app.delete('/users/:username', async function(req, res, next) {
     }
 })
 
-app.delete('/users', async function(req, res) {
-    await RegisteredUser.collection.drop();
+app.delete('/users', async function(req, res, next) {
+    try{
+        await RegisteredUser.collection.drop();
+    } catch (err) {
+        return next(err);
+    }
     res.json({"message": "Users deleted"});
 })
 
@@ -143,118 +147,185 @@ app.delete('/users', async function(req, res) {
 
 //#region Post
 
-app.post('/posts', function(req, res) {
-    let newPost = {
-        "id": posts.length,
-        "type": req.body.type,
-        "content": req.body.content,
-        "image": req.body.image,
-        "date": req.body.date,
-        "dislikes": req.body.dislies,
-        "madeBy": req.body.madeBy
+app.post('/posts', async function(req, res, next) {
+    let newJokle = new Jokle(req.body);
+    try {
+        await newJokle.save();
+    } catch(err) {
+        return next(err);
     }
-    posts.push(newPost);
-    res.status(201).json(newPost);
+    res.status(201).json(newJokle);
 });
 
-app.get('/posts', function(req, res) {
-    res.json({"posts": posts});
-})
-
-app.get('/posts/:id', function(req, res) {
-    res.json(posts[req.params.id])
-})
-
-app.put('/posts/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_post = {
-        "id": id,
-        "type": req.body.type,
-        "content": req.body.content,
+app.get('/posts', async function(req, res, next) {
+    try{
+        let jokles = await Jokle.find({});
+        res.json(jokles);
+    } catch(err) {
+        return next(err);
     }
-    posts[id] = updated_post;
-    res.json(updated_post);
 })
 
-app.patch('/posts/:id', function(req, res) {
+app.get('/posts/:id', async function(req, res, next) {
     let id = req.params.id;
-    let post = posts[id];
-    let updated_post = {
-        "id": id,
-        "type": req.body.type || post.type,
-        "content": req.body.content || post.content
+    try {
+        let jokle = await Jokle.findById(id);
+        if (jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch (err) {
+        return next(err);
     }
-    posts[id] = updated_post;
-    res.json(updated_post);
 })
 
-app.delete('/posts/:id', function(req, res) {
+app.put('/posts/:id', async function(req, res, next) {
     let id = req.params.id;
-    let post = posts[id];
-    posts = posts.filter((post) => post.id != id)
-    res.json(post);
+    try {
+        let jokle = await Jokle.findByIdAndUpdate(
+            id,
+            req.body);
+        if (jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"})
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
 })
 
-app.delete('/posts', function(req, res) {
-    posts = [];
-    res.json("Posts deleted");
+app.patch('/posts/:id', async function(req, res, next) {
+    let id = req.params.id;
+    try{
+        let jokle = await Jokle.findByIdAndUpdate(
+            id,
+            {$set: req.body},
+            {returnNewDocument: true});
+        if(jokle == null){
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
+
+})
+
+app.delete('/posts/:id', async function(req, res, next) {
+    let id = req.params.id;
+    try {
+        let jokle = await Jokle.findByIdAndDelete(id);
+        if(jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
+
+})
+
+app.delete('/posts', async function(req, res, next) {
+    try{
+        await Jokle.collection.drop();
+    } catch(err) {
+        return next(err);
+    }
+    res.json("Jokles deleted");
 })
 
 //#endregion
 
 //#region Admin
 
-app.post('/admins', function(req, res) {
-    let newAdmin = {
-        "id": admins.length,
-        "username": req.body.username,
-        "password": req.body.password
+app.post('/admins', async function(req, res, next) {
+    let newAdmin = new Admin(req.body);
+    try {
+        await newAdmin.save();
+    } catch (err) {
+        return next(err);
     }
-    admins.push(newAdmin);
     res.status(201).json(newAdmin);
 });
 
-app.get('/admins', function(req, res) {
-    res.json({"admins": admins});
-})
-
-app.get('/admins/:id', function(req, res) {
-    res.json(admins[req.params.id])
-})
-
-app.put('/admins/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_admin = {
-        "id": id,
-        "username": req.body.username,
-        "password": req.body.password
+app.get('/admins', async function(req, res, next) {
+    try{
+        let admins = await Admin.find({});
+        res.json(admins);
+    } catch (err) {
+        return next(err);
     }
-    admins[id] = updated_admin;
-    res.json(updated_admin);
 })
 
-app.patch('/admins/:id', function(req, res) {
-    let id = req.params.id;
-    let admin = admins[id];
-    let updated_admin = {
-        "id": id,
-        "username": req.body.username || admin.username,
-        "password": req.body.password || admin.password
+app.get('/admins/:username', async function(req, res, next) {
+    let username = req.params.username;
+    try{
+        let admin = await Admin.findOne({"username": username});
+        if(admin == null){
+            return res.status(404).json({"message": "Admin not found"});
+        }
+        res.json(admin);
+    } catch (err) {
+        return next(err);
     }
-    admins[id] = updated_admin;
-    res.json(updated_admin);
 })
 
-app.delete('/admins/:id', function(req, res) {
-    let id = req.params.id;
-    let admin = admins[id];
-    admins = admins.filter((admin) => admin.id != id)
-    res.json(admin);
+app.put('/admins/:username', async function(req, res, next) {
+    let username = req.params.username;
+    let newAdmin = req.body;
+    try{
+        let admin = await Admin.findOneAndReplace(
+            {"username": username},
+            newAdmin,
+            {returnNewDocument: true});
+        if(admin == null){
+            return res.status(404).json({"message": "Admin not found"});
+        }
+        res.json(admin);
+    } catch(err) {
+        return next(err);
+    }
 })
 
-app.delete('/admins', function(req, res) {
-    admins = [];
-    res.json("Admins deleted");
+app.patch('/admins/:username', async function(req, res, next) {
+    let username = req.params.username;
+    let newAdmin = req.body;
+    try{
+        let admin = await Admin.findOneAndReplace(
+            {"username": username},
+            {$set: newAdmin},
+            {returnNewDocument: true}
+        );
+        if (admin == null){
+            return res.status(404).json({"message": "Admin not found"});
+        }
+        res.json(admin);
+    } catch (err) {
+        return next(err);
+    }
+})
+
+app.delete('/admins/:username', async function(req, res, next) {
+    let username = req.params.username;
+    try {
+        let admin = await Admin.findOneAndDelete({"username": username});
+        if (admin == null){
+            return res.status(404).json({"message": "User not found"});
+        }
+        res.json(admin);
+    } catch (err) {
+        return next(err);
+    }
+})
+
+app.delete('/admins', async function(req, res, next) {
+    try{
+        await Admin.collection.drop();
+    } catch (err) {
+        return next(err);
+    }
+
+    res.json({"message": "Admins deleted"});
 })
 
 //#endregion
