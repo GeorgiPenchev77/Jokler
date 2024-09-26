@@ -334,53 +334,98 @@ app.delete('/admins', async function(req, res, next) {
 
 //#region Tags
 
-app.post('/tags', function(req, res) {
-    let newTag = {
-        "id": tags.length,
-        "tag": req.body.tag
+app.post('/tags', async function(req, res, next) {
+    let newHashtag = new Hashtag(req.body);
+    try {
+        await newHashtag.save();
+    } catch (err) {
+        return next(err);
     }
-    tags.push(newTag);
-    res.status(201).json(newTag);
+    res.status(201).json(newHashtag);
 });
 
-app.get('/tags', function(req, res) {
-    res.json({"tags": tags});
-})
-
-app.get('/tags/:id', function(req, res) {
-    res.json(tags[req.params.id])
-})
-
-app.put('/tags/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_tag = {
-        "id": id,
-        "tag": req.body.tag
+app.get('/tags', async function(req, res, next) {
+    try{
+        let tags = await Hashtag.find();
+        res.json({"tags": tags});
+    } catch (err) {
+        return next(err);
     }
-    tags[id] = updated_tag;
-    res.json(updated_tag);
 })
 
-app.patch('/tags/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_tag = {
-        "id": id,
-        "tag": req.body.tag
+app.get('/tags/:tag', async function(req, res, next) {
+    let tag = req.params.tag;
+    try {
+        let tag = await Hashtag.findOne({"tag": tag});
+        if(tag == null){
+            return res.status(404).json({"message": "Tag not found"});
+        }
+        res.json(tag);
+    } catch (err) {
+        return next(err);
     }
-    tags[id] = updated_tag;
-    res.json(updated_tag);
 })
 
-app.delete('/tags/:id', function(req, res) {
-    let id = req.params.id;
-    let tag = tags[id];
-    tags = tags.filter((tag) => tag.id != id)
-    res.json(tag);
+app.put('/tags/:tag', async function(req, res, next) {
+    let tag = req.params.tag;
+    let newHashtag = req.body;
+    try {
+        let tag = await Hashtag.findOneAndReplace(
+            {"tag": tag},
+            newHashtag,
+            {returnNewDocument: true});
+
+        if (tag == null){
+            return res.status(404).json({"message": "Tag not found"});
+        }
+        res.json(tag);
+    } catch (err) {
+        return next(err);
+    }
+
 })
 
-app.delete('/tags', function(req, res) {
-    tags = [];
-    res.json("Tags deleted");
+app.patch('/tags/:tag', async function(req, res, next) {
+    let tag = req.params.tag;
+    let updateTags = req.body;
+    //TODO: validate that the tag is not attempted to be changed.
+    try {
+        let tag = await Hashtag.findOneAndUpdate(
+            {"tag": tag},
+            {$set: updateTag},
+            {returnNewDocument: true});
+
+        if(tag == null) {
+            return res.status(404).json({"message": "Tag not found"});
+        }
+        res.json(tag);
+    } catch (err) {
+        return next(err);
+    }
+})
+
+app.delete('/tags/:tag', async function(req, res, next) {
+    let tag = req.params.tag;
+
+    try{
+        let tag = await Hashtag.findOneAndDelete(
+            {"tag": tag});
+        if (tag == null){
+            return res.status(404).json({"message": "Tag not found"});
+        }
+        res.json(tag);
+    } catch (err) {
+        return next(err);
+    }
+})
+
+app.delete('/tags', async function(req, res, next) {
+    try{
+        await Hashtag.collection.drop();
+    } catch (err) {
+        return next(err);
+    }
+    res.json({"message": "Tag deleted"});
 })
 
 //#endregion
