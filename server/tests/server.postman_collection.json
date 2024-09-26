@@ -1144,8 +1144,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"newAdmin0\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
