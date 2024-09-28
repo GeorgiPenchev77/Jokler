@@ -353,29 +353,15 @@ app.get('/tags', async function(req, res, next) {
     }
 })
 
-app.get('/tags/:tag', async function(req, res, next) {
-    let tag = req.params.tag;
-    try {
-        let tag = await Hashtag.findOne({"tag": tag});
-        if(tag == null){
-            return res.status(404).json({"message": "Tag not found"});
-        }
-        res.json(tag);
-    } catch (err) {
-        return next(err);
-    }
-})
-
 app.delete('/tags/:tag', async function(req, res, next) {
     let tag = req.params.tag;
 
     try{
-        let tag = await Hashtag.findOneAndDelete(
-            {"tag": tag});
-        if (tag == null){
+        let hashtag = await Hashtag.findOneAndDelete({"tag": tag});
+        if (hashtag == null){
             return res.status(404).json({"message": "Tag not found"});
         }
-        res.json(tag);
+        res.json(hashtag);
     } catch (err) {
         return next(err);
     }
