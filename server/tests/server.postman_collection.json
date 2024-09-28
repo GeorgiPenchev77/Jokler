@@ -1,129 +1,11 @@
 {
 	"info": {
-		"_postman_id": "65b41a9b-e51e-4f2d-9cee-8a674d655002",
-		"name": "server",
+		"_postman_id": "ebbba2a1-e651-427c-a7c8-d7b4006146e6",
+		"name": "Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38277047"
+		"_exporter_id": "38318237"
 	},
 	"item": [
-		{
-			"name": "Setup",
-			"item": [
-				{
-					"name": "Delete all admins Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/admins",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"admins"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete all posts Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/posts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete all users Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "User tests",
 			"item": [
@@ -159,10 +41,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -171,14 +54,12 @@
 					"response": []
 				},
 				{
-					"name": "Create user0",
+					"name": "Create user 0",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"user0\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -202,10 +83,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -214,14 +96,12 @@
 					"response": []
 				},
 				{
-					"name": "Create user1",
+					"name": "Create user 1",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"user1\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});"
@@ -254,10 +134,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -266,14 +147,12 @@
 					"response": []
 				},
 				{
-					"name": "Create user2",
+					"name": "Create user 2",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"user2\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -297,10 +176,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -329,10 +209,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users"
 							]
@@ -341,7 +222,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user0",
+					"name": "Get user id 1",
 					"event": [
 						{
 							"listen": "test",
@@ -361,27 +242,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}",
+							"raw": "localhost:3001/users",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
-								"users",
-								"{{user1}}"
+								"users"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Replace user0 with newUser0",
+					"name": "Change data for user 0",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"user0\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
@@ -396,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"{{newUser0}}\", \"password\": \"321\"}",
+							"raw": "{\"username\": \"Stefannie\", \"password\": \"321\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -404,20 +283,64 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/{{user0}}",
+							"raw": "localhost:3001/users/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
-								"{{user0}}"
+								"0"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Change password for user2",
+					"name": "Change username for user 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"Pavli\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password for user 2",
 					"event": [
 						{
 							"listen": "test",
@@ -446,20 +369,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}",
+							"raw": "localhost:3001/users/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
-								"{{user2}}"
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete newUser0",
+					"name": "Delete user 1",
 					"event": [
 						{
 							"listen": "test",
@@ -487,13 +411,56 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users/{{newUser0}}",
+							"raw": "localhost:3001/users/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"users",
-								"{{newUser0}}"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users"
 							]
 						}
 					},
@@ -536,10 +503,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -554,8 +522,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"jokle0_id\", pm.response.json()._id);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -579,10 +545,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -597,8 +564,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"jokle1_id\", pm.response.json()._id);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -622,10 +587,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -640,8 +606,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"jokle2_id\", pm.response.json()._id);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -665,10 +629,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -709,10 +674,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/posts",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts"
 							]
@@ -727,8 +693,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"jokle0_id\", pm.response.json()._id);\r",
-									"\r",
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
@@ -751,13 +715,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle0_id}}",
+							"raw": "localhost:3001/posts/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
-								"{{jokle0_id}}"
+								"0"
 							]
 						}
 					},
@@ -792,13 +757,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle1_id}}",
+							"raw": "localhost:3001/posts/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
-								"{{jokle1_id}}"
+								"1"
 							]
 						}
 					},
@@ -806,20 +772,6 @@
 				},
 				{
 					"name": "Change type for post 2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -833,13 +785,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle2_id}}",
+							"raw": "localhost:3001/posts/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
-								"{{jokle2_id}}"
+								"2"
 							]
 						}
 					},
@@ -865,13 +818,46 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle1_id}}",
+							"raw": "localhost:3001/posts/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"posts",
-								"{{jokle1_id}}"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"posts"
 							]
 						}
 					},
@@ -883,7 +869,7 @@
 			"name": "Admins tests",
 			"item": [
 				{
-					"name": "Get admins",
+					"name": "Get Admins",
 					"event": [
 						{
 							"listen": "test",
@@ -914,10 +900,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -926,14 +913,12 @@
 					"response": []
 				},
 				{
-					"name": "Create admin0",
+					"name": "Create admins 0",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"admin0\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -949,7 +934,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"BigAdmin\", \"password\": \"Unhackable123\"}",
+							"raw": "{\"username\": \"Stefan\", \"password\": \"123\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -957,10 +942,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -969,14 +955,12 @@
 					"response": []
 				},
 				{
-					"name": "Create admin1",
+					"name": "Create admins 1",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"admin1\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});"
@@ -1001,7 +985,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"HugeAdmin\", \"password\": \"Unhackable321\"}",
+							"raw": "{\"username\": \"Pavlo\", \"password\": \"123\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1009,10 +993,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1021,14 +1006,12 @@
 					"response": []
 				},
 				{
-					"name": "Create admin2",
+					"name": "Create user 2",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"admin2\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
@@ -1044,7 +1027,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"MassiveAdmin\", \"password\": \"Unhackable123123\"}",
+							"raw": "{\"username\": \"Georgi\", \"password\": \"123\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1052,10 +1035,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1064,7 +1048,7 @@
 					"response": []
 				},
 				{
-					"name": "Get admins",
+					"name": "Get all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -1084,10 +1068,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/admins",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins"
 							]
@@ -1096,7 +1081,7 @@
 					"response": []
 				},
 				{
-					"name": "Get admin0",
+					"name": "Get admin id 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1116,20 +1101,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/admins/{{admin0}}",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
-								"{{admin0}}"
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Replace admin0 with newAdmin0",
+					"name": "Change data for admin 0",
 					"event": [
 						{
 							"listen": "test",
@@ -1149,7 +1135,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"{{newAdmin0}}\", \"password\": \"321\"}",
+							"raw": "{\"username\": \"Stefannie\", \"password\": \"321\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1157,13 +1143,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/{{admin0}}",
+							"raw": "localhost:3001/admins/0",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
-								"{{admin0}}"
+								"0"
 							]
 						}
 					},
@@ -1176,8 +1163,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"admin1\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -1201,13 +1186,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/{{admin1}}",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
-								"{{admin1}}"
+								"1"
 							]
 						}
 					},
@@ -1220,8 +1206,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"admin2\", pm.response.json().username);\r",
-									"\r",
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -1245,108 +1229,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/admins/{{admin2}}",
+							"raw": "localhost:3001/admins/2",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
 								"admins",
-								"{{admin2}}"
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete newAdmin0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/admins/{{newAdmin0}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"admins",
-								"{{newAdmin0}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Cleanup",
-			"item": [
-				{
-					"name": "Delete all admins Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/admins",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"admins"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete all posts Copy",
+					"name": "Delete admin 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1364,20 +1261,31 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "localhost:3001/admins/1",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
-								"posts"
+								"admins",
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete all users Copy",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -1406,12 +1314,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "localhost:3001/admins",
 							"host": [
-								"{{testUrl}}"
+								"localhost"
 							],
+							"port": "3001",
 							"path": [
-								"users"
+								"admins"
 							]
 						}
 					},
@@ -1838,35 +1747,6 @@
 					"response": []
 				}
 			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "testUrl",
-			"value": "http://localhost:3001",
-			"type": "string"
 		}
 	]
 }
