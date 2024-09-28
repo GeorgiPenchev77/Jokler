@@ -1,94 +1,59 @@
 var express = require("express");
 var app = express.Router();
 
-app.post('/', async function(req, res, next) {
-    let newAdmin = new Admin(req.body);
-    try {
-        await newAdmin.save();
-    } catch (err) {
-        return next(err);
+let admins = [];
+
+app.post('/', function(req, res) {
+    let newAdmin = {
+        "id": admins.length,
+        "username": req.body.username,
+        "password": req.body.password
     }
+    admins.push(newAdmin);
     res.status(201).json(newAdmin);
 });
 
-app.get('/', async function(req, res, next) {
-    try{
-        let admins = await Admin.find({});
-        res.json(admins);
-    } catch (err) {
-        return next(err);
-    }
+app.get('/', function(req, res) {
+    res.json({"admins": admins});
 })
 
-app.get('/:username', async function(req, res, next) {
-    let username = req.params.username;
-    try{
-        let admin = await Admin.findOne({"username": username});
-        if(admin == null){
-            return res.status(404).json({"message": "Admin not found"});
-        }
-        res.json(admin);
-    } catch (err) {
-        return next(err);
-    }
+app.get('/:id', function(req, res) {
+    res.json(admins[req.params.id])
 })
 
-app.put('/:username', async function(req, res, next) {
-    let username = req.params.username;
-    let newAdmin = req.body;
-    try{
-        let admin = await Admin.findOneAndReplace(
-            {"username": username},
-            newAdmin,
-            {returnNewDocument: true});
-        if(admin == null){
-            return res.status(404).json({"message": "Admin not found"});
-        }
-        res.json(admin);
-    } catch(err) {
-        return next(err);
+app.put('/:id', function(req, res) {
+    let id = req.params.id;
+    let updated_admin = {
+        "id": id,
+        "username": req.body.username,
+        "password": req.body.password
     }
+    admins[id] = updated_admin;
+    res.json(updated_admin);
 })
 
-app.patch('/:username', async function(req, res, next) {
-    let username = req.params.username;
-    let newAdmin = req.body;
-    try{
-        let admin = await Admin.findOneAndReplace(
-            {"username": username},
-            {$set: newAdmin},
-            {returnNewDocument: true}
-        );
-        if (admin == null){
-            return res.status(404).json({"message": "Admin not found"});
-        }
-        res.json(admin);
-    } catch (err) {
-        return next(err);
+app.patch('/:id', function(req, res) {
+    let id = req.params.id;
+    let admin = admins[id];
+    let updated_admin = {
+        "id": id,
+        "username": req.body.username || admin.username,
+        "password": req.body.password || admin.password
     }
+    admins[id] = updated_admin;
+    res.json(updated_admin);
 })
 
-app.delete('/:username', async function(req, res, next) {
-    let username = req.params.username;
-    try {
-        let admin = await Admin.findOneAndDelete({"username": username});
-        if (admin == null){
-            return res.status(404).json({"message": "User not found"});
-        }
-        res.json(admin);
-    } catch (err) {
-        return next(err);
-    }
+app.delete('/:id', function(req, res) {
+    let id = req.params.id;
+    let admin = admins[id];
+    admins = admins.filter((admin) => admin.id != id)
+    res.json(admin);
 })
 
-app.delete('/', async function(req, res, next) {
-    try{
-        await Admin.collection.drop();
-    } catch (err) {
-        return next(err);
-    }
-
-    res.json({"message": "Admins deleted"});
+app.delete('/', function(req, res) {
+    admins = [];
+    res.json("Admins deleted");
 })
 
 module.exports = app;
