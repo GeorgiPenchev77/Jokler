@@ -40,7 +40,7 @@ let tags = [];
 const RegisteredUser = require("./models/registered_user");
 const Admin = require("./models/admin")
 const Jokle = require("./models/jokle")
-const Hashtag = require("./models/hastag")
+const Hashtag = require("./models/hashtag")
 
 
 
