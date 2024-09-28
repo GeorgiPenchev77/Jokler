@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ebbba2a1-e651-427c-a7c8-d7b4006146e6",
-		"name": "Test",
+		"_postman_id": "076c2564-dff3-489e-89c1-eceb3e9e0c2e",
+		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38318237"
 	},
@@ -10,7 +10,7 @@
 			"name": "User tests",
 			"item": [
 				{
-					"name": "Get Users",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -54,14 +54,45 @@
 					"response": []
 				},
 				{
-					"name": "Create user 0",
+					"name": "Delete all posts",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									""
 								],
@@ -96,7 +127,53 @@
 					"response": []
 				},
 				{
-					"name": "Create user 1",
+					"name": "Delete all tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User tests",
+			"item": [
+				{
+					"name": "Get Users",
 					"event": [
 						{
 							"listen": "test",
@@ -270,12 +347,15 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"Stefannie\", \"password\": \"321\"}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,14 +406,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/users/1",
+							"raw": "{{testUrl}}/users/{{user0}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
 								"users",
-								"1"
+								"{{user0}}"
 							]
 						}
 					},
@@ -1283,56 +1363,14 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete all admins",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3001/admins",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"admins"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
 		{
-			"name": "Tags tests",
+			"name": "Hashtag tests",
 			"item": [
 				{
-					"name": "Get Tags",
+					"name": "Get hashstags",
 					"event": [
 						{
 							"listen": "test",
@@ -1363,11 +1401,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1376,54 +1413,14 @@
 					"response": []
 				},
 				{
-					"name": "Create tag 0",
+					"name": "Create tag0",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tags\": \"Food\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3001/tags",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"tags"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create tag 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
+									"pm.environment.set(\"tag0\", pm.response.json().tag);\r",
+									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});"
@@ -1431,16 +1428,6 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
 						}
 					],
 					"request": {
@@ -1448,7 +1435,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tags\": \"UniLife\"\r\n}",
+							"raw": "{\r\n    \"tag\": \"Dogs\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1456,11 +1443,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1469,16 +1455,17 @@
 					"response": []
 				},
 				{
-					"name": "Create tag 2",
+					"name": "Create tag1",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.environment.set(\"tag1\", pm.response.json().tag);\r",
+									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1490,7 +1477,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tags\": \"Sports\"\r\n}",
+							"raw": "{\r\n    \"tag\": \"Cats\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1498,11 +1485,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1511,7 +1497,49 @@
 					"response": []
 				},
 				{
-					"name": "Get all tags",
+					"name": "Create tag2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"tag2\", pm.response.json().tag);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"Cooking\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get hashstags",
 					"event": [
 						{
 							"listen": "test",
@@ -1519,23 +1547,33 @@
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/tags",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags"
 							]
@@ -1544,41 +1582,7 @@
 					"response": []
 				},
 				{
-					"name": "Get tag id 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3001/tags/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"tags",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Change data tag 0",
+					"name": "New Request",
 					"event": [
 						{
 							"listen": "test",
@@ -1594,33 +1598,28 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tags\": \"Dogs\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "localhost:3001/tags/0",
+							"raw": "{{testUrl}}/tags/{{tag1}}",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
 								"tags",
-								"0"
+								"{{tag1}}"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"item": [
 				{
-					"name": "Change tag for tag 1",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -1630,48 +1629,6 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tags\": \"Cats\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3001/tags/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"tags",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete tag 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1691,14 +1648,43 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags/1",
+							"raw": "{{testUrl}}/admins",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
 							"path": [
-								"tags",
-								"1"
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"posts"
 							]
 						}
 					},
@@ -1734,11 +1720,51 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/tags",
+							"raw": "{{testUrl}}/users",
 							"host": [
-								"localhost"
+								"{{testUrl}}"
 							],
-							"port": "3001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
 							"path": [
 								"tags"
 							]
