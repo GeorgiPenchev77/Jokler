@@ -33,7 +33,7 @@ app.use(cors());
 //import Mongoose models
 const RegisteredUser = require("./models/registered_user");
 const Admin = require("./models/admin")
-const Jokle = require("./models/jokler")
+const Jokle = require("./models/jokle")
 const Hashtag = require("./models/hashtag")
 
 
