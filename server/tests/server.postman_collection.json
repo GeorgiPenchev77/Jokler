@@ -10,7 +10,7 @@
 			"name": "Setup",
 			"item": [
 				{
-					"name": "Delete all admins Copy",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -51,7 +51,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete all posts Copy",
+					"name": "Delete all posts",
 					"event": [
 						{
 							"listen": "test",
@@ -82,7 +82,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete all users Copy",
+					"name": "Delete all users",
 					"event": [
 						{
 							"listen": "test",
@@ -117,6 +117,47 @@
 							],
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
 							]
 						}
 					},
@@ -325,9 +366,21 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{testUrl}}/users",
 							"host": [
@@ -361,13 +414,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}",
+							"raw": "{{testUrl}}/users/{{user0}}",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
 								"users",
-								"{{user1}}"
+								"{{user0}}"
 							]
 						}
 					},
@@ -1302,10 +1355,259 @@
 			]
 		},
 		{
+			"name": "Hashtag tests",
+			"item": [
+				{
+					"name": "Get hashstags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tag0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"tag0\", pm.response.json().tag);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"Dogs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tag1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"tag1\", pm.response.json().tag);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"Cats\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tag2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"tag2\", pm.response.json().tag);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"Cooking\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get hashstags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/tags/{{tag1}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags",
+								"{{tag1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Cleanup",
 			"item": [
 				{
-					"name": "Delete all admins Copy",
+					"name": "Delete all admins",
 					"event": [
 						{
 							"listen": "test",
@@ -1346,7 +1648,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete all posts Copy",
+					"name": "Delete all posts",
 					"event": [
 						{
 							"listen": "test",
@@ -1377,7 +1679,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete all users Copy",
+					"name": "Delete all users",
 					"event": [
 						{
 							"listen": "test",
@@ -1412,6 +1714,47 @@
 							],
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags"
 							]
 						}
 					},
