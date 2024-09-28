@@ -1,63 +1,91 @@
 var express = require("express");
 var app = express.Router();
 
-let posts = [];
-
-app.post('/', function(req, res) {
-    let newPost = {
-        "id": posts.length,
-        "type": req.body.type,
-        "content": req.body.content,
-        "image": req.body.image,
-        "date": req.body.date,
-        "dislikes": req.body.dislies,
-        "madeBy": req.body.madeBy
+app.post('/', async function(req, res, next) {
+    let newJokle = new Jokle(req.body);
+    try {
+        await newJokle.save();
+    } catch(err) {
+        return next(err);
     }
-    posts.push(newPost);
-    res.status(201).json(newPost);
+    res.status(201).json(newJokle);
 });
 
-app.get('/', function(req, res) {
-    res.json({"posts": posts});
-})
-
-app.get('/:id', function(req, res) {
-    res.json(posts[req.params.id])
-})
-
-app.put('/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_post = {
-        "id": id,
-        "type": req.body.type,
-        "content": req.body.content,
+app.get('/', async function(req, res, next) {
+    try{
+        let jokles = await Jokle.find({});
+        res.json(jokles);
+    } catch(err) {
+        return next(err);
     }
-    posts[id] = updated_post;
-    res.json(updated_post);
 })
 
-app.patch('/:id', function(req, res) {
+app.get('/:id', async function(req, res, next) {
     let id = req.params.id;
-    let post = posts[id];
-    let updated_post = {
-        "id": id,
-        "type": req.body.type || post.type,
-        "content": req.body.content || post.content
+    try {
+        let jokle = await Jokle.findById(id);
+        if (jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch (err) {
+        return next(err);
     }
-    posts[id] = updated_post;
-    res.json(updated_post);
 })
 
-app.delete('/:id', function(req, res) {
+app.put('/:id', async function(req, res, next) {
     let id = req.params.id;
-    let post = posts[id];
-    posts = posts.filter((post) => post.id != id)
-    res.json(post);
+    try {
+        let jokle = await Jokle.findByIdAndUpdate(
+            id,
+            req.body);
+        if (jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"})
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
 })
 
-app.delete('/', function(req, res) {
-    posts = [];
-    res.json("Posts deleted");
+app.patch('/:id', async function(req, res, next) {
+    let id = req.params.id;
+    try{
+        let jokle = await Jokle.findByIdAndUpdate(
+            id,
+            {$set: req.body},
+            {returnNewDocument: true});
+        if(jokle == null){
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
+
+})
+
+app.delete('/:id', async function(req, res, next) {
+    let id = req.params.id;
+    try {
+        let jokle = await Jokle.findByIdAndDelete(id);
+        if(jokle == null) {
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        res.json(jokle);
+    } catch(err) {
+        return next(err);
+    }
+
+})
+
+app.delete('/', async function(req, res, next) {
+    try{
+        await Jokle.collection.drop();
+    } catch(err) {
+        return next(err);
+    }
+    res.json("Jokles deleted");
 })
 
 module.exports = app;
