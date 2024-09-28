@@ -366,44 +366,6 @@ app.get('/tags/:tag', async function(req, res, next) {
     }
 })
 
-app.put('/tags/:tag', async function(req, res, next) {
-    let tag = req.params.tag;
-    let newHashtag = req.body;
-    try {
-        let tag = await Hashtag.findOneAndReplace(
-            {"tag": tag},
-            newHashtag,
-            {returnNewDocument: true});
-
-        if (tag == null){
-            return res.status(404).json({"message": "Tag not found"});
-        }
-        res.json(tag);
-    } catch (err) {
-        return next(err);
-    }
-
-})
-
-app.patch('/tags/:tag', async function(req, res, next) {
-    let tag = req.params.tag;
-    let updateTags = req.body;
-    //TODO: validate that the tag is not attempted to be changed.
-    try {
-        let tag = await Hashtag.findOneAndUpdate(
-            {"tag": tag},
-            {$set: updateTag},
-            {returnNewDocument: true});
-
-        if(tag == null) {
-            return res.status(404).json({"message": "Tag not found"});
-        }
-        res.json(tag);
-    } catch (err) {
-        return next(err);
-    }
-})
-
 app.delete('/tags/:tag', async function(req, res, next) {
     let tag = req.params.tag;
 
