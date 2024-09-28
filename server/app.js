@@ -46,6 +46,14 @@ const Jokle = require("./models/jokle")
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+var usersController = require('./controllers/V1.0/usersController');
+var postController = require('./controllers/V1.0/joklersController')
+var adminController = require('./controllers/V1.0/adminsController')
+var tagController = require('./controllers/V1.0/tagsController')
+app.use('/users', usersController);
+app.use('/posts', postController)
+app.use('/admins', adminController)
+app.use('/tags', tagController)
 
 //#region Users
 
