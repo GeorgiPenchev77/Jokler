@@ -1,55 +1,46 @@
 var express = require("express");
 var app = express.Router();
 
-let tags = [];
-
-app.post('/', function(req, res) {
-    let newTag = {
-        "id": tags.length,
-        "tag": req.body.tag
+app.post('/tags', async function(req, res, next) {
+    let newHashtag = new Hashtag(req.body);
+    try {
+        await newHashtag.save();
+    } catch (err) {
+        return next(err);
     }
-    tags.push(newTag);
-    res.status(201).json(newTag);
+    res.status(201).json(newHashtag);
 });
 
-app.get('/', function(req, res) {
-    res.json({"tags": tags});
-})
-
-app.get('/:id', function(req, res) {
-    res.json(tags[req.params.id])
-})
-
-app.put('/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_tag = {
-        "id": id,
-        "tag": req.body.tag
+app.get('/tags', async function(req, res, next) {
+    try{
+        let tags = await Hashtag.find();
+        res.json({"tags": tags});
+    } catch (err) {
+        return next(err);
     }
-    tags[id] = updated_tag;
-    res.json(updated_tag);
 })
 
-app.patch('/:id', function(req, res) {
-    let id = req.params.id;
-    let updated_tag = {
-        "id": id,
-        "tag": req.body.tag
+app.delete('/tags/:tag', async function(req, res, next) {
+    let tag = req.params.tag;
+
+    try{
+        let hashtag = await Hashtag.findOneAndDelete({"tag": tag});
+        if (hashtag == null){
+            return res.status(404).json({"message": "Tag not found"});
+        }
+        res.json(hashtag);
+    } catch (err) {
+        return next(err);
     }
-    tags[id] = updated_tag;
-    res.json(updated_tag);
 })
 
-app.delete('/:id', function(req, res) {
-    let id = req.params.id;
-    let tag = tags[id];
-    tags = tags.filter((tag) => tag.id != id)
-    res.json(tag);
-})
-
-app.delete('/', function(req, res) {
-    tags = [];
-    res.json("Tags deleted");
+app.delete('/tags', async function(req, res, next) {
+    try{
+        await Hashtag.collection.drop();
+    } catch (err) {
+        return next(err);
+    }
+    res.json({"message": "Tag deleted"});
 })
 
 module.exports = app;
