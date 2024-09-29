@@ -10,7 +10,7 @@ var MongoURI =  process.env.MONGODB_URI || 'mongodb://localhost:27017/JoklerDB';
 //import Mongoose models
 const RegisteredUser = require("./models/registered_user");
 const UnregisteredUser = require("./models/unregistered_user");
-const Post = require("./models/jokle");
+const Post = require("./models/jokler");
 const Hashtag = require("./models/hashtag");
 const Admin = require("./models/admin");
 
@@ -130,7 +130,3 @@ async function seedPosts(){
     createPost(7, "public", "I hate my life", 10, 9 ),      
     ]);
 }
-    
-
-
-

@@ -235,7 +235,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"Stefan\", \"password\": \"123\"}",
+							"raw": "{\"username\": \"Stefan\", \"password\": \"12345678\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -287,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"Pavlo\", \"password\": \"123\"}",
+							"raw": "{\"username\": \"Pavlo\", \"password\": \"12345678\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -330,7 +330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"Georgi\", \"password\": \"123\"}",
+							"raw": "{\"username\": \"Georgi\", \"password\": \"12345678\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -491,7 +491,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"password\": \"231\"}",
+							"raw": "{\"password\": \"87654321\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1570,7 +1570,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Delete tag 1",
 					"event": [
 						{
 							"listen": "test",
