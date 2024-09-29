@@ -1,7 +1,10 @@
 var express = require("express");
 var app = express.Router();
 
-app.post('/posts', async function(req, res, next) {
+//import Mongoose model
+const Jokle = require("../../models/jokler")
+
+app.post('/', async function(req, res, next) {
     let newJokle = new Jokle(req.body);
     try {
         await newJokle.save();
@@ -11,7 +14,7 @@ app.post('/posts', async function(req, res, next) {
     res.status(201).json(newJokle);
 });
 
-app.get('/posts', async function(req, res, next) {
+app.get('/', async function(req, res, next) {
     try{
         let jokles = await Jokle.find({});
         res.json(jokles);
@@ -20,7 +23,7 @@ app.get('/posts', async function(req, res, next) {
     }
 })
 
-app.get('/posts/:id', async function(req, res, next) {
+app.get('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
         let jokle = await Jokle.findById(id);
@@ -33,7 +36,7 @@ app.get('/posts/:id', async function(req, res, next) {
     }
 })
 
-app.put('/posts/:id', async function(req, res, next) {
+app.put('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
         let jokle = await Jokle.findByIdAndUpdate(
@@ -48,7 +51,7 @@ app.put('/posts/:id', async function(req, res, next) {
     }
 })
 
-app.patch('/posts/:id', async function(req, res, next) {
+app.patch('/:id', async function(req, res, next) {
     let id = req.params.id;
     try{
         let jokle = await Jokle.findByIdAndUpdate(
@@ -65,7 +68,7 @@ app.patch('/posts/:id', async function(req, res, next) {
 
 })
 
-app.delete('/posts/:id', async function(req, res, next) {
+app.delete('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
         let jokle = await Jokle.findByIdAndDelete(id);
@@ -79,7 +82,7 @@ app.delete('/posts/:id', async function(req, res, next) {
 
 })
 
-app.delete('/posts', async function(req, res, next) {
+app.delete('/', async function(req, res, next) {
     try{
         await Jokle.collection.drop();
     } catch(err) {

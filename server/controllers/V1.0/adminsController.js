@@ -1,7 +1,10 @@
 var express = require("express");
 var app = express.Router();
 
-app.post('/admins', async function(req, res, next) {
+//import Mongoose model
+const Admin = require("../../models/admin")
+
+app.post('/', async function(req, res, next) {
     let newAdmin = new Admin(req.body);
     try {
         await newAdmin.save();
@@ -11,7 +14,7 @@ app.post('/admins', async function(req, res, next) {
     res.status(201).json(newAdmin);
 });
 
-app.get('/admins', async function(req, res, next) {
+app.get('/', async function(req, res, next) {
     try{
         let admins = await Admin.find({});
         res.json(admins);
@@ -20,7 +23,7 @@ app.get('/admins', async function(req, res, next) {
     }
 })
 
-app.get('/admins/:username', async function(req, res, next) {
+app.get('/:username', async function(req, res, next) {
     let username = req.params.username;
     try{
         let admin = await Admin.findOne({"username": username});
@@ -33,7 +36,7 @@ app.get('/admins/:username', async function(req, res, next) {
     }
 })
 
-app.put('/admins/:username', async function(req, res, next) {
+app.put('/:username', async function(req, res, next) {
     let username = req.params.username;
     let newAdmin = req.body;
     try{
@@ -50,7 +53,7 @@ app.put('/admins/:username', async function(req, res, next) {
     }
 })
 
-app.patch('/admins/:username', async function(req, res, next) {
+app.patch('/:username', async function(req, res, next) {
     let username = req.params.username;
     let newAdmin = req.body;
     try{
@@ -68,7 +71,7 @@ app.patch('/admins/:username', async function(req, res, next) {
     }
 })
 
-app.delete('/admins/:username', async function(req, res, next) {
+app.delete('/:username', async function(req, res, next) {
     let username = req.params.username;
     try {
         let admin = await Admin.findOneAndDelete({"username": username});
@@ -81,7 +84,7 @@ app.delete('/admins/:username', async function(req, res, next) {
     }
 })
 
-app.delete('/admins', async function(req, res, next) {
+app.delete('/', async function(req, res, next) {
     try{
         await Admin.collection.drop();
     } catch (err) {

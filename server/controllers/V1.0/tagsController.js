@@ -1,7 +1,10 @@
 var express = require("express");
 var app = express.Router();
 
-app.post('/tags', async function(req, res, next) {
+//import Mongoose model
+const Hashtag = require("../../models/hashtag")
+
+app.post('/', async function(req, res, next) {
     let newHashtag = new Hashtag(req.body);
     try {
         await newHashtag.save();
@@ -11,7 +14,7 @@ app.post('/tags', async function(req, res, next) {
     res.status(201).json(newHashtag);
 });
 
-app.get('/tags', async function(req, res, next) {
+app.get('/', async function(req, res, next) {
     try{
         let tags = await Hashtag.find();
         res.json({"tags": tags});
@@ -20,7 +23,7 @@ app.get('/tags', async function(req, res, next) {
     }
 })
 
-app.delete('/tags/:tag', async function(req, res, next) {
+app.delete('/:tag', async function(req, res, next) {
     let tag = req.params.tag;
 
     try{
@@ -34,7 +37,7 @@ app.delete('/tags/:tag', async function(req, res, next) {
     }
 })
 
-app.delete('/tags', async function(req, res, next) {
+app.delete('/', async function(req, res, next) {
     try{
         await Hashtag.collection.drop();
     } catch (err) {

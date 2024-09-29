@@ -30,12 +30,6 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-//import Mongoose models
-const RegisteredUser = require("./models/registered_user");
-const Admin = require("./models/admin")
-const Jokle = require("./models/jokler")
-const Hashtag = require("./models/hashtag")
-
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});

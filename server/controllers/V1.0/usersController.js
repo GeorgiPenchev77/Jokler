@@ -1,7 +1,10 @@
 var express = require("express");
 var app = express.Router();
 
-app.post('/users', async function(req, res, next) {
+//import Mongoose model
+const RegisteredUser = require("../../models/registered_user");
+
+app.post('/', async function(req, res, next) {
     let newUser = new RegisteredUser(req.body);
     try {
         await newUser.save();
@@ -11,7 +14,7 @@ app.post('/users', async function(req, res, next) {
     res.status(201).json(newUser);
 });
 
-app.get('/users', async function(req, res, next) {
+app.get('/', async function(req, res, next) {
     try{
         let users = await RegisteredUser.find();
         res.json({"users": users});
@@ -20,7 +23,7 @@ app.get('/users', async function(req, res, next) {
     }
 })
 
-app.get('/users/:username', async function(req, res, next) {
+app.get('/:username', async function(req, res, next) {
     let username = req.params.username;
     try {
         let user = await RegisteredUser.findOne({"username": username});
@@ -33,7 +36,7 @@ app.get('/users/:username', async function(req, res, next) {
     }
 })
 
-app.put('/users/:username', async function(req, res, next) {
+app.put('/:username', async function(req, res, next) {
     let username = req.params.username;
     let newUser = req.body;
     try {
@@ -52,7 +55,7 @@ app.put('/users/:username', async function(req, res, next) {
 
 })
 
-app.patch('/users/:username', async function(req, res, next) {
+app.patch('/:username', async function(req, res, next) {
     let username = req.params.username;
     let updateUser = req.body;
     //TODO: validate that the username is not attempted to be changed.
@@ -71,7 +74,7 @@ app.patch('/users/:username', async function(req, res, next) {
     }
 })
 
-app.delete('/users/:username', async function(req, res, next) {
+app.delete('/:username', async function(req, res, next) {
     let username = req.params.username;
 
     try{
@@ -86,7 +89,7 @@ app.delete('/users/:username', async function(req, res, next) {
     }
 })
 
-app.delete('/users', async function(req, res, next) {
+app.delete('/', async function(req, res, next) {
     try{
         await RegisteredUser.collection.drop();
     } catch (err) {
