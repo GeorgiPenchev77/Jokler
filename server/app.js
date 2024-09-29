@@ -30,6 +30,10 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa3b02d509f1812e4a065001a9abd83e3f9d4c47
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
