@@ -30,12 +30,6 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-
-let users = [];
-let posts = [];
-let admins = [];
-let tags = [];
-
 //import Mongoose models
 const RegisteredUser = require("./models/registered_user");
 const Admin = require("./models/admin")
