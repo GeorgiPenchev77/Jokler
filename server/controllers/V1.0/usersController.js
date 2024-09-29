@@ -142,9 +142,35 @@ exports.unfollowUser = async (req, res) => {
     }
 };
 
+exports.getFollowers = async (req, res) => {
+    try{
+        const user = await RegisteredUser.findById(req.params.username).populate('followers');
+        
+        if(!user){
+            return res.status(404).json({ message: 'User not found'});
+        }
 
+        return res.status(200).json(user.followers);
+    }
+    catch (error){
+        return res.status(500).json({ message: "Error retrieving followers", error});
+    }
+};
 
+exports.getFollowing = async (req, res) => {
+    try{
+        const user = await RegisteredUser.findById(req.params.username).populate('following');
+        
+        if(!user){
+            return res.status(404).json({ message: 'User not found'});
+        }
 
+        return res.status(200).json(user.following);
+    }
+    catch (error){
+        return res.status(500).json({ message: "Error retrieving following", error});
+    }
+};
 
 
 
