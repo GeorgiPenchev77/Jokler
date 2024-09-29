@@ -98,4 +98,54 @@ app.delete('/', async function(req, res, next) {
     res.json({"message": "Users deleted"});
 })
 
+// Follow a user
+exports.followUser = async (req, res) => {
+    try{
+        const user = await RegisteredUser.findById(req.params.username);
+        const followUser = await RegisteredUser.findById(req.params.followUsername);
+        
+        if (user == null || followUser == null){
+            return res.status(404).json({"message": "User not found"});
+    }
+
+        if (!user.followers.includes(followUser.username)){
+            user.followers.push(followUser.username);
+            await user.save();
+        }
+    
+
+    return res.status(200).json({message: "User followed successfully", user});
+    }
+    catch (error){
+        return res.status(500).json({ message: "Error following user", error});
+    }
+};
+
+// Unfollow a user
+exports.unfollowUser = async (req, res) => {
+    try{
+        const user = await RegisteredUser.findById(req.params.username);
+        const unfollowUser = await RegisteredUser.findById(req.params.unfollowUsername);
+        
+        if (user == null || unfollowUser == null){
+            return res.status(404).json({"message": "User not found"});
+    }
+
+    user.followers = user.followers.filter(followerUsername => followerUsername.toString() !== unfollowUser.username.toString());
+    await user.save();
+
+
+    return res.status(200).json({message: "User unfollowed successfully", user});
+    }
+    catch (error){
+        return res.status(500).json({ message: "Error unfollowing user", error});
+    }
+};
+
+
+
+
+
+
+
 module.exports = app;
