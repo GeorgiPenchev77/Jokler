@@ -104,17 +104,19 @@ app.post('/:username/follow/:followUsername', async function(req, res, next) {
         const user = await RegisteredUser.findOne({"username": req.params.username});
         const userToBeFollowed = await RegisteredUser.findOne({"username": req.params.followUsername});
         
-        if (user == null || followUser == null){
+        if (user == null || userToBeFollowed == null){
             return res.status(404).json({"message": "User not found"});
     }
 
-        if (!userToBeFollowed.followers.includes(user._id)){
+        if (!(userToBeFollowed.followers.includes(user._id) && user.following.includes(userToBeFollowed._id))){
             userToBeFollowed.followers.push(user._id);
             await userToBeFollowed.save();
+            user.following.push(userToBeFollowed._id);
+            await user.save();
         }
     
 
-    return res.status(200).json({message: "User followed successfully", user});
+    return res.status(200).json({message: "User followed successfully", user, userToBeFollowed});
     }
     catch (error){
         return res.status(500).json({ message: "Error following user", error});
@@ -131,20 +133,22 @@ app.post('/:username/unfollow/:unfollowUsername', async function(req, res, next)
             return res.status(404).json({"message": "User not found"});
     }
 
-    if (userToBeUnfollowed.followers.includes(user._id)){
-        userToBeUnfollowed.followers = userToBeUnfollowed.followers.filter(followerId => followerId.toString() !== userToBeUnfollowed._id.toString());
+    if (userToBeUnfollowed.followers.includes(user._id) && user.following.includes(userToBeUnfollowed._id)){
+        userToBeUnfollowed.followers.pull(user._id);
+        await userToBeUnfollowed.save();
+        user.following.pull(userToBeUnfollowed._id);
         await user.save();
     }
 
 
-    return res.status(200).json({message: "User unfollowed successfully", user});
+    return res.status(200).json({message: "User unfollowed successfully", user, userToBeUnfollowed});
     }
     catch (error){
         return res.status(500).json({ message: "Error unfollowing user", error});
     }
 });
 
-exports.getFollowers = async (req, res) => {
+app.get('/:username/getFollowers', async function(req, res, next) {
     try{
         const user = await RegisteredUser.findOne({"username": req.params.username}).populate('followers');
         
@@ -157,9 +161,9 @@ exports.getFollowers = async (req, res) => {
     catch (error){
         return res.status(500).json({ message: "Error retrieving followers", error});
     }
-};
+});
 
-exports.getFollowing = async (req, res) => {
+app.get('/:username/getFollowing', async function(req, res, next) {
     try{
         const user = await RegisteredUser.findOne({"username": req.params.username}).populate('following');
         
@@ -172,7 +176,7 @@ exports.getFollowing = async (req, res) => {
     catch (error){
         return res.status(500).json({ message: "Error retrieving following", error});
     }
-};
+});
 
 
 
