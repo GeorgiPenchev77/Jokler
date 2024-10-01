@@ -3,11 +3,23 @@ var app = express.Router();
 
 //import Mongoose model
 const Jokle = require("../../models/jokler")
+const RegisteredUser = require("../../models/registered_user")
 
-app.post('/', async function(req, res, next) {
-    let newJokle = new Jokle(req.body);
+app.post('/:username/createPost', async function(req, res, next) {
     try {
-        await newJokle.save();
+    const user = await RegisteredUser.findOne({"username": req.params.username});
+    const newJokle = new Jokle(req.body);
+    
+    if(user == null){
+        return res.status(404).json({message: "User not found"});
+    }
+
+    newJokle.madeBy = user._id; // Link the "madeBy" relationship to the User Id of the creator
+    await newJokle.save();
+
+    user.posts.push(newJokle._id); // Link the Post Id to the User's array of posts
+    await user.save();
+
     } catch(err) {
         return next(err);
     }
@@ -90,5 +102,8 @@ app.delete('/', async function(req, res, next) {
     }
     res.json("Jokles deleted");
 })
+
+
+app.post('/:username/create/')
 
 module.exports = app;
