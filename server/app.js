@@ -41,7 +41,7 @@ var tagController = require('./controllers/V1.0/tagsController')
 app.use('/users', usersController);
 app.use('/posts', postController)
 app.use('/admins', adminController)
-app.use('/tags', tagController)
+app.use('/hashtags', tagController)
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {

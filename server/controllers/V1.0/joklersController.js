@@ -5,6 +5,7 @@ var app = express.Router();
 const Jokle = require("../../models/jokler")
 const RegisteredUser = require("../../models/registered_user")
 
+//create post
 app.post('/:username/createPost', async function(req, res, next) {
     try {
     const user = await RegisteredUser.findOne({"username": req.params.username});
@@ -23,9 +24,41 @@ app.post('/:username/createPost', async function(req, res, next) {
     } catch(err) {
         return next(err);
     }
-    res.status(201).json(newJokle);
-});
+        res.status(201).json({message: "Post created successfully"});
+})
 
+//create comment
+app.post('/:username/createComment/:postId', async function(req, res, next){
+    try{
+    const user = await RegisteredUser.findOne({"username": req.params.username});
+    const newComment = new Jokle(req.body);
+    const jokle =  await Jokle.findById(req.params.postId);
+    
+    if(user == null){
+        return res.status(404).json({message: "User not found"});
+    }
+    if(jokle == null){
+        return res.status(404).json({message: "Post not found"});
+    }
+    
+    newComment.madeBy = user._id; // Link the "madeBy" field for the comment to the userId of the creator
+    await newComment.save();
+
+    user.posts.push(newComment._id);
+    await user.save();
+
+    jokle.comments.push(newComment._id);
+    await jokle.save();
+
+    return res.status(201).json({message: "Comment created successfully", newComment});
+    }
+    catch(error){
+        return next(err);
+    }
+    
+})
+
+//get all posts
 app.get('/', async function(req, res, next) {
     try{
         let jokles = await Jokle.find({});
@@ -35,6 +68,7 @@ app.get('/', async function(req, res, next) {
     }
 })
 
+//get specific post
 app.get('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
@@ -43,11 +77,27 @@ app.get('/:id', async function(req, res, next) {
             return res.status(404).json({"message": "Jokle not found"});
         }
         res.json(jokle);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 })
 
+//get all comments for a post
+app.get('/:id/getComments', async function(req,res, next){
+    try{
+        const jokle = await Jokle.findById(req.params.id).populate('comments');
+        if (jokle == null){
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        return res.json(jokle.comments);
+    }
+    catch (error){
+        return next(err);
+    } 
+})
+
+//update post
 app.put('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
@@ -63,6 +113,7 @@ app.put('/:id', async function(req, res, next) {
     }
 })
 
+//update specific part of post
 app.patch('/:id', async function(req, res, next) {
     let id = req.params.id;
     try{
@@ -80,6 +131,26 @@ app.patch('/:id', async function(req, res, next) {
 
 })
 
+//delete all comments for a post
+app.delete('/:id/deleteComments', async function(req, res, next) {
+    try{
+        const jokle = await Jokle.findById(req.params.id);
+        
+        if(jokle == null){
+            return res.status(404).json({"message": "Jokle not found"});
+        }
+        
+        jokle.comments = [];
+        await jokle.save();
+
+        return res.status(200).json({"messsage": "All comments deleted", jokle});
+    }
+    catch(err){
+        return next(err);
+    }
+});
+
+//delete post
 app.delete('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
@@ -94,6 +165,7 @@ app.delete('/:id', async function(req, res, next) {
 
 })
 
+//delete all posts
 app.delete('/', async function(req, res, next) {
     try{
         await Jokle.collection.drop();
@@ -102,8 +174,5 @@ app.delete('/', async function(req, res, next) {
     }
     res.json("Jokles deleted");
 })
-
-
-app.post('/:username/create/')
 
 module.exports = app;

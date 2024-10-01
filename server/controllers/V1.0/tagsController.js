@@ -16,12 +16,28 @@ app.post('/', async function(req, res, next) {
 
 app.get('/', async function(req, res, next) {
     try{
-        let tags = await Hashtag.find();
-        res.json({"tags": tags});
+        let tags = await Hashtag.find({});
+        res.json(tags);
     } catch (err) {
         return next(err);
     }
 })
+
+//get all relatedPosts
+app.get('/:tag/getRelatedPosts', async function(req,res, next) {
+    try{
+        const tag = await Hashtag.findOne({"tag": req.params.tag}).populate("related_posts");
+
+        if(tag == null){
+            return res.status(404).json({message: "Hashtag not found"});
+        }
+
+        return res.status(200).json(tag.related_posts);
+    }
+    catch (error){
+        return res.status(500).json({message: "Error retrieving related posts"})
+    }
+});
 
 app.delete('/:tag', async function(req, res, next) {
     let tag = req.params.tag;
