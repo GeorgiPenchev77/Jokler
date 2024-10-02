@@ -6,7 +6,7 @@ const RegisteredUser = require("../../models/registered_user");
 
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 
-//create User
+//create a user
 app.post('/', async function (req, res, next) {
     let newUser = new RegisteredUser(req.body);
     try {
@@ -34,7 +34,6 @@ app.post('/:username/follow/:followUsername', async function (req, res, next) {
             await user.save();
         }
 
-
         return res.status(200).json({ message: "User followed successfully", user, userToBeFollowed });
     }
     catch (error) {
@@ -59,7 +58,6 @@ app.post('/:username/unfollow/:unfollowUsername', async function (req, res, next
             await user.save();
         }
 
-
         return res.status(200).json({ message: "User unfollowed successfully", user, userToBeUnfollowed });
     }
     catch (error) {
@@ -69,7 +67,6 @@ app.post('/:username/unfollow/:unfollowUsername', async function (req, res, next
 
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
-
 app.get('/', async function (req, res, next) {
     try {
         let users = await RegisteredUser.find();
@@ -78,7 +75,6 @@ app.get('/', async function (req, res, next) {
         return next(err);
     }
 });
-
 
 app.get('/:username', async function (req, res, next) {
     let username = req.params.username;
@@ -93,7 +89,7 @@ app.get('/:username', async function (req, res, next) {
     }
 });
 
-//get followers of user
+//get followers of  a user
 app.get('/:username/getFollowers', async function (req, res, next) {
     try {
         const user = await RegisteredUser.findOne({ "username": req.params.username }).populate('followers'); // "populate" the field that has an array so it returns objects instead of only ids
@@ -109,7 +105,7 @@ app.get('/:username/getFollowers', async function (req, res, next) {
     }
 });
 
-//get following of user
+//get following of a user
 app.get('/:username/getFollowing', async function (req, res, next) {
     try {
         const user = await RegisteredUser.findOne({ "username": req.params.username }).populate('following'); // "populate" the field that has an array so it returns objects instead of only ids
