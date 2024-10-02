@@ -68,7 +68,7 @@ app.get('/', async function(req, res, next) {
     }
 })
 
-//get specific post
+//get a specific post
 app.get('/:id', async function(req, res, next) {
     let id = req.params.id;
     try {
