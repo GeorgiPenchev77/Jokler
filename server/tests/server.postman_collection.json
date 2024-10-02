@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "30b1569c-675c-4670-b420-5c1d20a5ade9",
+		"_postman_id": "87deb69b-b0a4-4dd1-baa5-08164f82e735",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38698635"
@@ -163,54 +163,12 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Setup the database by deleting any existing data, so tests can run properly without any duplicate variables"
 		},
 		{
 			"name": "User tests",
 			"item": [
-				{
-					"name": "Get Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Create user0",
 					"event": [
@@ -331,6 +289,49 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\"username\": \"Georgi\", \"password\": \"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -552,54 +553,12 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Tests the correctness of the basic endpoints logic for the user entity. Tests the ability to:\n\n- create a user\n    \n- get all users\n    \n- get a specific user\n    \n- update users\n    \n- update a specific user\n    \n- delete a specific user"
 		},
 		{
 			"name": "Posts tests",
 			"item": [
-				{
-					"name": "Get posts",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/posts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Create post 0",
 					"event": [
@@ -727,6 +686,49 @@
 							"path": [
 								"posts",
 								"{{user1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"posts"
 							]
 						}
 					},
@@ -933,7 +935,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Tests the correctness of the basic endpoints logic for the post entity. Tests the ability to:\n\n- create a post\n    \n- get all posts\n    \n- get a specific post\n    \n- update a specific post\n    \n- delete a specific post\n    \n- delete all posts"
 		},
 		{
 			"name": "Admins tests",
@@ -1355,7 +1358,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Tests the correctness of the basic endpoints logic for the admins entity. Tests the ability to:\n\n- create an admin\n    \n- get all admins\n    \n- get a specific admin\n    \n- update all admins\n    \n- update a specific admin\n    \n- delete a specific admin\n    \n- delete all admin"
 		},
 		{
 			"name": "Hashtag tests",
@@ -1604,7 +1608,478 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Tests the correctness of the basic endpoints logic for the hashtags entity. Tests the ability to:\n\n- create a hashtag\n    \n- get all hashtags\n    \n- delete a specific hashtag\n    \n- delete all hashtags"
+		},
+		{
+			"name": "User relationship tests",
+			"item": [
+				{
+					"name": "Create user 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"user0\", pm.response.json().username);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"IwanttoDie\", \"password\": \"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user0 follow user1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/users/{{user0}}/follow/{{user1}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user0}}",
+								"follow",
+								"{{user1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user2 follow user 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/follow/{{user0}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"follow",
+								"{{user0}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user2 follow user 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/follow/{{user1}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"follow",
+								"{{user1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user 2 unfollow user 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/unfollow/{{user0}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"unfollow",
+								"{{user0}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user 1 followers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/getFollowers",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"getFollowers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user 2 following",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/getFollowing",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"getFollowing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user 0 posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user0}}/getPosts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user0}}",
+								"getPosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user 2 posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/getPosts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"getPosts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests the correctness of the relationship logic for the user entity. Tests the ability to:\n\n- follow a user\n    \n- unfollow a user\n    \n- get a user's followers\n    \n- get a user's following\n    \n- get a user's posts"
+		},
+		{
+			"name": "Post relationship tests",
+			"item": [],
+			"description": "Tests the correctness of the relationship logic for the user entity. Tests the ability to:\n\n- create a post and link it to the creator and all related hashtags\n    \n- create a comment related to a post\n    \n- get all comments related to a post\n    \n- delete all comments related to a post"
+		},
+		{
+			"name": "Hashtag relationship tests",
+			"item": [
+				{
+					"name": "get all posts related to hashtag 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags/{{tag0}}/getRelatedPosts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags",
+								"{{tag0}}",
+								"getRelatedPosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all posts related to hashtag 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/tags/{{tag2}}/getRelatedPosts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"tags",
+								"{{tag2}}",
+								"getRelatedPosts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests the correctness of the relationship logic for the hashtag entity. Tests the ability to:\n\n- get all posts that contain a certain hashtag"
 		},
 		{
 			"name": "Cleanup",

@@ -6,7 +6,7 @@ const Jokle = require("../../models/jokler")
 const RegisteredUser = require("../../models/registered_user")
 
 //create post
-app.post('/:username/', async function(req, res, next) {
+app.post('/:username', async function(req, res, next) {
     try {
     const user = await RegisteredUser.findOne({"username": req.params.username});
     const newJokle = new Jokle(req.body);
