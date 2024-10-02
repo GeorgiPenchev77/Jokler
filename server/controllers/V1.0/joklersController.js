@@ -6,7 +6,7 @@ const Jokle = require("../../models/jokler")
 const RegisteredUser = require("../../models/registered_user")
 
 //create post
-app.post('/:username/createPost', async function(req, res, next) {
+app.post('/:username/', async function(req, res, next) {
     try {
     const user = await RegisteredUser.findOne({"username": req.params.username});
     const newJokle = new Jokle(req.body);
@@ -21,11 +21,12 @@ app.post('/:username/createPost', async function(req, res, next) {
     user.posts.push(newJokle._id); // Link the Post Id to the User's array of posts
     await user.save();
 
-    } catch(err) {
-        return next(err);
+    return res.status(201).json({message: "Post created successfully", newJokle});
+
+    } catch(error) {
+        return res.status(500).json({ message: "Error creating post", error });
     }
-        res.status(201).json({message: "Post created successfully"});
-})
+});
 
 //create comment
 app.post('/:username/createComment/:postId', async function(req, res, next){
@@ -53,10 +54,10 @@ app.post('/:username/createComment/:postId', async function(req, res, next){
     return res.status(201).json({message: "Comment created successfully", newComment});
     }
     catch(error){
-        return next(err);
+        return res.status(500).json({ message: "Error creating post", error });
     }
     
-})
+});
 
 //get all posts
 app.get('/', async function(req, res, next) {
