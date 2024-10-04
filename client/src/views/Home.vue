@@ -1,12 +1,39 @@
 <template>
-  <div>
-    <b-container fluid>
-      <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
-      <p class="fs-4">Welcome to your DIT342 Frontend Vue.js App</p>
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p class="col-xl-9">Message from the server:<br/>
-      {{ message }}</p>
-    </b-container>
+  <div class="home-container">
+    <!-- Sidebar Section -->
+    <aside class="sidebar" >
+      <ul>
+        <li @click="navigateTo('home')">Home</li>
+        <li @click="navigateTo('create')">Create Jokle</li>
+        <li @click="navigateTo('profile')">Profile</li>
+        <!-- Add more pages as needed -->
+      </ul>
+    </aside>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+      <!-- Latest Jokles Feed -->
+      <section v-if="currentPage === 'home'" class="latest-jokles">
+        <h2>Latest Jokles</h2>
+        <ul>
+          <li v-for="jokle in jokles" :key="jokle._id">
+            <div class="jokle">
+              <p>{{ jokle.content }}</p>
+              <span class="date">{{ jokle.date }}</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Jokle Creation Form -->
+      <section v-if="currentPage === 'create'" class="create-jokle">
+        <h2>Create a Jokle</h2>
+        <form @submit.prevent="createJokle">
+          <textarea v-model="newJokleContent" placeholder="What's on your mind?" required></textarea>
+          <button type="submit">Post Jokle</button>
+        </form>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -15,28 +42,51 @@
 import { Api } from '@/Api'
 
 export default {
-  name: 'home',
   data() {
     return {
-      message: 'none'
+      jokles: [], // Holds latest Jokles
+      newJokleContent: '', // Content for new Jokle
+      currentPage: 'home' // Tracks current page for switching between views
     }
   },
   methods: {
-    getMessage() {
-      Api.get('/')
-        .then(response => {
-          this.message = response.data.message
+    // Fetch latest Jokles from backend (API)
+    async fetchLatestJokles() {
+      Api.get('/posts').then(response => { this.jokles = response.data }).catch(error => {
+        console.error('Error fetching Jokles:', error)
+      })
+    },
+
+    // Create a new Jokle and post it to the backend (API)
+    async createJokle() {
+      try {
+        const response = await fetch('http://localhost:3001/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ content: this.newJokleContent })
         })
-        .catch(error => {
-          this.message = error
-        })
+
+        if (response.ok) {
+          this.newJokleContent = '' // Reset the form
+          this.fetchLatestJokles() // Reload the latest Jokles
+        } else {
+          console.error('Failed to post Jokle')
+        }
+      } catch (error) {
+        console.error('Error posting Jokle:', error)
+      }
+    },
+
+    // Navigate to different sections
+    navigateTo(page) {
+      this.currentPage = page
     }
+  },
+  mounted() {
+    // Fetch latest Jokles when component mounts
+    this.fetchLatestJokles()
   }
 }
 </script>
-
-<style>
-.btn_message {
-  margin-bottom: 1em;
-}
-</style>
