@@ -2,7 +2,7 @@ var express = require("express");
 var app = express.Router();
 
 //import Mongoose model
-const Jokle = require("../../models/jokler")
+const Jokle = require("../../models/jokle.js")
 
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 

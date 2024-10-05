@@ -2,8 +2,8 @@ var express = require("express");
 var app = express.Router();
 
 //import Mongoose model
-const RegisteredUser = require("../../models/registered_user");
-const Jokle = require("../../models/jokler.js");
+const RegisteredUser = require("../../models/user.js");
+const Jokle = require("../../models/jokle.js");
 const Hashtag = require("../../models/hashtag.js");
 
 
@@ -22,12 +22,12 @@ function extractHashtags(content) {
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 
 //create a user
-app.post('/users', async function (req, res, next) {
+app.post('/', async function (req, res, next) {
     var newUser = new RegisteredUser(req.body);
 
     try {
         await newUser.save();
-        return res.status(201).json({ "message": "User created successfully", newUser });
+        return res.status(201).json(newUser);
     } catch (err) {
         return next(err);
     }
@@ -35,9 +35,9 @@ app.post('/users', async function (req, res, next) {
 
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
-app.get('/users', async function (req, res, next) {
-    var users = await RegisteredUser.find();
+app.get('/', async function (req, res, next) {
     try {
+        var users = await RegisteredUser.find();
         return res.json(users);
     }
     catch (err) {
@@ -45,7 +45,7 @@ app.get('/users', async function (req, res, next) {
     }
 });
 
-app.get('/users/:username', async function (req, res, next) {
+app.get('/:username', async function (req, res, next) {
     var username = req.params.username;
     try {
         var user = await RegisteredUser.findOne({ "username": username }).populate("followers following posts").exec();
@@ -61,7 +61,7 @@ app.get('/users/:username', async function (req, res, next) {
 
 //-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
 
-app.put('/users/:username', async function (req, res, next) {
+app.put('/:username', async function (req, res, next) {
     var username = req.params.username;
     var newUser = req.body;
     try {
@@ -82,7 +82,7 @@ app.put('/users/:username', async function (req, res, next) {
 
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
-app.patch('/users/:username', async function (req, res, next) {
+app.patch('/:username', async function (req, res, next) {
     var username = req.params.username;
     var updateUser = req.body;
     //TODO: validate that the username is not attempted to be changed.
@@ -102,7 +102,7 @@ app.patch('/users/:username', async function (req, res, next) {
 });
 
 //user creates a new post
-app.patch('/users/:username/posts', async function (req, res, next) {
+app.patch('/:username/posts', async function (req, res, next) {
     var newJokle = new Jokle(req.body);
     var username = req.params.username;
     try {
@@ -150,7 +150,7 @@ app.patch('/users/:username/posts', async function (req, res, next) {
 });
 
 //user creates comment
-app.patch('/users/:username/:postId/comments', async function (req, res, next) {
+app.patch('/:username/:postId/comments', async function (req, res, next) {
     var username = req.params.username;
     var newJokle = new Jokle(req.body);
     var jokleId = req.params.postId;
@@ -209,7 +209,7 @@ app.patch('/users/:username/:postId/comments', async function (req, res, next) {
 
 //-----------------------------------------------------------------DELETE-------------------------------------------------------------------------------//
 
-app.delete('/users', async function (req, res, next) {
+app.delete('/', async function (req, res, next) {
     try {
         await RegisteredUser.collection.drop();
         return res.json({ "message": "Users deleted" });
@@ -219,7 +219,7 @@ app.delete('/users', async function (req, res, next) {
 
 });
 
-app.delete('/users/:username', async function (req, res, next) {
+app.delete('/:username', async function (req, res, next) {
     var username = req.params.username;
 
     try {

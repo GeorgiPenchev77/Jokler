@@ -2,7 +2,7 @@ var express = require("express");
 var app = express.Router();
 
 //import Mongoose model
-const Admin = require("../../models/admin")
+const Admin = require("../../models/admin.js")
 
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 

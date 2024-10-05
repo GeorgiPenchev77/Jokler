@@ -2,7 +2,7 @@ var express = require("express");
 var app = express.Router();
 
 //import Mongoose model
-const Hashtag = require("../../models/hashtag")
+const Hashtag = require("../../models/hashtag.js")
 
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 
