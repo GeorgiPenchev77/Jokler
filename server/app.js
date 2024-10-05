@@ -37,11 +37,11 @@ app.get('/api', function(req, res) {
 var usersController = require('./controllers/V1.0/usersController');
 var postController = require('./controllers/V1.0/joklersController')
 var adminController = require('./controllers/V1.0/adminsController')
-var tagController = require('./controllers/V1.0/tagsController')
-app.use('/users', usersController);
-app.use('/posts', postController)
-app.use('/admins', adminController)
-app.use('/tags', tagController)
+var hashtagController = require('./controllers/V1.0/hashtagsController')
+app.use(usersController);
+app.use(postController);
+app.use(adminController);
+app.use(hashtagController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {

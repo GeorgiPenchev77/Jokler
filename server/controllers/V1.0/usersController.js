@@ -3,147 +3,117 @@ var app = express.Router();
 
 //import Mongoose model
 const RegisteredUser = require("../../models/registered_user");
+const Jokle= require("../../models/jokler.js");
+const Hashtag = require("../../models/hashtag.js");
+
+
+//utility function to find all hashtags in a String
+function extractHashtags(content) {
+    // Use a regular expression to find all words that start with '#'
+    const hashtags = content.match(/#[\w]+/g);
+
+    // Return an array of hashtags without the '#' symbol
+    if (hashtags) {
+        return hashtags.map(tag => tag.substring(1)); // Remove the '#' symbol from each hashtag
+    }
+    return [];
+}
 
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 
 //create a user
-app.post('/', async function (req, res, next) {
-    let newUser = new RegisteredUser(req.body);
+app.post('/users', async function (req, res, next) {
+    var newUser = new RegisteredUser(req.body);
+
     try {
         await newUser.save();
-    } catch (err) {
-        return next(err);
-    }
-    res.status(201).json(newUser);
-});
-
-//follow a user
-app.post('/:username/follow/:followUsername', async function (req, res, next) {
-    try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username });
-        const userToBeFollowed = await RegisteredUser.findOne({ "username": req.params.followUsername });
-
-        if (user == null || userToBeFollowed == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-
-        if (!(userToBeFollowed.followers.includes(user._id) && user.following.includes(userToBeFollowed._id))) {
-            userToBeFollowed.followers.push(user._id);
-            await userToBeFollowed.save();
-            user.following.push(userToBeFollowed._id);
-            await user.save();
-        }
-
-        return res.status(200).json({ message: "User followed successfully", user, userToBeFollowed });
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error following user", error });
-    }
-});
-
-//unfollow a user
-app.post('/:username/unfollow/:unfollowUsername', async function (req, res, next) {
-    try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username });
-        const userToBeUnfollowed = await RegisteredUser.findOne({ "username": req.params.unfollowUsername });
-
-        if (user == null || userToBeUnfollowed == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-
-        if (userToBeUnfollowed.followers.includes(user._id) && user.following.includes(userToBeUnfollowed._id)) {
-            userToBeUnfollowed.followers.pull(user._id);
-            await userToBeUnfollowed.save();
-            user.following.pull(userToBeUnfollowed._id);
-            await user.save();
-        }
-
-        return res.status(200).json({ message: "User unfollowed successfully", user, userToBeUnfollowed });
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error unfollowing user", error });
-    }
-});
-
-//-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
-
-app.get('/', async function (req, res, next) {
-    try {
-        let users = await RegisteredUser.find();
-        res.json({ "users": users });
+        return res.status(201).json({ "message": "User created successfully", newUser});
     } catch (err) {
         return next(err);
     }
 });
 
-app.get('/:username', async function (req, res, next) {
-    let username = req.params.username;
+//user creates a new post
+app.post('/users/:username/posts', async function (req, res, next) {
+    var newJokle = new Jokle(req.body);
+    var username = req.params.username;
     try {
-        let user = await RegisteredUser.findOne({ "username": username });
+        var user = await RegisteredUser.findOne({ "username": username  });
+
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
-        res.json(user);
+
+        const hashtagsArray = extractHashtags(newJokle.content);
+
+        for (let tag of hashtagsArray) {    // Save hashtags and update their related_posts array
+            
+            let hashtag = await Hashtag.findOne({ tag: tag });  // Try to find the hashtag in the database
+
+            if (hashtag) {  // If the hashtag exists, add the post to its related_posts array if not already added
+                
+                if (!hashtag.related_posts.includes(newJokle._id)) {    
+                    hashtag.related_posts.push(newJokle._id);
+                    await hashtag.save();
+                }
+            } else {     // If the hashtag does not exist, create it and add the post ID to related_posts
+               
+                hashtag = new Hashtag({ 
+                    tag: tag,
+                    related_posts: [newJokle._id]
+                });
+                await hashtag.save();
+            }
+
+            newJokle.hashtags.push(hashtag._id);     // Add the hashtag to the post's hashtags array
+        }
+
+        newJokle.madeBy = user._id; // Link the "madeBy" relationship to the User Id of the creator
+        await newJokle.save();
+
+        user.posts.push(newJokle._id); // Link the Post Id to the User's array of posts
+        await user.save();
+
+        return res.status(201).json({ "message": "Post created successfully", newJokle });
+
     } catch (err) {
+       return next(err);
+    }
+});
+//-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
+
+app.get('/users', async function (req, res, next) {
+    var users = await RegisteredUser.find();
+    try 
+    {
+        return res.json(users);
+    } 
+    catch (err) {
         return next(err);
     }
 });
 
-//get followers of  a user
-app.get('/:username/getFollowers', async function (req, res, next) {
+app.get('/users/:username', async function (req, res, next) {
+    var username = req.params.username;
     try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username }).populate('followers'); // "populate" the field that has an array so it returns objects instead of only ids
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+        var user = await RegisteredUser.findOne({ "username": username }).populate("followers", "following").exec();
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
         }
-
-        return res.status(200).json(user.followers);
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error retrieving followers", error });
-    }
-});
-
-//get following of a user
-app.get('/:username/getFollowing', async function (req, res, next) {
-    try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username }).populate('following'); // "populate" the field that has an array so it returns objects instead of only ids
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        return res.status(200).json(user.following);
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error retrieving following", error });
-    }
-});
-
-//get posts of user
-app.get('/:username/getPosts', async function (req, res, next) {
-    try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username }).populate('posts'); // "populate" the field that has an array so it returns objects instead of only ids
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        return res.status(200).json(user.posts);
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error retrieving posts", error });
+        
+        return res.json(user);
+    } catch (err) {
+        return next(err);
     }
 });
 
 //-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
 
-app.put('/:username', async function (req, res, next) {
-    let username = req.params.username;
-    let newUser = req.body;
+app.put('/users/:username', async function (req, res, next) {
+    var username = req.params.username;
+    var newUser = req.body;
     try {
-        let user = await RegisteredUser.findOneAndReplace(
+        var user = await RegisteredUser.findOneAndReplace(
             { "username": username },
             newUser,
             { returnNewDocument: true });
@@ -151,7 +121,7 @@ app.put('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
-        res.json(user);
+        return res.json(user);
     } catch (err) {
         return next(err);
     }
@@ -160,9 +130,9 @@ app.put('/:username', async function (req, res, next) {
 
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
-app.patch('/:username', async function (req, res, next) {
-    let username = req.params.username;
-    let updateUser = req.body;
+app.patch('/users/:username', async function (req, res, next) {
+    var username = req.params.username;
+    var updateUser = req.body;
     //TODO: validate that the username is not attempted to be changed.
     try {
         let user = await RegisteredUser.findOneAndUpdate(
@@ -173,7 +143,7 @@ app.patch('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
-        res.json(user);
+        return res.json(user);
     } catch (err) {
         return next(err);
     }
@@ -181,16 +151,17 @@ app.patch('/:username', async function (req, res, next) {
 
 //-----------------------------------------------------------------DELETE-------------------------------------------------------------------------------//
 
-app.delete('/', async function (req, res, next) {
+app.delete('/users', async function (req, res, next) {
     try {
         await RegisteredUser.collection.drop();
+        return res.json({ "message": "Users deleted" });
     } catch (err) {
         return next(err);
     }
-    res.json({ "message": "Users deleted" });
+    
 });
 
-app.delete('/:username', async function (req, res, next) {
+app.delete('/users/:username', async function (req, res, next) {
     let username = req.params.username;
 
     try {
@@ -199,7 +170,7 @@ app.delete('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
-        res.json(user);
+        return res.json(user);
     } catch (err) {
         return next(err);
     }
