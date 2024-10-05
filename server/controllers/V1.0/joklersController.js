@@ -3,67 +3,6 @@ var app = express.Router();
 
 //import Mongoose model
 const Jokle = require("../../models/jokler")
-const RegisteredUser = require("../../models/registered_user")
-
-
-//-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
-
-//create comment
-app.post('/:username/createComment/:postId', async function (req, res, next) {
-    try {
-        const user = await RegisteredUser.findOne({ "username": req.params.username });
-        const newJokle = new Jokle(req.body);
-        const jokle = await Jokle.findById(req.params.postId);
-
-        if (user == null) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        if (jokle == null) {
-            return res.status(404).json({ message: "Post not found" });
-        }
-
-
-        const hashtagsArray = extractHashtags(newJokle.content);
-
-        // Save hashtags and update their related_posts array
-        for (let tag of hashtagsArray) {
-            // Try to find the hashtag in the database
-            let hashtag = await Hashtag.findOne({ tag: tag });
-
-            if (hashtag) {
-                // If the hashtag exists, add the post to its related_posts array if not already added
-                if (!hashtag.related_posts.includes(newJokle._id)) {
-                    hashtag.related_posts.push(newJokle._id);
-                    await hashtag.save();
-                }
-            } else {
-                // If the hashtag does not exist, create it and add the post ID to related_posts
-                hashtag = new Hashtag({
-                    tag: tag,
-                    related_posts: [newJokle._id]
-                });
-                await hashtag.save();
-            }
-
-            // Add the hashtag to the post's hashtags array
-            newJokle.hashtags.push(hashtag._id);
-        }
-
-        newJokle.madeBy = user._id; // Link the "madeBy" field for the comment to the userId of the creator
-        await newJokle.save();
-
-        user.posts.push(newJokle._id);
-        await user.save();
-
-        jokle.comments.push(newJokle._id);
-        await jokle.save();
-
-        return res.status(201).json({ message: "Comment created successfully", newJokle });
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error creating post", error });
-    }
-});
 
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
