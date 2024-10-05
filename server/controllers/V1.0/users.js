@@ -93,7 +93,7 @@ app.patch('/:username', async function (req, res, next) {   //TODO: validate tha
     var updateUser = req.body;
     
     try {
-        let user = await RegisteredUser.findOneAndUpdate(
+        var user = await RegisteredUser.findOneAndUpdate(
             { "username": username },
             { $set: updateUser },
             { returnNewDocument: true });
@@ -236,7 +236,7 @@ app.delete('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
-        
+
         return res.json(user);
     } 
     catch (err) {

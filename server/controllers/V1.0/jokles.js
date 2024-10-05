@@ -8,51 +8,26 @@ const Jokle = require("../../models/jokle.js")
 
 app.get('/', async function (req, res, next) {
     try {
-        let jokles = await Jokle.find({});
-        res.json(jokles);
-    } catch (err) {
-        return next(err);
-    }
-});
-
-app.get('/:id', async function (req, res, next) {
-    let id = req.params.id;
-    try {
-        let jokle = await Jokle.findById(id);
-        if (jokle == null) {
-            return res.status(404).json({ "message": "Jokle not found" });
-        }
-        res.json(jokle);
-    }
+        var jokles = await Jokle.find();
+        return res.json(jokles);
+    } 
     catch (err) {
         return next(err);
     }
 });
 
-//get all comments for a post
-app.get('/:id/getComments', async function (req, res, next) {
-    try {
-        const jokle = await Jokle.findById(req.params.id).populate('comments');
-        if (jokle == null) {
-            return res.status(404).json({ "message": "Jokle not found" });
-        }
-        return res.json(jokle.comments);
-    }
-    catch (error) {
-        return next(err);
-    }
-});
+app.get('/:id', async function (req, res, next) {
+    var id = req.params.id;
 
-//get all hashtags for a post
-app.get('/:id/getHashtags', async function (req, res, next) {
     try {
-        const jokle = await Jokle.findById(req.params.id).populate('hashtags');
+        var jokle = await Jokle.findById(id).populate("comments madeBy hashtags");
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
-        return res.json(jokle.hashtags);
+
+        return res.json(jokle);
     }
-    catch (error) {
+    catch (err) {
         return next(err);
     }
 });
@@ -60,7 +35,7 @@ app.get('/:id/getHashtags', async function (req, res, next) {
 //-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
 
 app.put('/:id', async function (req, res, next) {
-    let id = req.params.id;
+    var id = req.params.id;
     try {
         let jokle = await Jokle.findByIdAndUpdate(
             id,
@@ -77,62 +52,51 @@ app.put('/:id', async function (req, res, next) {
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
 app.patch('/:id', async function (req, res, next) {
-    let id = req.params.id;
+    var id = req.params.id;
+    
     try {
-        let jokle = await Jokle.findByIdAndUpdate(
+        var jokle = await Jokle.findByIdAndUpdate(
             id,
             { $set: req.body },
             { returnNewDocument: true });
+        
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
-        res.json(jokle);
-    } catch (err) {
+        
+        return res.json(jokle);
+    } 
+    catch (err) {
         return next(err);
     }
 });
 
 //-----------------------------------------------------------------DELETE-------------------------------------------------------------------------------//
 
-//delete all comments for a post
-app.delete('/:id/deleteComments', async function (req, res, next) {
+app.delete('/', async function (req, res, next) {
     try {
-        const jokle = await Jokle.findById(req.params.id);
-
-        if (jokle == null) {
-            return res.status(404).json({ "message": "Jokle not found" });
-        }
-
-        jokle.comments = [];
-        await jokle.save();
-
-        return res.status(200).json({ "messsage": "All comments deleted", jokle });
-    }
+        await Jokle.collection.drop();
+        return res.json({ "message": "Jokles deleted" });
+    } 
     catch (err) {
         return next(err);
     }
 });
 
 app.delete('/:id', async function (req, res, next) {
-    let id = req.params.id;
+    var id = req.params.id;
+
     try {
-        let jokle = await Jokle.findByIdAndDelete(id);
+        var jokle = await Jokle.findByIdAndDelete(id);
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
-        res.json(jokle);
-    } catch (err) {
-        return next(err);
-    }
-});
 
-app.delete('/', async function (req, res, next) {
-    try {
-        await Jokle.collection.drop();
-    } catch (err) {
+        return res.json(jokle);
+    } 
+    catch (err) {
         return next(err);
     }
-    res.json("Jokles deleted");
 });
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------//
