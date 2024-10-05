@@ -28,7 +28,8 @@ app.post('/', async function (req, res, next) {
     try {
         await newUser.save();
         return res.status(201).json(newUser);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 });
@@ -47,6 +48,7 @@ app.get('/', async function (req, res, next) {
 
 app.get('/:username', async function (req, res, next) {
     var username = req.params.username;
+
     try {
         var user = await RegisteredUser.findOne({ "username": username }).populate("followers following posts").exec();
         if (user == null) {
@@ -54,7 +56,8 @@ app.get('/:username', async function (req, res, next) {
         }
 
         return res.json(user);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 });
@@ -64,6 +67,7 @@ app.get('/:username', async function (req, res, next) {
 app.put('/:username', async function (req, res, next) {
     var username = req.params.username;
     var newUser = req.body;
+    
     try {
         var user = await RegisteredUser.findOneAndReplace(
             { "username": username },
@@ -73,8 +77,10 @@ app.put('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
+
         return res.json(user);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 
@@ -82,10 +88,10 @@ app.put('/:username', async function (req, res, next) {
 
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
-app.patch('/:username', async function (req, res, next) {
+app.patch('/:username', async function (req, res, next) {   //TODO: validate that the username is not attempted to be changed.
     var username = req.params.username;
     var updateUser = req.body;
-    //TODO: validate that the username is not attempted to be changed.
+    
     try {
         let user = await RegisteredUser.findOneAndUpdate(
             { "username": username },
@@ -95,8 +101,10 @@ app.patch('/:username', async function (req, res, next) {
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
+
         return res.json(user);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 });
@@ -143,8 +151,8 @@ app.patch('/:username/posts', async function (req, res, next) {
         await user.save();
 
         return res.status(201).json({ "message": "Post created successfully", newJokle });
-
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 });
@@ -213,7 +221,8 @@ app.delete('/', async function (req, res, next) {
     try {
         await RegisteredUser.collection.drop();
         return res.json({ "message": "Users deleted" });
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 
@@ -223,13 +232,14 @@ app.delete('/:username', async function (req, res, next) {
     var username = req.params.username;
 
     try {
-        var user = await RegisteredUser.findOneAndDelete(
-            { "username": username });
+        var user = await RegisteredUser.findOneAndDelete({ "username": username });
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
+        
         return res.json(user);
-    } catch (err) {
+    } 
+    catch (err) {
         return next(err);
     }
 });
