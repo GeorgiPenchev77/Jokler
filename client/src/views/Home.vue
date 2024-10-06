@@ -1,12 +1,34 @@
 <template>
-  <div>
-    <b-container fluid>
-      <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
-      <p class="fs-4">Welcome to your DIT342 Frontend Vue.js App</p>
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p class="col-xl-9">Message from the server:<br/>
-      {{ message }}</p>
-    </b-container>
+    <div b-container class="float-container" fluid>
+    <!-- Sidebar Section -->
+    <div class="sidebar" >
+      <ul>
+        <li @click="navigateTo('home')">Home</li>
+        <li @click="navigateTo('create')">Create post</li>
+        <li @click="navigateTo('profile')">Profile</li>
+        <!-- Add more pages as needed -->
+      </ul>
+    </div >
+
+    <!-- Main Content Section -->
+    <div class="main-page" >
+      <!-- Latest posts Feed -->
+      <section v-if="currentPage === 'home'" class="for-you-page">
+        <h2 class="main-title">Trending in Gotham</h2>
+        <ul>
+          <li v-for="post in posts" :key="post._id">
+            <div class="post">
+              <span class="date">Date:{{ post.date }}</span>
+              <p>{{ post.content }}</p>
+              <p>Type:{{ post.type }}</p>
+              <p>Rejokles:{{ post.rejokles }}</p>
+              <p>Dislikes:{{ post.dislikes }}</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+    </div>
   </div>
 </template>
 
@@ -15,28 +37,97 @@
 import { Api } from '@/Api'
 
 export default {
-  name: 'home',
   data() {
     return {
-      message: 'none'
+      posts: [], // Holds latest posts
+      newpostContent: '', // Content for new post
+      currentPage: 'home' // Tracks current page for switching between views
     }
   },
   methods: {
-    getMessage() {
-      Api.get('/')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
+    // Fetch latest posts from backend (API)
+    async fetchLatestposts() {
+      Api.get('/posts').then(response => { this.posts = response.data }).catch(error => {
+        console.error('Error fetching posts:', error)
+      })
+    },
+    // Navigate to different sections
+    navigateTo(page) {
+      this.currentPage = page
     }
+  },
+  mounted() {
+    // Fetch latest posts when component mounts
+    this.fetchLatestposts()
   }
 }
 </script>
 
-<style>
-.btn_message {
-  margin-bottom: 1em;
+<style scoped>
+.div{
+  display: inline-block;
 }
+
+.float-container {
+  padding: 20px;
+  border: 3px solid #fff;
+  display: flex;
+}
+
+.sidebar {
+  width: 10%; /* Fixed width for sidebar */
+  background-color: pink; /* Light background color */
+  padding: 20px; /* Some padding inside the sidebar */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.651); /* Optional shadow for a little depth */
+  position: sticky;
+}
+
+.sidebar ul {
+  list-style: disc;
+  padding: 0px;
+}
+
+.sidebar ul li {
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: solid gray;
+  text-align:justify;
+}
+
+.sidebar ul li:hover {
+  background-color: #ddd;
+}
+
+.main-page {
+  flex: 1;
+  padding: 20px; /* Add padding to the main content */
+  background-color: #ba1c1c; /* Optional: background color for main content */
+}
+
+.main-title {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-shadow: 2px 0 5px rgba(0, 0, 0, 0.651);
+}
+
+.for-you-page ul {
+  list-style: none;
+  padding: 0;
+}
+
+.post {
+  background-color: pink;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  box-shadow:  0 5px rgba(0, 0, 0, 0.651);
+
+}
+
+.date {
+  font-size: 0.9em;
+  color: #888;
+}
+
 </style>
