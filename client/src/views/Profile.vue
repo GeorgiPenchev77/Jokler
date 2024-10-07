@@ -16,7 +16,12 @@
   
 <script>
 export default {
-  name: 'Profile'
+  name: 'Profile',
+  methods: {
+    navigateTo(page) {
+      this.$router.push({ name: page });
+    }
+  }
 }
 </script>
 
