@@ -10,6 +10,20 @@
     <div>
       <h1>Your Profile</h1>
       <p>Welcome to your profile page!</p>
+      <div>
+        Name
+      </div>
+      <div>
+        <input v-model="username" placeholder="Change username">
+        <button class="button buttonSaveUsername">Save</button>
+      </div>
+      <div>
+        Password
+      </div>
+      <div>
+        <input v-model="Password" placeholder="Change password">
+        <button class="button buttonSavePassword">Save</button>
+      </div>
       <!-- Profile content -->
     </div>
 </template>
