@@ -15,14 +15,14 @@
       </div>
       <div>
         <input v-model="username" placeholder="Change username">
-        <button class="button buttonSaveUsername">Save</button>
+        <button @click="saveUsername">Save</button>
       </div>
       <div>
         Password
       </div>
       <div>
         <input v-model="Password" placeholder="Change password">
-        <button class="button buttonSavePassword">Save</button>
+        <button @click="savePassword">Save</button>
       </div>
       <!-- Profile content -->
     </div>
@@ -34,6 +34,12 @@ export default {
   methods: {
     navigateTo(page) {
       this.$router.push({ name: page });
+    },
+    saveUsername(){
+      // Check if the input-username is the same as current username. Save new username if they are not the same
+    },
+    savePassword(){
+      // Check if the input-password is the same as current password. Save new password if they are not the same
     }
   }
 }
