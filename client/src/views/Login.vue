@@ -10,8 +10,8 @@ const loginTracker = ref(true)
 const username = ref('')
 const password = ref('')
 
-const error = ref('oy oy')
-const errorStatus = ref(true)
+const message = ref('Welcome to Jokler')
+const errorStatus = ref(false)
 
 const header = computed(() => {
   if (loginTracker.value) {
@@ -28,22 +28,30 @@ function loginToggle() {
 async function login() {
   Api.get('/users/' + username.value).then((response) => {
     console.log(response)
-    if (response.status === 400) {
-      error.value = 'User not found'
-    }
     const resPassword = response.data.password
 
     if (resPassword === password.value) {
       errorStatus.value = false
-      error.value = 'Login success!'
+      message.value = 'Login success!'
     } else {
-      error.value = 'Wrong password'
+      message.value = 'Wrong password'
+    }
+  }).catch((err) => {
+    console.log(err)
+    if (err.response.status === 404) {
+      message.value = 'Username does not exist'
+      errorStatus.value = true
     }
   })
 }
-
-function signup() {
-
+async function signup() {
+  const data = { 'username': username.value, 'password': password.value }
+  Api.post('/users/', data).then((response) => {
+    message.value = 'User created successfully!'
+  }).catch((err) => {
+    console.log(err)
+    message.value = err.response.message
+  })
 }
 
 </script>
@@ -67,7 +75,7 @@ function signup() {
       <button @click="loginToggle">{{loginTracker ? "Sign up instead" : "Log in instead"}} </button>
     </div>
     <div>
-      <h2 v-if="error" :class="errorStatus ? 'error' : 'ok'">{{error}}</h2>
+      <h2 :class="errorStatus ? 'error' : 'ok'">{{message}}</h2>
     </div>
   </b-container>
 </div>
