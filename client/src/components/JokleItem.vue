@@ -1,19 +1,3 @@
-<template>
-    <div class="jokle">
-    <div class="date">
-        {{jokle.date}}
-    </div>
-    <div class="content">
-      <h5>{{jokle.content}}</h5>
-    </div>
-    <div class="engage-bar">
-        {{jokle.dislikes}}{{jokle.rejokles}}
-    </div>
-    <button id="x" @click="$emit('dislike-jokle', jokle._id)">Dislike</button>
-    <button id="x" @click="$emit('rejokle', jokle._id)">Rejokle</button>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'JokleItem',
