@@ -1,51 +1,152 @@
+<!-- JokleItem.vue -->
+<template>
+  <div class="jokle-item">
+    <div class="jokle-header">
+      <!-- Profile picture -->
+      <img
+        class="profile-picture"
+        :src="jokle.madeBy?.profilePic || '/default-profile-picture.jpg'"
+        alt="Profile Picture"
+      />
+      <div class="jokle-info">
+        <strong><span class="username">@{{ jokle.madeBy?.username || 'AnonymousUser' }}</span></strong>
+        <span class="date">• {{ formatDate(jokle.date) }}</span>
+      </div>
+    </div>
+
+    <!-- jokle content -->
+    <p class="jokle-content">{{ jokle.content }}</p>
+
+    <!-- Engagement section -->
+    <div class="jokle-actions">
+      <div class="icon">
+        <button class="btn" @click="toggleComments">💬 {{ jokle.comments.length }}</button>
+      </div>
+      <div class="icon">🔁 {{ jokle.rejokles }}</div>
+      <div class="icon">😠 {{ jokle.dislikes }}</div>
+      <div class="icon">🔗</div>
+    </div>
+  </div>
+</template>
+
 <script>
+
 export default {
   name: 'JokleItem',
-  props: ['jokle']
+  props: {
+    jokle: Object
+  },
+  data() {
+    return {
+      showingComments: false,
+      newComment: ''
+    }
+  },
+  methods: {
+    toggleComments() {
+      this.showingComments = !this.showingComments
+    },
+    postComment() {
+      if (this.newComment.trim()) {
+        this.newComment = '' // Clear the input after posting
+      }
+    },
+    formatDate(dateStr) {
+      const date = new Date(dateStr)
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const year = date.getFullYear()
+      const hours = String(date.getHours()).padStart(2, '0')
+      const minutes = String(date.getMinutes()).padStart(2, '0')
+      return `${day}/${month}/${year} ${hours}:${minutes}`
+    }
+  }
 }
 </script>
 
 <style scoped>
-.jokle {
+/* Jokle item layout */
+.jokle-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 100px;
-  background: white;
-  padding: 8px;
-  border-radius: 10px;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* jokle header layout */
+.jokle-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.profile-picture {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.jokle-info {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.username {
+  color: gray;
+}
+
+.jokle-date {
+  color: gray;
+}
+
+/* jokle content */
+.jokle-content {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+/* jokle actions layout */
+.jokle-actions {
+  display: flex;
+  justify-content: space-around;
+  color: gray;
+}
+
+.icon {
   cursor: pointer;
-  box-shadow: 0 7px 25px rgba(0,0,0, 0.08);
-  padding-top: 4%;
-
-}
-.name {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 5px;
+  align-items: center;
 }
-#x {
-  height: 60%;
-  width: 3%;
-  padding: 0.2%;
-}
-@media (max-width: 1000px){
-    .jokle{
 
-      height: 110px;
-      padding-right: 5px;
-      padding-left: 5px;
-      border-radius: 5px;
-    }
-h5 {
-  font-size: 1em;
-  padding: 5px;
+/* Comments section */
+.comments-section {
+  margin-top: 10px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
 }
-#x {
-  height: 40%;
-  width: 7%;
-  padding: 0.2%;
+
+.new-comment {
+  margin-top: 10px;
 }
-  }
+
+.new-comment textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.btn {
+  padding: 8px 12px;
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 </style>
