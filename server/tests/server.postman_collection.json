@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "87deb69b-b0a4-4dd1-baa5-08164f82e735",
+		"_postman_id": "fd9a58a1-f751-4188-807d-216046494760",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38698635"
@@ -152,12 +152,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -560,7 +560,7 @@
 			"name": "Posts tests",
 			"item": [
 				{
-					"name": "Create post 0",
+					"name": "User 1 creates post 0",
 					"event": [
 						{
 							"listen": "test",
@@ -579,7 +579,7 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -591,20 +591,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{user1}}",
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"posts",
-								"{{user1}}"
+								"users",
+								"{{user1}}",
+								"posts"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create post 1",
+					"name": "User 1 creates post 1",
 					"event": [
 						{
 							"listen": "test",
@@ -623,7 +624,7 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -635,20 +636,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{user1}}",
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"posts",
-								"{{user1}}"
+								"users",
+								"{{user1}}",
+								"posts"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create post 2",
+					"name": "User 1 creates post 2",
 					"event": [
 						{
 							"listen": "test",
@@ -667,7 +669,7 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -679,13 +681,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{user1}}",
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"posts",
-								"{{user1}}"
+								"users",
+								"{{user1}}",
+								"posts"
 							]
 						}
 					},
@@ -1396,12 +1399,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -1438,12 +1441,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -1480,12 +1483,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -1522,12 +1525,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -1565,12 +1568,76 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get hashtag 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/hashtags/{{tag1}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"hashtags",
+								"{{tag1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get hashtag 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{testUrl}}/hashtags/{{tag2}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"hashtags",
+								"{{tag2}}"
 							]
 						}
 					},
@@ -1596,12 +1663,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{testUrl}}/tags/{{tag1}}",
+							"raw": "{{testUrl}}/hashtags/{{tag1}}",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags",
+								"hashtags",
 								"{{tag1}}"
 							]
 						}
@@ -1610,701 +1677,6 @@
 				}
 			],
 			"description": "Tests the correctness of the basic endpoints logic for the hashtags entity. Tests the ability to:\n\n- create a hashtag\n    \n- get all hashtags\n    \n- delete a specific hashtag\n    \n- delete all hashtags"
-		},
-		{
-			"name": "User relationship tests",
-			"item": [
-				{
-					"name": "Create user 0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"user0\", pm.response.json().username);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"username\": \"IwanttoDie\", \"password\": \"12345678\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "user0 follow user1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/users/{{user0}}/follow/{{user1}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user0}}",
-								"follow",
-								"{{user1}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "user2 follow user 0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}/follow/{{user0}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user2}}",
-								"follow",
-								"{{user0}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "user2 follow user 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}/follow/{{user1}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user2}}",
-								"follow",
-								"{{user1}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "user 2 unfollow user 0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}/unfollow/{{user0}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user2}}",
-								"unfollow",
-								"{{user0}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user 1 followers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}/getFollowers",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user1}}",
-								"getFollowers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user 2 following",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}/getFollowing",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user2}}",
-								"getFollowing"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user 0 posts",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user0}}/getPosts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user0}}",
-								"getPosts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user 2 posts",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user2}}/getPosts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user2}}",
-								"getPosts"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Tests the correctness of the relationship logic for the user entity. Tests the ability to:\n\n- follow a user\n    \n- unfollow a user\n    \n- get a user's followers\n    \n- get a user's following\n    \n- get a user's posts"
-		},
-		{
-			"name": "Post relationship tests",
-			"item": [
-				{
-					"name": "Create comment 0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"jokle4_id\", pm.response.json().newJokle._id);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"public\",\r\n    \"content\": \"How do I #cook a #fish?\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/posts/{{user2}}/createComment/{{jokle0_id}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{user2}}",
-								"createComment",
-								"{{jokle0_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create comment 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"jokle5_id\", pm.response.json().newJokle._id);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"public\",\r\n    \"content\": \"#WHY #SO #SERIOUS ?\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/posts/{{user2}}/createComment/{{jokle2_id}}",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{user2}}",
-								"createComment",
-								"{{jokle2_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get post 0 comments",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle0_id}}/getComments",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{jokle0_id}}",
-								"getComments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get post 4 comments",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle4_id}}/getComments",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{jokle4_id}}",
-								"getComments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get post 4 hashtags",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle4_id}}/getHashtags",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{jokle4_id}}",
-								"getHashtags"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get post 5 hashtags",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle5_id}}/getHashtags",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"posts",
-								"{{jokle5_id}}",
-								"getHashtags"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Tests the correctness of the relationship logic for the user entity. Tests the ability to:\n\n- create a post and link it to the creator and all related hashtags\n    \n- create a comment related to a post\n    \n- get all comments related to a post\n    \n- delete all comments related to a post"
-		},
-		{
-			"name": "Hashtag relationship tests",
-			"item": [
-				{
-					"name": "get all posts related to hashtag 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/tags/{{tag0}}/getRelatedPosts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"tags",
-								"{{tag0}}",
-								"getRelatedPosts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all posts related to hashtag 2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/tags/{{tag2}}/getRelatedPosts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"tags",
-								"{{tag2}}",
-								"getRelatedPosts"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Tests the correctness of the relationship logic for the hashtag entity. Tests the ability to:\n\n- get all posts that contain a certain hashtag"
 		},
 		{
 			"name": "Cleanup",
@@ -2452,12 +1824,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/tags",
+							"raw": "{{testUrl}}/hashtags",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"tags"
+								"hashtags"
 							]
 						}
 					},
@@ -2491,7 +1863,7 @@
 	"variable": [
 		{
 			"key": "testUrl",
-			"value": "http://localhost:3001",
+			"value": "http://localhost:3001/api",
 			"type": "string"
 		}
 	]
