@@ -1,42 +1,91 @@
 <template>
-  <div>
-    <b-container fluid>
-      <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
-      <p class="fs-4">Welcome to your DIT342 Frontend Vue.js App</p>
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p class="col-xl-9">Message from the server:<br/>
-      {{ message }}</p>
-    </b-container>
+  <div class="page-container">
+    <!-- Sidebar navigation -->
+    <div class="tabs">
+      <TabNav
+        :tabs="['For You Page', 'Profile', 'Create Post', 'Trending Hashtags']"
+        :selected="selected"
+        @selected="setSelected"
+      ></TabNav>
+    </div>
+
+    <!-- Main content area -->
+    <div class="content">
+      <Tab :isSelected="selected === 'For You Page'">
+        <ForYouPageItem></ForYouPageItem>
+      </Tab>
+      <Tab :isSelected="selected === 'Profile'">
+        <p>You are not logged in dummy</p>
+      </Tab>
+      <Tab :isSelected="selected === 'Create Post'">
+        <p>Create Post</p>
+      </Tab>
+      <Tab :isSelected="selected === 'Trending Hashtags'">
+        <p>Trending</p>
+      </Tab>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import { Api } from '@/Api'
+import Tab from '@/components/Tab.vue'
+import TabNav from '@/components/TabNav.vue'
+import ForYouPageItem from '@/components/ForYouPageItem.vue'
 
 export default {
-  name: 'home',
+  name: 'coursePage',
+  props: ['coursePage'],
+  components: { TabNav, Tab, ForYouPageItem },
   data() {
     return {
-      message: 'none'
+      selected: 'Home'
     }
   },
   methods: {
-    getMessage() {
-      Api.get('/')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
+    setSelected(Tab) {
+      this.selected = Tab
     }
   }
 }
 </script>
 
-<style>
-.btn_message {
-  margin-bottom: 1em;
+<style scoped>
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+
+.tabs {
+  width: 200px; /* Set width for the sidebar */
+  display: flex;
+  flex-direction: column; /* Change direction to stack tabs vertically */
+  background-color: #f8f9fa; /* Optional: light background for sidebar */
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.content {
+  flex: 1; /* Take up remaining space for the content area */
+  padding: 20px;
+  background-color: #fff;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.nav-link.active {
+  background-color: #007bff;
+  color: #fff;
 }
 </style>

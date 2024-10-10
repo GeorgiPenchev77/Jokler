@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
+    <div id="Home">
+      <router-link to="/">Jokler</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
@@ -11,9 +11,8 @@
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: black;
   text-align: center;
-  color: #2c3e50;
+  font-size: 16px;
 }
 </style>
