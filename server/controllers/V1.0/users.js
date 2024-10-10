@@ -83,10 +83,10 @@ app.post('/:username/posts', async function (req, res, next) {
 });
 
 //user creates comment
-app.post('/:username/posts/:postId/', async function (req, res, next) {
+app.post('/:username/posts/:id/', async function (req, res, next) {
     let username = req.params.username;
     let newJokle = new Jokle(req.body);
-    let jokleId = req.params.postId;
+    let jokleId = req.params.id;
     try {
         let user = await RegisteredUser.findOne({ "username": username });
         let jokle = await Jokle.findById(jokleId);
@@ -177,9 +177,9 @@ app.get('/:username/posts', async function (req, res, next) {
             return res.status(404).json({ "message": "User not found" });
         }
 
-        let posts = await Jokle.find({"madeBy": user._id});
+        let jokles = await Jokle.find({"madeBy": user._id});
 
-        return res.json(posts);
+        return res.json(jokles);
     } 
     catch (err) {
         return next(err);
@@ -188,7 +188,7 @@ app.get('/:username/posts', async function (req, res, next) {
 
 app.get('/:username/posts/:id', async function (req, res, next) {
     let username = req.params.username;
-    let postId = req.params.id;
+    let id = req.params.id;
 
     try {
         let user = await RegisteredUser.findOne({ "username": username });
@@ -196,9 +196,9 @@ app.get('/:username/posts/:id', async function (req, res, next) {
             return res.status(404).json({ "message": "User not found" });
         }
 
-        let post = await Jokle.findById(postId);
+        let jokle = await Jokle.findById(id);
 
-        return res.json(post);
+        return res.json(jokle);
     } 
     catch (err) {
         return next(err);
@@ -290,18 +290,18 @@ app.delete('/:username/posts', async function (req, res, next) {
             return res.status(404).json({ "message": "User not found" });
         }
 
-        let posts = await Jokle.deleteMany({"madeBy": user._id});
+        let jokles = await Jokle.deleteMany({"madeBy": user._id});
 
-        return res.json(posts);
+        return res.json(jokles);
     } 
     catch (err) {
         return next(err);
     }
 });
 
-app.delete('/:username/posts/:postId', async function (req, res, next) {
+app.delete('/:username/posts/:id', async function (req, res, next) {
     let username = req.params.username;
-    let postId = req.params.postId;
+    let id = req.params.id;
 
     try {
         let user = await RegisteredUser.findOne({ "username": username });
@@ -309,9 +309,9 @@ app.delete('/:username/posts/:postId', async function (req, res, next) {
             return res.status(404).json({ "message": "User not found" });
         }
 
-        let post = await Jokle.findByIdAndDelete(postId);
+        let jokle = await Jokle.findByIdAndDelete(id);
 
-        return res.json(post);
+        return res.json(jokle);
     } 
     catch (err) {
         return next(err);
