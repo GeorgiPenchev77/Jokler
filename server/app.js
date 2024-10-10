@@ -34,14 +34,15 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
-var usersController = require('./controllers/V1.0/usersController');
-var postController = require('./controllers/V1.0/joklersController')
-var adminController = require('./controllers/V1.0/adminsController')
-var tagController = require('./controllers/V1.0/tagsController')
-app.use('/users', usersController);
-app.use('/posts', postController)
-app.use('/admins', adminController)
-app.use('/tags', tagController)
+var usersController = require('./controllers/V1.0/users');
+var postController = require('./controllers/V1.0/jokles');
+var adminController = require('./controllers/V1.0/admins');
+var hashtagController = require('./controllers/V1.0/hashtags');
+app.use('/api/users', usersController);
+app.use('/api/posts', postController);
+app.use('/api/admins', adminController);
+app.use('/api/hashtags', hashtagController);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
