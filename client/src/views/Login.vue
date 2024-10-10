@@ -3,6 +3,7 @@
 import { Api } from '@/Api'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const router = useRouter()
 
@@ -29,9 +30,11 @@ function loginToggle() {
 }
 
 async function login() {
-  Api.post('/login/password', { username: username.value, password: password.value }).then(() => {
+  Api.post('/login/password', { username: username.value, password: password.value }).then((res) => {
     errorStatus.value = false
     message.value = 'Login successful!'
+    console.log(res)
+    setCurrentUser(res.data.username)
     setTimeout(() => {
       router.push('/')
     }, 1000)
@@ -49,6 +52,10 @@ async function signup() {
     console.log(err)
     message.value = err.response.message
   })
+}
+
+function setCurrentUser(username) {
+  Cookies.set("username", username, '60s')
 }
 
 </script>

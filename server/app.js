@@ -6,6 +6,7 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var passport = require('passport');
 var session = require('express-session');
+var cookies = require('cookie-parser')
 
 
 // Variables
@@ -31,6 +32,8 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+// Enable cookies parser
+app.use(cookies());
 
 // Initialize passport and session
 app.use(session({

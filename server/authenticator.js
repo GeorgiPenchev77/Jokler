@@ -3,7 +3,6 @@ var app = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 
-
 const RegisteredUser = require("./models/user.js");
 
 passport.use(new LocalStrategy( async function (username, password, done) {
@@ -39,7 +38,7 @@ app.post('/login/password',(req, res, next) =>{
         if(!user){
             return res.status(404).json({message: info.message});
         }
-        return res.status(200).json({success: true});
+        return res.status(200).json({success: true, username: user.username});
     })(req, res, next);
 });
 

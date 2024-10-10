@@ -8,6 +8,14 @@
         @selected="setSelected"
       ></TabNav>
     </div>
+    <div class="greeting">
+      <div v-if="getCurrentUser()">
+        <h1>Greetings, {{getCurrentUser()}}</h1>
+      </div>
+      <div v-else>
+        <button @click="router.push('login')">Log in</button>
+      </div>
+    </div>
 
     <!-- Main content area -->
     <div class="content">
@@ -27,10 +35,17 @@
   </div>
 </template>
 
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+</script>
+
 <script>
 import Tab from '@/components/Tab.vue'
 import TabNav from '@/components/TabNav.vue'
 import ForYouPageItem from '@/components/ForYouPageItem.vue'
+import Cookies from 'js-cookie'
 
 export default {
   name: 'coursePage',
@@ -44,6 +59,10 @@ export default {
   methods: {
     setSelected(Tab) {
       this.selected = Tab
+    },
+    getCurrentUser() {
+      const user = Cookies.get('username')
+      return user
     }
   }
 }
