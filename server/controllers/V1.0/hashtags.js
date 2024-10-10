@@ -7,7 +7,7 @@ const Hashtag = require("../../models/hashtag.js")
 //-----------------------------------------------------------------POST-------------------------------------------------------------------------------//
 
 app.post('/', async function (req, res, next) {
-    var newHashtag = new Hashtag(req.body);
+    let newHashtag = new Hashtag(req.body);
     
     try {
         await newHashtag.save();
@@ -22,7 +22,7 @@ app.post('/', async function (req, res, next) {
 
 app.get('/', async function (req, res, next) {
     try {
-        var tags = await Hashtag.find({});
+        let tags = await Hashtag.find({});
         return res.json(tags);
     } 
     catch (err) {
@@ -32,9 +32,9 @@ app.get('/', async function (req, res, next) {
 
 //get all posts that include a certain hashtag
 app.get('/:tag', async function (req, res, next) {
-    var tag = req.params.tag;
+    let tag = req.params.tag;
     try {
-        var hashtag = await Hashtag.findOne({ "tag": tag }).populate("related_posts").exec(); //populate the array so we get objects instead of only ids
+        let hashtag = await Hashtag.findOne({ "tag": tag }).populate("related_posts").exec(); //populate the array so we get objects instead of only ids
         if (tag == null) {
             return res.status(404).json({ message: "Hashtag not found" });
         }
@@ -60,10 +60,10 @@ app.delete('/', async function (req, res, next) {
 });
 
 app.delete('/:tag', async function (req, res, next) {
-    var tag = req.params.tag;
+    let tag = req.params.tag;
 
     try {
-        var hashtag = await Hashtag.findOneAndDelete({ "tag": tag });
+        let hashtag = await Hashtag.findOneAndDelete({ "tag": tag });
         if (hashtag == null) {
             return res.status(404).json({ "message": "Tag not found" });
         }

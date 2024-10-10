@@ -23,7 +23,7 @@ function extractHashtags(content) {
 
 //create a user
 app.post('/', async function (req, res, next) {
-    var newUser = new RegisteredUser(req.body);
+    let newUser = new RegisteredUser(req.body);
 
     try {
         await newUser.save();
@@ -38,7 +38,7 @@ app.post('/', async function (req, res, next) {
 
 app.get('/', async function (req, res, next) {
     try {
-        var users = await RegisteredUser.find();
+        let users = await RegisteredUser.find();
         return res.json(users);
     }
     catch (err) {
@@ -47,10 +47,10 @@ app.get('/', async function (req, res, next) {
 });
 
 app.get('/:username', async function (req, res, next) {
-    var username = req.params.username;
+    let username = req.params.username;
 
     try {
-        var user = await RegisteredUser.findOne({ "username": username }).populate("followers following posts").exec();
+        let user = await RegisteredUser.findOne({ "username": username }).populate("followers following posts").exec();
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }
@@ -65,11 +65,11 @@ app.get('/:username', async function (req, res, next) {
 //-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
 
 app.put('/:username', async function (req, res, next) {
-    var username = req.params.username;
-    var newUser = req.body;
+    let username = req.params.username;
+    let newUser = req.body;
     
     try {
-        var user = await RegisteredUser.findOneAndReplace(
+        let user = await RegisteredUser.findOneAndReplace(
             { "username": username },
             newUser,
             { returnNewDocument: true });
@@ -89,11 +89,11 @@ app.put('/:username', async function (req, res, next) {
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
 app.patch('/:username', async function (req, res, next) {   //TODO: validate that the username is not attempted to be changed.
-    var username = req.params.username;
-    var updateUser = req.body;
+    let username = req.params.username;
+    let updateUser = req.body;
     
     try {
-        var user = await RegisteredUser.findOneAndUpdate(
+        let user = await RegisteredUser.findOneAndUpdate(
             { "username": username },
             { $set: updateUser },
             { returnNewDocument: true });
@@ -111,10 +111,10 @@ app.patch('/:username', async function (req, res, next) {   //TODO: validate tha
 
 //user creates a new post
 app.patch('/:username/posts', async function (req, res, next) {
-    var newJokle = new Jokle(req.body);
-    var username = req.params.username;
+    let newJokle = new Jokle(req.body);
+    let username = req.params.username;
     try {
-        var user = await RegisteredUser.findOne({ "username": username });
+        let user = await RegisteredUser.findOne({ "username": username });
 
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
@@ -159,12 +159,12 @@ app.patch('/:username/posts', async function (req, res, next) {
 
 //user creates comment
 app.patch('/:username/:postId/comments', async function (req, res, next) {
-    var username = req.params.username;
-    var newJokle = new Jokle(req.body);
-    var jokleId = req.params.postId;
+    let username = req.params.username;
+    let newJokle = new Jokle(req.body);
+    let jokleId = req.params.postId;
     try {
-        var user = await RegisteredUser.findOne({ "username": username });
-        var jokle = await Jokle.findById(jokleId);
+        let user = await RegisteredUser.findOne({ "username": username });
+        let jokle = await Jokle.findById(jokleId);
 
         if (user == null) {
             return res.status(404).json({ message: "User not found" });
@@ -229,10 +229,10 @@ app.delete('/', async function (req, res, next) {
 });
 
 app.delete('/:username', async function (req, res, next) {
-    var username = req.params.username;
+    let username = req.params.username;
 
     try {
-        var user = await RegisteredUser.findOneAndDelete({ "username": username });
+        let user = await RegisteredUser.findOneAndDelete({ "username": username });
         if (user == null) {
             return res.status(404).json({ "message": "User not found" });
         }

@@ -8,7 +8,7 @@ const Jokle = require("../../models/jokle.js")
 
 app.get('/', async function (req, res, next) {
     try {
-        var jokles = await Jokle.find();
+        let jokles = await Jokle.find();
         return res.json(jokles);
     } 
     catch (err) {
@@ -17,10 +17,10 @@ app.get('/', async function (req, res, next) {
 });
 
 app.get('/:id', async function (req, res, next) {
-    var id = req.params.id;
+    let id = req.params.id;
 
     try {
-        var jokle = await Jokle.findById(id).populate("comments madeBy hashtags");
+        let jokle = await Jokle.findById(id).populate("comments madeBy hashtags");
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
@@ -35,7 +35,7 @@ app.get('/:id', async function (req, res, next) {
 //-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
 
 app.put('/:id', async function (req, res, next) {
-    var id = req.params.id;
+    let id = req.params.id;
     try {
         let jokle = await Jokle.findByIdAndUpdate(
             id,
@@ -52,10 +52,10 @@ app.put('/:id', async function (req, res, next) {
 //-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
 
 app.patch('/:id', async function (req, res, next) {
-    var id = req.params.id;
+    let id = req.params.id;
     
     try {
-        var jokle = await Jokle.findByIdAndUpdate(
+        let jokle = await Jokle.findByIdAndUpdate(
             id,
             { $set: req.body },
             { returnNewDocument: true });
@@ -84,10 +84,10 @@ app.delete('/', async function (req, res, next) {
 });
 
 app.delete('/:id', async function (req, res, next) {
-    var id = req.params.id;
+    let id = req.params.id;
 
     try {
-        var jokle = await Jokle.findByIdAndDelete(id);
+        let jokle = await Jokle.findByIdAndDelete(id);
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
