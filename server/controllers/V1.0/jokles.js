@@ -8,7 +8,7 @@ const Jokle = require("../../models/jokle.js")
 
 app.get('/', async function (req, res, next) {
     try {
-        let jokles = await Jokle.find();
+        let jokles = await Jokle.find().populate("madeBy").exec();
         return res.json(jokles);
     } 
     catch (err) {
@@ -20,7 +20,23 @@ app.get('/:id', async function (req, res, next) {
     let id = req.params.id;
 
     try {
-        let jokle = await Jokle.findById(id).populate("comments madeBy hashtags");
+        let jokle = await Jokle.findById(id);
+        if (jokle == null) {
+            return res.status(404).json({ "message": "Jokle not found" });
+        }
+
+        return res.json(jokle);
+    }
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.get('/:id/comments', async function (req, res, next) {
+    let id = req.params.id; 
+
+    try {
+        let jokle = await Jokle.findById(id).populate("comments").exec();
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }

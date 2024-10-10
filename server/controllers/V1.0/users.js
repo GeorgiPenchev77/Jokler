@@ -34,83 +34,8 @@ app.post('/', async function (req, res, next) {
     }
 });
 
-//-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
-
-app.get('/', async function (req, res, next) {
-    try {
-        let users = await RegisteredUser.find();
-        return res.json(users);
-    }
-    catch (err) {
-        return next(err);
-    }
-});
-
-app.get('/:username', async function (req, res, next) {
-    let username = req.params.username;
-
-    try {
-        let user = await RegisteredUser.findOne({ "username": username }).populate("followers following posts").exec();
-        if (user == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-
-        return res.json(user);
-    } 
-    catch (err) {
-        return next(err);
-    }
-});
-
-//-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
-
-app.put('/:username', async function (req, res, next) {
-    let username = req.params.username;
-    let newUser = req.body;
-    
-    try {
-        let user = await RegisteredUser.findOneAndReplace(
-            { "username": username },
-            newUser,
-            { returnNewDocument: true });
-
-        if (user == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-
-        return res.json(user);
-    } 
-    catch (err) {
-        return next(err);
-    }
-
-});
-
-//-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
-
-app.patch('/:username', async function (req, res, next) {   //TODO: validate that the username is not attempted to be changed.
-    let username = req.params.username;
-    let updateUser = req.body;
-    
-    try {
-        let user = await RegisteredUser.findOneAndUpdate(
-            { "username": username },
-            { $set: updateUser },
-            { returnNewDocument: true });
-
-        if (user == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-
-        return res.json(user);
-    } 
-    catch (err) {
-        return next(err);
-    }
-});
-
 //user creates a new post
-app.patch('/:username/posts', async function (req, res, next) {
+app.post('/:username/posts', async function (req, res, next) {
     let newJokle = new Jokle(req.body);
     let username = req.params.username;
     try {
@@ -158,10 +83,10 @@ app.patch('/:username/posts', async function (req, res, next) {
 });
 
 //user creates comment
-app.patch('/:username/:postId/comments', async function (req, res, next) {
+app.post('/:username/posts/:id/', async function (req, res, next) {
     let username = req.params.username;
     let newJokle = new Jokle(req.body);
-    let jokleId = req.params.postId;
+    let jokleId = req.params.id;
     try {
         let user = await RegisteredUser.findOne({ "username": username });
         let jokle = await Jokle.findById(jokleId);
@@ -215,6 +140,118 @@ app.patch('/:username/:postId/comments', async function (req, res, next) {
     }
 });
 
+//-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
+
+app.get('/', async function (req, res, next) {
+    try {
+        let users = await RegisteredUser.find();
+        return res.json(users);
+    }
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.get('/:username', async function (req, res, next) {
+    let username = req.params.username;
+
+    try {
+        let user = await RegisteredUser.findOne({ "username": username }).populate("followers following").exec();
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        return res.json(user);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.get('/:username/posts', async function (req, res, next) {
+    let username = req.params.username;
+
+    try {
+        let user = await RegisteredUser.findOne({ "username": username });
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        let jokles = await Jokle.find({"madeBy": user._id});
+
+        return res.json(jokles);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.get('/:username/posts/:id', async function (req, res, next) {
+    let username = req.params.username;
+    let id = req.params.id;
+
+    try {
+        let user = await RegisteredUser.findOne({ "username": username });
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        let jokle = await Jokle.findById(id);
+
+        return res.json(jokle);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
+//-----------------------------------------------------------------PUT-------------------------------------------------------------------------------//
+
+app.put('/:username', async function (req, res, next) {
+    let username = req.params.username;
+    let newUser = req.body;
+    
+    try {
+        let user = await RegisteredUser.findOneAndReplace(
+            { "username": username },
+            newUser,
+            { returnNewDocument: true });
+
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        return res.json(user);
+    } 
+    catch (err) {
+        return next(err);
+    }
+
+});
+
+//-----------------------------------------------------------------PATCH-------------------------------------------------------------------------------//
+
+app.patch('/:username', async function (req, res, next) {   //TODO: validate that the username is not attempted to be changed.
+    let username = req.params.username;
+    let updateUser = req.body;
+    
+    try {
+        let user = await RegisteredUser.findOneAndUpdate(
+            { "username": username },
+            { $set: updateUser },
+            { returnNewDocument: true });
+
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        return res.json(user);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
 //-----------------------------------------------------------------DELETE-------------------------------------------------------------------------------//
 
 app.delete('/', async function (req, res, next) {
@@ -238,6 +275,43 @@ app.delete('/:username', async function (req, res, next) {
         }
 
         return res.json(user);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.delete('/:username/posts', async function (req, res, next) {
+    let username = req.params.username;
+
+    try {
+        let user = await RegisteredUser.findOne({ "username": username });
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        let jokles = await Jokle.deleteMany({"madeBy": user._id});
+
+        return res.json(jokles);
+    } 
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.delete('/:username/posts/:id', async function (req, res, next) {
+    let username = req.params.username;
+    let id = req.params.id;
+
+    try {
+        let user = await RegisteredUser.findOne({ "username": username });
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+
+        let jokle = await Jokle.findByIdAndDelete(id);
+
+        return res.json(jokle);
     } 
     catch (err) {
         return next(err);
