@@ -19,12 +19,16 @@
         v-for="jokle in Jokles"
         :key="jokle._id"
         :jokle="jokle"
+        @show-comments="openComments"
       />
+    </div>
+
+    <!-- Comment section -->
+    <div v-if="selectedJokleComments" class="comments-section">
       <CommentSectionItem
-      v-if="showingComments"
-      :comments="jokle.comments"
-      :jokleId="jokle._id"
-      @add-comment="addComment"
+        :comments="selectedJokleComments"
+        :jokleId="selectedJokleId"
+        @add-comment="addComment"
       />
     </div>
 
@@ -53,7 +57,9 @@ export default {
       Jokles: [],
       search: '',
       searched: false,
-      filteredJokles: {}
+      filteredJokles: {},
+      selectedJokleComments: null, // To track comments
+      selectedJokleId: null // Track the ID of the jokle
     }
   },
   mounted() {
@@ -78,6 +84,17 @@ export default {
     },
     goBack() {
       this.searched = false
+    },
+    openComments(jokle) {
+      this.selectedJokleComments = jokle.comments
+      this.selectedJokleId = jokle._id
+    },
+    addComment(newComment) {
+      // Add comment to the selected jokle
+      const jokle = this.Jokles.find(j => j._id === this.selectedJokleId)
+      if (jokle) {
+        jokle.comments.push(newComment)
+      }
     }
   }
 }

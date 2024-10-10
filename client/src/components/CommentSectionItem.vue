@@ -38,6 +38,16 @@ export default {
   methods: {
     postComment() {
       if (this.newComment.trim()) {
+        const newCommentObj = {
+          id: Date.now(),
+          madeBy: {
+            username: 'CurrentUser' // Replace with current user's info
+          },
+          content: this.newComment,
+          date: new Date().toISOString(),
+          comments: []
+        }
+        this.$emit('add-comment', newCommentObj)
         this.newComment = ''
       }
     }

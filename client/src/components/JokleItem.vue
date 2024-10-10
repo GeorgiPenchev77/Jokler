@@ -1,26 +1,18 @@
-<!-- JokleItem.vue -->
 <template>
   <div class="jokle-item">
     <div class="jokle-header">
-      <!-- Profile picture -->
-      <img
-        class="profile-picture"
-        :src="jokle.madeBy?.profilePic || '/default-profile-picture.jpg'"
-        alt="Profile Picture"
-      />
+      <img class="profile-picture" :src="jokle.madeBy?.profilePic || '/default-profile-picture.jpg'" alt="Profile Picture" />
       <div class="jokle-info">
-        <strong><span class="username">@{{ jokle.madeBy?.username || 'AnonymousUser' }}</span></strong>
+        <strong><span class="username">{{ jokle.madeBy?.username || 'AnonymousUser' }}</span></strong>
         <span class="date">• {{ formatDate(jokle.date) }}</span>
       </div>
     </div>
-
-    <!-- jokle content -->
     <p class="jokle-content">{{ jokle.content }}</p>
 
     <!-- Engagement section -->
     <div class="jokle-actions">
       <div class="icon">
-        <button class="btn" @click="toggleComments">💬 {{ jokle.comments.length }}</button>
+        <button class="btn" @click="$emit('show-comments', jokle)">💬 {{ jokle.comments?.length }}</button>
       </div>
       <div class="icon">🔁 {{ jokle.rejokles }}</div>
       <div class="icon">😠 {{ jokle.dislikes }}</div>
@@ -34,7 +26,10 @@
 export default {
   name: 'JokleItem',
   props: {
-    jokle: Object
+    jokle: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -43,14 +38,6 @@ export default {
     }
   },
   methods: {
-    toggleComments() {
-      this.showingComments = !this.showingComments
-    },
-    postComment() {
-      if (this.newComment.trim()) {
-        this.newComment = '' // Clear the input after posting
-      }
-    },
     formatDate(dateStr) {
       const date = new Date(dateStr)
       const day = String(date.getDate()).padStart(2, '0')
