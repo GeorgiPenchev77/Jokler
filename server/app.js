@@ -4,6 +4,8 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var passport = require('passport');
+var session = require('express-session');
 
 
 // Variables
@@ -30,6 +32,15 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
+// Initialize passport and session
+app.use(session({
+    secret: "nonchalant",
+    resave: false,
+    saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
@@ -42,6 +53,9 @@ app.use('/api/users', usersController);
 app.use('/api/posts', postController);
 app.use('/api/admins', adminController);
 app.use('/api/hashtags', hashtagController);
+
+var authenticator = require('./authenticator');
+app.use('/api/', authenticator);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

@@ -2,6 +2,9 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const loginHeader = ref('Log in')
 const signupHeader = ref('Sign up')
@@ -26,22 +29,16 @@ function loginToggle() {
 }
 
 async function login() {
-  Api.get('/users/' + username.value).then((response) => {
-    console.log(response)
-    const resPassword = response.data.password
-
-    if (resPassword === password.value) {
-      errorStatus.value = false
-      message.value = 'Login success!'
-    } else {
-      message.value = 'Wrong password'
-    }
+  Api.post('/login/password', { username: username.value, password: password.value }).then(() => {
+    errorStatus.value = false
+    message.value = 'Login successful!'
+    setTimeout(() => {
+      router.push('/')
+    }, 1000)
   }).catch((err) => {
     console.log(err)
-    if (err.response.status === 404) {
-      message.value = 'Username does not exist'
-      errorStatus.value = true
-    }
+    errorStatus.value = true
+    message.value = err.response.data.message
   })
 }
 async function signup() {
