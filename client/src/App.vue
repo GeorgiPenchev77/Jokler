@@ -41,12 +41,12 @@
 }
 
 .sidebar ul {
-  list-style-type: none;
-  padding: 0;
+  list-style-type: square;
+  padding: 10px;
 }
 
 .sidebar ul li {
-  margin: 20px 0;
+  margin: 20px 10px;
 }
 
 .sidebar ul li a {

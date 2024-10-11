@@ -40,8 +40,9 @@
 </template>
 
 <script>
-import JokleList from './JokleListItem.vue'
 import { Api } from '@/Api'
+import JokleList from './JokleListItem.vue'
+import Cookies from 'js-cookie'
 
 export default {
   name: 'ForYouPage',
@@ -63,6 +64,10 @@ export default {
     this.getAllJokles()
   },
   methods: {
+    getCurrentUser() {
+      const user = Cookies.get('username')
+      return user
+    },
     async getAllJokles() {
       try {
         const response = await Api.get('/posts')
