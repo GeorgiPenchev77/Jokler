@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <h2>For You</h2>
+      <h2>Recently In Gotham</h2>
       <div class="search-bar">
         <input
           class="form-control"
@@ -9,57 +9,54 @@
           placeholder="Search for a jokle"
           v-model="search"
         />
-        <button class="btn" @click="findJokle">Search</button>
+        <button class="btn">Search</button>
       </div>
     </div>
 
-    <!-- jokle list -->
-    <div class="jokle-list" v-if="!searched">
-      <JokleItem
-        v-for="jokle in Jokles"
-        :key="jokle._id"
-        :jokle="jokle"
-        @show-comments="openComments"
-      />
-    </div>
+    <!-- Jokle list (main feed) -->
+    <JokleList v-if="!searched"
+      :jokles="Jokles"
+      :isPost="true"
+      @show-comments="openComments"
+      @dislike-jokle="addDislike"
+      @rejokle="addRejokle"
+    />
 
     <!-- Comment section -->
-    <div v-if="selectedJokleComments" class="comments-section">
-      <CommentSectionItem
-        :comments="selectedJokleComments"
-        :jokleId="selectedJokleId"
+    <div v-if="selectedJokleComments">
+      <h3>Comments</h3>
+      <JokleList
+        :jokles="selectedJokleComments"
         @add-comment="addComment"
       />
+      <!-- Add new comment -->
+      <div class="new-comment">
+        <textarea v-model="newComment" placeholder="Write a comment..." rows="3"></textarea>
+        <button class="btn" @click="postComment">Post Comment</button>
+      </div>
     </div>
 
-    <!-- Search result -->
-    <div class="search-result" v-else-if="searched">
-      <p>{{ filteredJokles.madeBy?.username }}</p>
-      <button class="btn" @click="goBack">Back</button>
-    </div>
   </div>
 </template>
 
 <script>
+import JokleList from './JokleListItem.vue'
 import { Api } from '@/Api'
-import JokleItem from '@/components/JokleItem.vue'
-import CommentSectionItem from './CommentSectionItem.vue'
 
 export default {
-  name: 'For-You-Page',
+  name: 'ForYouPage',
   components: {
-    JokleItem,
-    CommentSectionItem
+    JokleList
   },
-  props: ['For-You-Page'],
   data() {
     return {
       Jokles: [],
       search: '',
       searched: false,
       filteredJokles: {},
-      selectedJokleComments: null, // To track comments
-      selectedJokleId: null // Track the ID of the jokle
+      selectedJokleComments: null,
+      selectedJokleId: null,
+      newComment: ''
     }
   },
   mounted() {
@@ -67,33 +64,19 @@ export default {
   },
   methods: {
     async getAllJokles() {
-      Api.get('/posts')
-        .then(response => { this.Jokles = response.data })
-        .catch(error => {
-          console.error('Error fetching jokles:', error)
-        })
-    },
-    async findJokle() {
-      const size = this.Jokles.length
-      for (let i = 0; i < size; i++) {
-        if (this.Jokles[i].content === this.search) {
-          this.filteredJokles = this.Jokles[i]
-          this.searched = true
-        }
+      try {
+        const response = await Api.get('/posts')
+        this.Jokles = response.data
+      } catch (error) {
+        console.error('Error fetching jokles:', error)
       }
     },
-    goBack() {
-      this.searched = false
-    },
-    openComments(jokle) {
-      this.selectedJokleComments = jokle.comments
-      this.selectedJokleId = jokle._id
-    },
-    addComment(newComment) {
-      // Add comment to the selected jokle
-      const jokle = this.Jokles.find(j => j._id === this.selectedJokleId)
-      if (jokle) {
-        jokle.comments.push(newComment)
+    async addDislike(jokle) {
+      try {
+        const response = await Api.patch('/posts/')
+        this.Jokles = response.data
+      } catch (error) {
+        console.error('Error fetching jokles:', error)
       }
     }
   }
@@ -135,4 +118,5 @@ export default {
   gap: 15px;
   padding: 20px;
 }
+
 </style>

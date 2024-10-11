@@ -1,13 +1,5 @@
 <template>
   <div class="page-container">
-    <!-- Sidebar navigation -->
-    <div class="tabs">
-      <TabNav
-        :tabs="['For You Page', 'Profile', 'Create Post', 'Trending Hashtags']"
-        :selected="selected"
-        @selected="setSelected"
-      ></TabNav>
-    </div>
     <div class="greeting">
       <div v-if="getCurrentUser()">
         <h1>Greetings, {{getCurrentUser()}}</h1>
@@ -18,48 +10,35 @@
     </div>
 
     <!-- Main content area -->
-    <div class="content">
-      <Tab :isSelected="selected === 'For You Page'">
+  <div class="content">
         <ForYouPageItem></ForYouPageItem>
-      </Tab>
-      <Tab :isSelected="selected === 'Profile'">
-        <p>You are not logged in dummy</p>
-      </Tab>
-      <Tab :isSelected="selected === 'Create Post'">
-        <p>Create Post</p>
-      </Tab>
-      <Tab :isSelected="selected === 'Trending Hashtags'">
-        <p>Trending</p>
-      </Tab>
-    </div>
   </div>
+
+</div>
+
 </template>
 
 <script setup>
+
 import { useRouter } from 'vue-router'
-
-const router = useRouter()
-</script>
-
-<script>
-import Tab from '@/components/Tab.vue'
-import TabNav from '@/components/TabNav.vue'
 import ForYouPageItem from '@/components/ForYouPageItem.vue'
 import Cookies from 'js-cookie'
 
+const router = useRouter()
+
+</script>
+
+<script>
+
 export default {
-  name: 'coursePage',
-  props: ['coursePage'],
-  components: { TabNav, Tab, ForYouPageItem },
+  name: 'home',
+  components: { ForYouPageItem },
   data() {
     return {
       selected: 'Home'
     }
   },
   methods: {
-    setSelected(Tab) {
-      this.selected = Tab
-    },
     getCurrentUser() {
       const user = Cookies.get('username')
       return user
