@@ -70,6 +70,7 @@ app.post('/:username/posts', async function (req, res, next) {
         }
 
         newJokle.madeBy = user._id; // Link the "madeBy" relationship to the User Id of the creator
+        newJokle.type = "post"; // Set the type to post for frontend use
         await newJokle.save();
 
         user.posts.push(newJokle._id); // Link the Post Id to the User's array of posts
@@ -83,7 +84,7 @@ app.post('/:username/posts', async function (req, res, next) {
 });
 
 //user creates comment
-app.post('/:username/posts/:id/', async function (req, res, next) {
+app.post('/:username/posts/:id', async function (req, res, next) {
     let username = req.params.username;
     let newJokle = new Jokle(req.body);
     let jokleId = req.params.id;
@@ -125,6 +126,7 @@ app.post('/:username/posts/:id/', async function (req, res, next) {
         }
 
         newJokle.madeBy = user._id; // Link the "madeBy" field for the comment to the userId of the creator
+        newJokle.type = "comment"; // Set the type to comment for frontend use
         await newJokle.save();
 
         user.posts.push(newJokle._id);

@@ -52,13 +52,13 @@ var usersController = require('./controllers/V1.0/users');
 var postController = require('./controllers/V1.0/jokles');
 var adminController = require('./controllers/V1.0/admins');
 var hashtagController = require('./controllers/V1.0/hashtags');
-app.use('/api/users', usersController);
-app.use('/api/posts', postController);
-app.use('/api/admins', adminController);
-app.use('/api/hashtags', hashtagController);
+app.use('/api/V1.0/users', usersController);
+app.use('/api/V1.0/posts', postController);
+app.use('/api/V1.0/admins', adminController);
+app.use('/api/V1.0/hashtags', hashtagController);
 
 var authenticator = require('./authenticator');
-app.use('/api/', authenticator);
+app.use('/api/V1.0', authenticator);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

@@ -16,11 +16,11 @@ const PostSchema = new Schema({
     type: {
         type: String,
         enum: ["post", "comment"],
-        required: true,
+        required: true
     },
     content: {
         type: String,
-        required: false,
+        required: true,
     },
     image: {
         type: Buffer,

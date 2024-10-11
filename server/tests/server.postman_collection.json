@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5a4bfa3a-6b37-4fdc-9580-317db53fd210",
+		"_postman_id": "958d26c2-c0a3-4e85-87d6-e3a639520a59",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38698635"
@@ -331,7 +331,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"public\",\r\n    \"content\": \"How do I #cook a #fish?\"\r\n}",
+							"raw": "{\r\n    \"content\": \"How do I #cook a #fish?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -376,7 +376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"private\",\r\n    \"content\": \"How do I cook a cow?\"\r\n}",
+							"raw": "{\r\n    \"content\": \"How do I cook a cow?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,7 +421,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"private\",\r\n    \"content\": \"How do I play football?\"\r\n}",
+							"raw": "{\r\n    \"content\": \"How do I play football?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -466,7 +466,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"private\",\r\n    \"content\": \"How do I play football?\"\r\n}",
+							"raw": "{\r\n    \"content\": \"How do I play football?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -482,6 +482,52 @@
 								"users",
 								"{{user2}}",
 								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 comments on post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jokle4_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"I dont know man, I like league of legends\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/posts/{{jokle2_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"posts",
+								"{{jokle2_id}}"
 							]
 						}
 					},
@@ -2105,7 +2151,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Clean up the database to get rid of all of the unnecssarry entities created during the test."
 		}
 	],
 	"event": [
@@ -2133,7 +2180,7 @@
 	"variable": [
 		{
 			"key": "testUrl",
-			"value": "http://localhost:3001/api",
+			"value": "http://localhost:3001/api/V1.0",
 			"type": "string"
 		}
 	]
