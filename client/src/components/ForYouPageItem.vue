@@ -13,30 +13,28 @@
       </div>
     </div>
 
-    <!-- Jokle list (main feed) -->
+    <!-- Posts feed -->
     <JokleList v-if="!searched"
       :jokles="Jokles"
-      :isPost="true"
-      @show-comments="openComments"
+      @show-comments="showComments"
       @dislike-jokle="addDislike"
-      @rejokle="addRejokle"
-    />
+      @rejokle="addRejokle">
 
-    <!-- Comment section -->
-    <div v-if="selectedJokleComments">
-      <h3>Comments</h3>
-      <JokleList
-        :jokles="selectedJokleComments"
-        @add-comment="addComment"
+     <!-- Comments Section for Selected Jokle -->
+     <div v-if="commentsOpened" class="comments-section"><h4>Comments</h4>
+      <JokleListItem
+        :comments="Comments"
+        @show-comments="showComments"
+        @dislike-jokle="addDislike"
+        @rejokle="addRejokle"
       />
-      <!-- Add new comment -->
-      <div class="new-comment">
-        <textarea v-model="newComment" placeholder="Write a comment..." rows="3"></textarea>
-        <button class="btn" @click="postComment">Post Comment</button>
-      </div>
+      <input v-model="newComment" placeholder="Add a comment" />
+      <button class="btn" @click="postComment(selectedJokleId)">Post Comment</button>
     </div>
+    </JokleList>
 
   </div>
+
 </template>
 
 <script>
@@ -52,12 +50,9 @@ export default {
   data() {
     return {
       Jokles: [],
-      search: '',
-      searched: false,
-      filteredJokles: {},
-      selectedJokleComments: null,
-      selectedJokleId: null,
-      newComment: ''
+      Comments: [],
+      commentsOpened: false,
+      selectedJokleId: null
     }
   },
   mounted() {
@@ -68,21 +63,54 @@ export default {
       const user = Cookies.get('username')
       return user
     },
+    getSelectedJokle() {
+      return this.Jokles.find(jokle => jokle._id === this.selectedJokleId) || {}
+    },
     async getAllJokles() {
       try {
-        const response = await Api.get('/posts')
+        const response = await Api.get('/posts?type=post')
         this.Jokles = response.data
       } catch (error) {
         console.error('Error fetching jokles:', error)
       }
     },
+    async showComments(jokle) {
+      this.commentsOpened = !this.commentsOpened
+      if (this.commentsOpened) {
+        try {
+          const response = await Api.get(`/posts/${jokle._id}/comments`)
+          this.Comments = response.data
+          console.log(this.Comments)
+        } catch (error) {
+          console.error('Error fetching comments:', error)
+        }
+      }
+    },
     async addDislike(jokle) {
       try {
-        const response = await Api.patch('/posts/')
-        this.Jokles = response.data
+        const updatedDislikes = jokle.dislikes + 1
+        const response = await Api.put(`/posts/${jokle._id}`, {
+          dislikes: updatedDislikes
+        })
+        console.log('Jokle disliked successfully', response.data)
+        jokle.dislikes = updatedDislikes
       } catch (error) {
-        console.error('Error fetching jokles:', error)
+        console.error('Erorr disliking jokle:', error)
       }
+    },
+    async addRejokle(jokle) {
+      try {
+        const updatedRejokles = jokle.rejokles + 1
+        const response = await Api.put(`/posts/${jokle._id}`, {
+          rejokles: updatedRejokles
+        })
+        console.log('Rejokled successfully', response.data)
+        jokle.rejokles = updatedRejokles
+      } catch (error) {
+        console.error('Error rejokling:', error)
+      }
+    },
+    async postComment(jokle) {
     }
   }
 }

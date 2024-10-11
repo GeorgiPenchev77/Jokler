@@ -35,10 +35,6 @@ export default {
     jokle: {
       type: Object,
       required: true
-    },
-    isPost: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {

@@ -4,7 +4,6 @@
       v-for="jokle in jokles"
       :key="jokle._id"
       :jokle="jokle"
-      :isPost="isPost"
       @show-comments="handleShowComments"
       @dislike-jokle="handleDislikeJokle"
       @rejokle="handleRejokle"
@@ -24,10 +23,6 @@ export default {
     jokles: {
       type: Array,
       required: true
-    },
-    isPost: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {

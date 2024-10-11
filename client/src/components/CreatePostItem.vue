@@ -6,14 +6,6 @@
         placeholder="What is on your mind?"
         v-model="postContent"
       ></textarea>
-      
-      <!-- Input for type -->
-      <input
-        class="form-control type-input"
-        type="text"
-        placeholder="Type (e.g., image, text, video)"
-        v-model="postType"
-      />
   
       <!-- Button to create the post -->
       <button class="btn create-btn" @click="createPost">Create Jokle</button>
@@ -29,7 +21,6 @@
     data() {
       return {
         postContent: '', // Holds user input for content
-        postType: ''     // Holds user input for type
       }
     },
     methods: {
@@ -39,21 +30,19 @@
       },
       async createPost() {
         const username = this.getCurrentUser()
-        if (!this.postContent || !this.postType) {
-          alert('Please provide both content and type') // Validation check
+        if (!this.postContent) {
+          alert('You cannot make a post with no content.') // Validation check
           return
         }
         try {
           const response = await Api.post(`/users/${username}/posts`, {
             content: this.postContent,
-            type: this.postType,
             madeBy: username
           })
           console.log('Post Created Successfully', response.data)
   
           // Clear the input fields after successful post
           this.postContent = ''
-          this.postType = ''
         } catch (error) {
           console.error('Error Creating Post:', error)
         }
