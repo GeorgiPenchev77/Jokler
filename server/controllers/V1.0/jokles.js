@@ -7,9 +7,19 @@ const Jokle = require("../../models/jokle.js")
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
 app.get('/', async function (req, res, next) {
+    let filter = req.query.type;
+
     try {
         let jokles = await Jokle.find().populate("madeBy").exec();
+
+        if(filter) {
+            return res.json(jokles.filter(function (e){
+                return filter === e.type;
+            }));
+        }
+        else {
         return res.json(jokles);
+        }
     } 
     catch (err) {
         return next(err);

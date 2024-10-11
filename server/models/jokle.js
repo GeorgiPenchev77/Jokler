@@ -15,6 +15,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
     type: {
         type: String,
+        enum: ["post", "comment"],
         required: true,
     },
     content: {
