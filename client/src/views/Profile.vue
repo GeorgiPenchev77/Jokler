@@ -1,15 +1,4 @@
 <template>
-  <!-- Sidebar navigation -->
-  <div class="tabs">
-    <div class="top">
-      <i class="bx bxl-codepen" id = "btn"></i>
-    </div>
-    <TabNav
-      :tabs="['For You Page', 'Profile', 'Create Post', 'Trending Hashtags']"
-      :selected="selected"
-      @selected="setSelected"
-    ></TabNav>
-  </div>
   <div>
     <h1>Your Profile</h1>
     <p>Welcome {{getCurrentUser()}} to your profile </p>
@@ -41,15 +30,15 @@
             class="input-field"
             type="password"
           />
-          <button v-if="!changingPassword" @click="togglePasswordVisibility">
+      </div>
+      <button v-if="!changingPassword" @click="togglePasswordVisibility">
           {{ passwordVisible ? 'Hide' : 'Show' }}
           </button>
           <button @click="toggleChangePassword">
             {{ changingPassword ? 'Cancel' : 'Change Password' }}
           </button>
-      </div>
+          <button v-if="changingPassword" @click="saveNewPassword">Save New Password</button>
     </div>
-    <button v-if="changingPassword" @click="saveNewPassword">Save New Password</button>
   </div>
 </template>
 
@@ -60,9 +49,7 @@ const router = useRouter()
 </script>
 
 <script>
-import TabNav from '@/components/TabNav.vue'
 import Cookies from 'js-cookie'
-import { Api } from '@/Api';
 
 export default {
   data() {
