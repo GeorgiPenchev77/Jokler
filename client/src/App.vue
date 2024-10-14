@@ -31,6 +31,7 @@
   text-align: center;
   font-size: 16px;
   display: flex;
+  justify-content: center; /* Horizontally center the entire content */
 }
 
 .sidebar {
@@ -38,11 +39,18 @@
   background-color: #333;
   color: white;
   padding: 20px;
+  min-height: 100vh;
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
 .sidebar ul {
   list-style-type: square;
   padding: 10px;
+  position: sticky;
+  top: 20px;
 }
 
 .sidebar ul li {
@@ -57,5 +65,16 @@
 .main-content {
   flex-grow: 1;
   padding: 20px;
+}
+
+/* Adjust page for sreens with size of =< 780px */
+@media (max-width: 780px) {
+  .sidebar {
+    transform: translateX(-100%); /* Hide sidebar */
+  }
+
+  .main-content {
+    margin-left: 0; /* No margin when sidebar is hidden */
+  }
 }
 </style>
