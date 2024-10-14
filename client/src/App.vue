@@ -19,7 +19,9 @@
       <router-link to="/"></router-link>
     </div>
     <!-- Render the content of the current page view -->
-    <router-view/>
+    <div class="main-content">
+      <router-view />
+    </div>
   </div>
 
 </template>
@@ -64,6 +66,8 @@
 
 .main-content {
   flex-grow: 1;
+  justify-content: center;
+  margin-left: 250px;
   padding: 20px;
 }
 
