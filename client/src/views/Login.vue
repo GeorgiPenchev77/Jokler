@@ -36,7 +36,7 @@ async function login() {
     console.log(res)
     setCurrentUser(res.data.username)
     setTimeout(() => {
-      router.push('/')
+      router.replace('/').then(() => { location.reload() })
     }, 1000)
   }).catch((err) => {
     console.log(err)

@@ -7,8 +7,11 @@
         <li>
           <router-link to="/">Home</router-link>
         </li>
-        <li>
+        <li v-if="!getCurrentUser()">
           <router-link to="/login">Login</router-link>
+        </li>
+        <li v-else>
+          <button @click="signOut">Sign out</button>
         </li>
         <li>
           <router-link to="/profile">Profile</router-link>
@@ -25,6 +28,24 @@
   </div>
 
 </template>
+
+<script>
+import Cookies from 'js-cookie'
+export default {
+  name: 'app',
+  methods: {
+    getCurrentUser() {
+      const user = Cookies.get('username')
+      return user
+    },
+    signOut() {
+      Cookies.set('username', '')
+      location.reload()
+    }
+  }
+}
+
+</script>
 
 <style>
 #app {
