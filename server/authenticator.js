@@ -42,4 +42,15 @@ app.post('/login/password',(req, res, next) =>{
     })(req, res, next);
 });
 
+app.post('/changePassword', (req, res, next) =>{
+    passport.authenticate('local', (err, user, info) =>{
+        if(err){
+            return next(err);
+        }if(!user){
+            return res.status(404).json({message: info.message});
+        }
+        return res.status(200).json({success: true});
+    })(req, res, next);
+});
+
 module.exports = app;
