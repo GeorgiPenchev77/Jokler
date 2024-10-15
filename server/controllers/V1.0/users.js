@@ -1,4 +1,5 @@
 var express = require("express");
+var methodOverride = require('method-override')
 var app = express.Router();
 
 //import Mongoose model
@@ -6,6 +7,8 @@ const RegisteredUser = require("../../models/user.js");
 const Jokle = require("../../models/jokle.js");
 const Hashtag = require("../../models/hashtag.js");
 
+//Methods overriding
+app.use(methodOverride('X-HTTP-Method-Override'))
 
 //utility function to find all hashtags in a String
 function extractHashtags(content) {
