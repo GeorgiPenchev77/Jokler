@@ -12,20 +12,21 @@ app.get('/', async function (req, res, next) {
     let sortOrder = req.query.order === 'desc' ? -1 : 1;
 
     try {
-        let jokles = await Jokle.find().populate("madeBy").exec();
+        let query = Jokle.find().populate("madeBy"); // Create a query to execute depending on the needs
 
-        if(filter) {
-            return res.json(jokles.filter(function (e){
-                return filter === e.type;
-            }));
+        if (filter) {
+            query = query.where('type').equals(filter); // Apply filtering to query
         }
-        else if(sortBy) {
-            let sorted = {};
-            return res.json(jokles.sort(sorted[sortBy]=sortOrder));
+
+        if (sortBy) {
+            let sortAttribute = {};
+            sortAttribute[sortBy] = sortOrder;
+            query = query.sort(sortAttribute); // Apply sorting to the query
         }
-        else {
+
+        let jokles = await query.exec();
+
         return res.json(jokles);
-        }
     } 
     catch (err) {
         return next(err);

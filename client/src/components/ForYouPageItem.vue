@@ -6,19 +6,19 @@
       <div class="sort-dropdown">
         <button class="btn" @click="toggleDropdown">Sort By</button>
         <div v-if="dropdownVisible" class="dropdown-menu">
-          <button @click="sortPosts('date', 'asc')">Date: Newest</button>
-          <button @click="sortPosts('date', 'desc')">Date: Oldest</button>
-          <button @click="sortPosts('comments', 'asc')">Comments: Lowest to Highest</button>
-          <button @click="sortPosts('comments', 'desc')">Comments: Highest to Lowest</button>
-          <button @click="sortPosts('dislikes', 'asc')">Dislikes: Lowest to Highest</button>
-          <button @click="sortPosts('dislikes', 'desc')">Dislikes: Highest to Lowest</button>
-          <button @click="sortPosts('rejokles', 'asc')">Rejokles: Lowest to Highest</button>
-          <button @click="sortPosts('rejokles', 'desc')">Rejokles: Highest to Lowest</button>
+          <button @click="sortJokles('date', 'asc')">Date: Newest</button>
+          <button @click="sortJokles('date', 'desc')">Date: Oldest</button>
+          <button @click="sortJokles('comments', 'asc')">Comments: Lowest to Highest</button>
+          <button @click="sortJokles('comments', 'desc')">Comments: Highest to Lowest</button>
+          <button @click="sortJokles('dislikes', 'asc')">Dislikes: Lowest to Highest</button>
+          <button @click="sortJokles('dislikes', 'desc')">Dislikes: Highest to Lowest</button>
+          <button @click="sortJokles('rejokles', 'asc')">Rejokles: Lowest to Highest</button>
+          <button @click="sortJokles('rejokles', 'desc')">Rejokles: Highest to Lowest</button>
         </div>
       </div>
     </div>
 
-    <!-- Posts feed -->
+    <!-- Jokles feed -->
     <JokleList
       :jokles="Jokles"
       @show-comments="showComments"
@@ -67,6 +67,16 @@ export default {
       try {
         const response = await Api.get('/posts?type=post')
         this.Jokles = response.data
+      } catch (error) {
+        console.error('Error fetching jokles:', error)
+      }
+    },
+    async sortJokles(sortBy, order) {
+      try {
+        const response = await Api.get(`/posts?type=post&sortBy=${sortBy}&order=${order}`)
+        console.log(response)
+        this.Jokles = response.data
+        this.dropdownVisible = false // Close the dropdown after selection
       } catch (error) {
         console.error('Error fetching jokles:', error)
       }
