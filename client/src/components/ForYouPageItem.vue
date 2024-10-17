@@ -20,17 +20,6 @@
       @dislike-jokle="addDislike"
       @rejokle="addRejokle">
 
-     <!-- Comments Section for Selected Jokle -->
-     <div v-if="commentsOpened" class="comments-section"><h4>Comments</h4>
-      <JokleListItem
-        :comments="Comments"
-        @show-comments="showComments"
-        @dislike-jokle="addDislike"
-        @rejokle="addRejokle"
-      />
-      <input v-model="newComment" placeholder="Add a comment" />
-      <button class="btn" @click="postComment(selectedJokleId)">Post Comment</button>
-    </div>
     </JokleList>
 
   </div>
@@ -89,7 +78,7 @@ export default {
     async addDislike(jokle) {
       try {
         const updatedDislikes = jokle.dislikes + 1
-        const response = await Api.put(`/posts/${jokle._id}`, {
+        const response = await Api.patch(`/posts/${jokle._id}`, {
           dislikes: updatedDislikes
         })
         console.log('Jokle disliked successfully', response.data)
@@ -101,7 +90,7 @@ export default {
     async addRejokle(jokle) {
       try {
         const updatedRejokles = jokle.rejokles + 1
-        const response = await Api.put(`/posts/${jokle._id}`, {
+        const response = await Api.patch(`/posts/${jokle._id}`, {
           rejokles: updatedRejokles
         })
         console.log('Rejokled successfully', response.data)
