@@ -2,19 +2,24 @@
   <div>
     <div class="header">
       <h2>Recently In Gotham</h2>
-      <div class="search-bar">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Search for a jokle"
-          v-model="search"
-        />
-        <button class="btn">Search</button>
+
+      <div class="sort-dropdown">
+        <button class="btn" @click="toggleDropdown">Sort By</button>
+        <div v-if="dropdownVisible" class="dropdown-menu">
+          <button @click="sortPosts('date', 'asc')">Date: Newest</button>
+          <button @click="sortPosts('date', 'desc')">Date: Oldest</button>
+          <button @click="sortPosts('comments', 'asc')">Comments: Lowest to Highest</button>
+          <button @click="sortPosts('comments', 'desc')">Comments: Highest to Lowest</button>
+          <button @click="sortPosts('dislikes', 'asc')">Dislikes: Lowest to Highest</button>
+          <button @click="sortPosts('dislikes', 'desc')">Dislikes: Highest to Lowest</button>
+          <button @click="sortPosts('rejokles', 'asc')">Rejokles: Lowest to Highest</button>
+          <button @click="sortPosts('rejokles', 'desc')">Rejokles: Highest to Lowest</button>
+        </div>
       </div>
     </div>
 
     <!-- Posts feed -->
-    <JokleList v-if="!searched"
+    <JokleList
       :jokles="Jokles"
       @show-comments="showComments"
       @dislike-jokle="addDislike"
@@ -39,8 +44,7 @@ export default {
   data() {
     return {
       Jokles: [],
-      Comments: [],
-      commentsOpened: false,
+      dropdownVisible: false,
       selectedJokleId: null
     }
   },
@@ -51,6 +55,10 @@ export default {
     getCurrentUser() {
       const user = Cookies.get('username')
       return user
+    },
+    toggleDropdown() {
+      this.dropdownVisible = !this.dropdownVisible
+      console.log(this.dropdownVisible)
     },
     getSelectedJokle() {
       return this.Jokles.find(jokle => jokle._id === this.selectedJokleId) || {}
@@ -64,16 +72,7 @@ export default {
       }
     },
     async showComments(jokle) {
-      this.commentsOpened = !this.commentsOpened
-      if (this.commentsOpened) {
-        try {
-          const response = await Api.get(`/posts/${jokle._id}/comments`)
-          this.Comments = response.data
-          console.log(this.Comments)
-        } catch (error) {
-          console.error('Error fetching comments:', error)
-        }
-      }
+
     },
     async addDislike(jokle) {
       try {
@@ -121,15 +120,33 @@ export default {
   padding: 10px;
 }
 
-.search-bar {
-  display: flex;
-  gap: 10px;
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.form-control {
-  width: 300px;
-  padding: 8px;
-  font-size: 14px;
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 200px; /* Ensure the dropdown has enough width */
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0; /* Add padding for aesthetics */
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%; /* Make sure the buttons take full width */
+}
+
+.dropdown-menu button:hover {
+  background-color: #f1f1f1;
 }
 
 .btn {
@@ -138,14 +155,6 @@ export default {
   color: white;
   border: none;
   cursor: pointer;
-}
-
-/* jokle list layout */
-.jokle-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
 }
 
 </style>

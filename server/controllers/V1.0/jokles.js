@@ -8,6 +8,8 @@ const Jokle = require("../../models/jokle.js")
 
 app.get('/', async function (req, res, next) {
     let filter = req.query.type;
+    let sortBy = req.query.sortBy;
+    let sortOrder = req.query.order === 'desc' ? -1 : 1;
 
     try {
         let jokles = await Jokle.find().populate("madeBy").exec();
@@ -16,6 +18,10 @@ app.get('/', async function (req, res, next) {
             return res.json(jokles.filter(function (e){
                 return filter === e.type;
             }));
+        }
+        else if(sortBy) {
+            let sorted = {};
+            return res.json(jokles.sort(sorted[sortBy]=sortOrder));
         }
         else {
         return res.json(jokles);
