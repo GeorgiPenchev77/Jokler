@@ -21,7 +21,7 @@
     <!-- Jokles feed -->
     <JokleList
       :jokles="Jokles"
-      @show-comments="showComments"
+      @show-comments="switchPage"
       @dislike-jokle="addDislike"
       @rejokle="addRejokle"
       @delete-jokle="deleteJokle"
@@ -81,9 +81,6 @@ export default {
         console.error('Error fetching jokles:', error)
       }
     },
-    async showComments(jokle) {
-
-    },
     async addDislike(jokle) {
       try {
         const updatedDislikes = jokle.dislikes + 1
@@ -116,6 +113,11 @@ export default {
       } catch (error) {
         console.error('Error rejokling:', error)
       }
+    },
+    async switchPage(jokle) {
+      setTimeout(() => {
+        this.$router.push(`/posts/${jokle._id}`)
+      }, 1000)
     }
   }
 }

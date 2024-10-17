@@ -4,7 +4,7 @@
       <textarea
         class="form-control content-input"
         placeholder="What is on your mind?"
-        v-model="postContent"
+        v-model="jokleContent"
       ></textarea>
   
       <!-- Button to create the post -->
@@ -20,7 +20,7 @@
     name: 'CreatePostItem',
     data() {
       return {
-        postContent: '', // Holds user input for content
+        jokleContent: '', // Holds user input for content
       }
     },
     methods: {
@@ -30,21 +30,25 @@
       },
       async createPost() {
         const username = this.getCurrentUser()
-        if (!this.postContent) {
-          alert('You cannot make a post with no content.') // Validation check
+        if (!this.jokleContent) {
+          alert('You cannot make a jokle with no content.') // Validation check
+          return
+        }
+        else if(!username) {
+          alert('You need to be logged in to create a jokle.')
           return
         }
         try {
           const response = await Api.post(`/users/${username}/posts`, {
-            content: this.postContent,
+            content: this.jokleContent,
             madeBy: username
           })
-          console.log('Post Created Successfully', response.data)
+          console.log('Jokle Created Successfully', response.data)
   
           // Clear the input fields after successful post
-          this.postContent = ''
+          this.jokleContent = ''
         } catch (error) {
-          console.error('Error Creating Post:', error)
+          console.error('Error Creating Jokle:', error)
         }
       }
     }
