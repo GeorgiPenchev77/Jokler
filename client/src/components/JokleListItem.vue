@@ -7,6 +7,7 @@
       @show-comments="handleShowComments"
       @dislike-jokle="handleDislikeJokle"
       @rejokle="handleRejokle"
+      @delete-jokle="handleDeleteJokle"
     />
   </div>
 </template>
@@ -34,6 +35,9 @@ export default {
     },
     handleRejokle(jokle) {
       this.$emit('rejokle', jokle)
+    },
+    handleDeleteJokle(jokle) {
+      this.$emit('delete-jokle', jokle)
     }
   }
 }

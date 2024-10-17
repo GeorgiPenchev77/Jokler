@@ -18,9 +18,9 @@
       :jokles="Jokles"
       @show-comments="showComments"
       @dislike-jokle="addDislike"
-      @rejokle="addRejokle">
-
-    </JokleList>
+      @rejokle="addRejokle"
+      @delete-jokle="deleteJokle"
+    />
 
   </div>
 
@@ -99,7 +99,14 @@ export default {
         console.error('Error rejokling:', error)
       }
     },
-    async postComment(jokle) {
+    async deleteJokle(jokle) {
+      try {
+        const response = await Api.delete(`/posts/${jokle._id}`)
+        console.log('Deleted successfully', response.data)
+        this.getAllJokles()
+      } catch (error) {
+        console.error('Error rejokling:', error)
+      }
     }
   }
 }
