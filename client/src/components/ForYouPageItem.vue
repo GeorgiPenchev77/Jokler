@@ -2,41 +2,33 @@
   <div>
     <div class="header">
       <h2>Recently In Gotham</h2>
-      <div class="search-bar">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Search for a jokle"
-          v-model="search"
-        />
-        <button class="btn">Search</button>
+
+      <div class="sort-dropdown">
+        <button class="btn" @click="toggleDropdown">Sort By</button>
+        <div v-if="dropdownVisible" class="dropdown-menu">
+          <button @click="sortJokles('date', 'asc')">Date: Newest</button>
+          <button @click="sortJokles('date', 'desc')">Date: Oldest</button>
+          <button @click="sortJokles('comments', 'asc')">Comments: Lowest to Highest</button>
+          <button @click="sortJokles('comments', 'desc')">Comments: Highest to Lowest</button>
+          <button @click="sortJokles('dislikes', 'asc')">Dislikes: Lowest to Highest</button>
+          <button @click="sortJokles('dislikes', 'desc')">Dislikes: Highest to Lowest</button>
+          <button @click="sortJokles('rejokles', 'asc')">Rejokles: Lowest to Highest</button>
+          <button @click="sortJokles('rejokles', 'desc')">Rejokles: Highest to Lowest</button>
+        </div>
       </div>
     </div>
 
-    <!-- Jokle list (main feed) -->
-    <JokleList v-if="!searched"
+    <!-- Jokles feed -->
+    <JokleList
       :jokles="Jokles"
-      :isPost="true"
-      @show-comments="openComments"
+      @show-comments="showComments"
       @dislike-jokle="addDislike"
       @rejokle="addRejokle"
+      @delete-jokle="deleteJokle"
     />
 
-    <!-- Comment section -->
-    <div v-if="selectedJokleComments">
-      <h3>Comments</h3>
-      <JokleList
-        :jokles="selectedJokleComments"
-        @add-comment="addComment"
-      />
-      <!-- Add new comment -->
-      <div class="new-comment">
-        <textarea v-model="newComment" placeholder="Write a comment..." rows="3"></textarea>
-        <button class="btn" @click="postComment">Post Comment</button>
-      </div>
-    </div>
-
   </div>
+
 </template>
 
 <script>
@@ -52,12 +44,8 @@ export default {
   data() {
     return {
       Jokles: [],
-      search: '',
-      searched: false,
-      filteredJokles: {},
-      selectedJokleComments: null,
-      selectedJokleId: null,
-      newComment: ''
+      dropdownVisible: false,
+      selectedJokleId: null
     }
   },
   mounted() {
@@ -68,20 +56,65 @@ export default {
       const user = Cookies.get('username')
       return user
     },
+    toggleDropdown() {
+      this.dropdownVisible = !this.dropdownVisible
+      console.log(this.dropdownVisible)
+    },
+    getSelectedJokle() {
+      return this.Jokles.find(jokle => jokle._id === this.selectedJokleId) || {}
+    },
     async getAllJokles() {
       try {
-        const response = await Api.get('/posts')
+        const response = await Api.get('/posts?type=post')
         this.Jokles = response.data
       } catch (error) {
         console.error('Error fetching jokles:', error)
       }
     },
-    async addDislike(jokle) {
+    async sortJokles(sortBy, order) {
       try {
-        const response = await Api.patch('/posts/')
+        const response = await Api.get(`/posts?type=post&sortBy=${sortBy}&order=${order}`)
+        console.log(response)
         this.Jokles = response.data
+        this.dropdownVisible = false // Close the dropdown after selection
       } catch (error) {
         console.error('Error fetching jokles:', error)
+      }
+    },
+    async showComments(jokle) {
+
+    },
+    async addDislike(jokle) {
+      try {
+        const updatedDislikes = jokle.dislikes + 1
+        const response = await Api.patch(`/posts/${jokle._id}`, {
+          dislikes: updatedDislikes
+        })
+        console.log('Jokle disliked successfully', response.data)
+        jokle.dislikes = updatedDislikes
+      } catch (error) {
+        console.error('Erorr disliking jokle:', error)
+      }
+    },
+    async addRejokle(jokle) {
+      try {
+        const updatedRejokles = jokle.rejokles + 1
+        const response = await Api.patch(`/posts/${jokle._id}`, {
+          rejokles: updatedRejokles
+        })
+        console.log('Rejokled successfully', response.data)
+        jokle.rejokles = updatedRejokles
+      } catch (error) {
+        console.error('Error rejokling:', error)
+      }
+    },
+    async deleteJokle(jokle) {
+      try {
+        const response = await Api.delete(`/posts/${jokle._id}`)
+        console.log('Deleted successfully', response.data)
+        this.getAllJokles()
+      } catch (error) {
+        console.error('Error rejokling:', error)
       }
     }
   }
@@ -97,15 +130,33 @@ export default {
   padding: 10px;
 }
 
-.search-bar {
-  display: flex;
-  gap: 10px;
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.form-control {
-  width: 300px;
-  padding: 8px;
-  font-size: 14px;
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 200px; /* Ensure the dropdown has enough width */
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0; /* Add padding for aesthetics */
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%; /* Make sure the buttons take full width */
+}
+
+.dropdown-menu button:hover {
+  background-color: #f1f1f1;
 }
 
 .btn {
@@ -114,14 +165,6 @@ export default {
   color: white;
   border: none;
   cursor: pointer;
-}
-
-/* jokle list layout */
-.jokle-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
 }
 
 </style>

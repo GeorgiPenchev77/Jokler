@@ -23,6 +23,9 @@
       <div class="icon">
         <button class="btn" @click="$emit('rejokle', jokle)"><img src="/rejokle-icon.jpg" alt="Rejokle" contain width="25px" height="25px"/> {{ jokle.rejokles }}</button>
       </div>
+      <div class="icon">
+        <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpeg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
+      </div>
     </div>
   </div>
 </template>
@@ -35,10 +38,6 @@ export default {
     jokle: {
       type: Object,
       required: true
-    },
-    isPost: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {

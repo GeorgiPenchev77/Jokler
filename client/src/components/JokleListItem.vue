@@ -4,10 +4,10 @@
       v-for="jokle in jokles"
       :key="jokle._id"
       :jokle="jokle"
-      :isPost="isPost"
       @show-comments="handleShowComments"
       @dislike-jokle="handleDislikeJokle"
       @rejokle="handleRejokle"
+      @delete-jokle="handleDeleteJokle"
     />
   </div>
 </template>
@@ -24,10 +24,6 @@ export default {
     jokles: {
       type: Array,
       required: true
-    },
-    isPost: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {
@@ -39,6 +35,9 @@ export default {
     },
     handleRejokle(jokle) {
       this.$emit('rejokle', jokle)
+    },
+    handleDeleteJokle(jokle) {
+      this.$emit('delete-jokle', jokle)
     }
   }
 }
