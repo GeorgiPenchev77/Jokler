@@ -182,7 +182,9 @@ app.get('/:username/posts', async function (req, res, next) {
             return res.status(404).json({ "message": "User not found" });
         }
 
-        let jokles = await Jokle.find({"madeBy": user._id});
+        const jokles = await Jokle.find({ "madeBy": user._id })
+        .populate('madeBy')
+        .exec();
 
         return res.json(jokles);
     } 

@@ -39,10 +39,12 @@
       </button>
       <button v-if="changingPassword" @click="saveNewPassword">Save New Password</button>
     </div>
+    <ProfilePageJokle/>
   </div>
 </template>
 
 <script setup>
+import ProfilePageJokle from '@/components/ProfilePageItem.vue'
 import { useRouter } from 'vue-router'
 import { Api } from '@/Api'
 import { ref } from 'vue'
@@ -90,6 +92,7 @@ function toggleChangePassword() {
 
 <script>
 import Cookies from 'js-cookie'
+import ProfilePageJokle from '@/components/ProfilePageItem.vue'
 
 function getCurrentUser() {
   const user = Cookies.get('username')
@@ -98,11 +101,11 @@ function getCurrentUser() {
 
 
 export default {
+  components: { ProfilePageJokle },
   data() {
     return {
       user: {}, // Store user data here
-
-    };
+    }
   },
 
   name: 'Profile',
@@ -123,18 +126,6 @@ export default {
   flex-direction: row;
   width: 100%;
   height: 100vh;
-}
-
-.tabs {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 200px; /* Set width for the sidebar */
-  display: flex;
-  flex-direction: column; /* Change direction to stack tabs vertically */
-  background-color: #f8f9fa; /* Optional: light background for sidebar */
-  padding: 10px;
-  border-right: 1px solid #ddd;
 }
 
 .content {
