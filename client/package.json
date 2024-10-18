@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "axios": "^1.7.4",
+    "backend-frontend": "file:..",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.24.9",
     "client": "file:",
     "js-cookie": "^3.0.5",
+    "method-override": "^3.0.0",
     "unplugin-vue-components": "^0.27.4",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3"
