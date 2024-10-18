@@ -1,23 +1,26 @@
 <template>
-
   <div id="app">
     <!-- Sidebar Navigation -->
-  <div class="sidebar">
-      <ul>
-        <li>
-          <router-link to="/">Home</router-link>
-        </li>
-        <li v-if="!getCurrentUser()">
-          <router-link to="/login">Login</router-link>
-        </li>
-        <li v-else>
-          <button @click="signOut">Sign out</button>
-        </li>
-        <li>
-          <router-link to="/profile">Profile</router-link>
-        </li>
-      </ul>
-    </div>
+    <div class="sidebar" :class="{ hidden: isSidebarHidden }">
+        <ul>
+          <li>
+            <router-link to="/">Home</router-link>
+          </li>
+          <li v-if="!getCurrentUser()">
+            <router-link to="/login">Login</router-link>
+          </li>
+          <li v-else>
+            <button @click="signOut">Sign out</button>
+          </li>
+          <li>
+            <router-link to="/profile">Profile</router-link>
+          </li>
+        </ul>
+      </div>
+      <!-- Button to toggle sidebar (Only for smaller windows) -->
+      <button @click="toggleSidebar" class="toggle-btn">
+        {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
+      </button>
     <div id="Home">
       <router-link to="/"></router-link>
     </div>
@@ -33,6 +36,11 @@
 import Cookies from 'js-cookie'
 export default {
   name: 'app',
+  data() {
+    return {
+      isSidebarHidden: true, // Initialize sidebar as hidden
+    };
+  },
   methods: {
     getCurrentUser() {
       const user = Cookies.get('username')
@@ -41,6 +49,29 @@ export default {
     signOut() {
       Cookies.set('username', '')
       location.reload()
+    },
+    toggleSidebar() {
+      this.isSidebarHidden = !this.isSidebarHidden;
+    },
+    currentSizeSettings() {
+      if (window.innerWidth > 780) {
+        // Show sidebar by  when when the window is bigger/full size
+        this.isSidebarHidden = false;
+      }
+      else{
+        // Hide sidebar by default everytime the window goes small
+        this.isSidebarHidden = true;
+      }
+    }
+  },
+  mounted() {
+    // Listener when the screen rezises (e.g want the sidebar to be visible when going back bigger window even after pressing hide sidebar in the smaller window)
+    window.addEventListener('resize', this.currentSizeSettings);
+  },
+  watch: {
+    // Check settings whenever we navigate to new page
+    '$route'() {
+      this.currentSizeSettings();
     }
   }
 }
@@ -55,6 +86,17 @@ export default {
   font-size: 16px;
   display: flex;
   justify-content: center; /* Horizontally center the entire content */
+}
+
+.toggle-btn {
+  display: none;
+  position:fixed; /* Should be changed to follow the bar's edge */
+  top: 10px;
+  left: 10px;
+  z-index: 10; /* Stays on top */
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .sidebar {
@@ -85,6 +127,14 @@ export default {
   text-decoration: none;
 }
 
+.sidebar {
+    transform: translateX(-100%); /* Hide the bar completely when hidden. ps. might be modified later to match the toggle button) */
+  }
+
+.sidebar:not(.hidden) {
+  transform: translateX(0);
+}
+
 .main-content {
   flex-grow: 1;
   justify-content: center;
@@ -94,8 +144,9 @@ export default {
 
 /* Adjust page for sreens with size of =< 780px */
 @media (max-width: 780px) {
-  .sidebar {
-    transform: translateX(-100%); /* Hide sidebar */
+
+  .toggle-btn {
+    display: block;
   }
 
   .main-content {
