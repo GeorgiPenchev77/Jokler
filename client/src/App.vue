@@ -15,6 +15,9 @@
           <li>
             <router-link to="/profile">Profile</router-link>
           </li>
+          <li>
+            <router-link to="/trending">Trending Topics</router-link>
+          </li>
         </ul>
       </div>
       <!-- Button to toggle sidebar (Only for smaller windows) -->
