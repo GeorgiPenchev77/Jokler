@@ -1,12 +1,13 @@
 <template>
-
   <div class="trending-container">
-
     <h1 class="heading">Top 10 Trending Hashtags</h1>
 
-    <div class="hashtags-list">
+    <div v-if="loading" class="loading">Loading hashtags...</div>
+    <div v-if="error" class="error">{{ error }}</div>
+
+    <div v-if="!loading && !error" class="hashtags-list">
       <div
-        v-for="(hashtag, index) in topHashtags"
+        v-for="(hashtag, index) in topHashtags.slice(0, 10)"
         :key="hashtag._id"
         class="hashtag-item"
       >
@@ -15,7 +16,7 @@
         </div>
         <div class="hashtag-info">
           <div class="hashtag-name">#{{ hashtag.tag }}</div>
-          <div class="posts-count">{{ hashtag.posts.length }} posts</div>
+          <div class="posts-count">{{ hashtag.postCount }} posts</div>
         </div>
       </div>
     </div>
@@ -27,13 +28,18 @@ import { ref, onMounted } from 'vue'
 import { Api } from '@/Api'
 
 const topHashtags = ref([])
+const loading = ref(true)
+const error = ref('')
 
 onMounted(async () => {
   try {
-    const response = await Api.get('/hashtags/trending')
+    const response = await Api.get('/hashtags?sortBy=related_posts&order=desc')
     topHashtags.value = response.data
-  } catch (error) {
-    console.error('Failed to fetch trending hashtags:', error)
+  } catch (err) {
+    error.value = 'Failed to fetch trending hashtags'
+    console.error('Failed to fetch trending hashtags:', err)
+  } finally {
+    loading.value = false
   }
 })
 
@@ -58,6 +64,19 @@ const formatRank = (index) => {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+}
+
+/* Loading and error states */
+.loading {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+}
+
+.error {
+  text-align: center;
+  font-size: 16px;
+  color: #e74c3c;
 }
 
 /* Hashtags list styling */
