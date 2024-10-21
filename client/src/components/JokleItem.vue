@@ -147,6 +147,7 @@ export default {
 
 .jokle-actions {
   display: flex;
+  flex-wrap: wrap; 
   justify-content: space-around;
   margin-top: 10px;
 }
