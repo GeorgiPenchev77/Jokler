@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="page-container">
       <div class="header">
         <h2>Your posts</h2>
   
@@ -17,18 +17,19 @@
           </div>
         </div>
       </div>
-  
+
       <!-- Jokles feed -->
       <JokleList
-        :jokles="Jokles"
-        @show-comments="switchPage"
-        @dislike-jokle="addDislike"
-        @rejokle="addRejokle"
-        @delete-jokle="deleteJokle"
-      />
-  
+      :jokles="Jokles"
+      @show-comments="switchPage"
+      @dislike-jokle="addDislike"
+      @rejokle="addRejokle"
+      @delete-jokle="deleteJokle"
+      @save-jokle="editJokle"
+    />
+
     </div>
-  
+
   </template>
   
   <script>
@@ -116,6 +117,17 @@
           console.error('Error rejokling:', error)
         }
       },
+      async editJokle({ jokle, newContent }) {
+      try {
+        const response = await Api.put(`/posts/${jokle._id}`, {
+          content: newContent
+        })
+        console.log('Edited Successfully', response.data)
+        jokle.content = newContent
+      } catch (error) {
+        console.error('Error editing:', error)
+      }
+    },
       async switchPage(jokle) {
         setTimeout(() => {
           this.$router.push(`/posts/${jokle._id}`)
@@ -124,52 +136,73 @@
     }
   }
   </script>
-  
-  <style scoped>
-  /* General layout */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .sort-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 200px; /* Ensure the dropdown has enough width */
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0; /* Add padding for aesthetics */
-  }
-  
-  .dropdown-menu button {
-    padding: 8px 12px;
-    background-color: white;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    width: 100%; /* Make sure the buttons take full width */
-  }
-  
-  .dropdown-menu button:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .btn {
-    padding: 8px 12px;
-    background-color: darkcyan;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
+
+<style scoped>
+.page-container{
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 2px solid #00b8d9;
+}
+
+h2 {
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sort-dropdown {
+  position: relative;
+}
+
+.btn {
+  padding: 8px 12px;
+  background-color: #00b8d9;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #0097b2;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #333;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 220px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  color: #00b8d9;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.dropdown-menu button:hover {
+  background-color: #444;
+  color: #00b8d9;
+}
   </style>
   

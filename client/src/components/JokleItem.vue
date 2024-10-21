@@ -55,13 +55,13 @@ function toggleEditMode(jokle) {
       <div class="icon">
         <button class="btn" @click="$emit('rejokle', jokle)"><img src="/rejokle-icon.png" alt="Rejokle" contain width="25px" height="25px"/> {{ jokle.rejokles }}</button>
       </div>
-      <div class="icon" v-if="getCurrentRole() === 'admin'">
+      <div class="icon" v-if="getCurrentRole() === 'admin' || getCurrentUser() === jokle.madeBy?.username">
         <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
       </div>
       <div class="icon" v-if="getCurrentUser() === jokle.madeBy?.username">
         <button class="btn" @click="toggleEditMode(jokle)">
           <img src="/edit-icon.png" alt="Edit Jokle" contain width="30px" height="25px"/>
-          {{ isEditing ? 'Save' : 'Edit' }}
+          {{ isEditing ? 'Save' : '' }}
         </button>
       </div>
     </div>
