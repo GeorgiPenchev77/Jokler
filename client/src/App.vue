@@ -5,25 +5,21 @@
         <b-col id = "bar" class="col-1">
             <!-- Sidebar Navigation -->
           <div class="sidebar" :class="{ hidden: isSidebarHidden }">
-            <button @click="handleAuthAction" class="auth-btn">
+            <ul class="col-3">
+              <button @click="handleAuthAction" class="auth-btn">
                 {{ getCurrentUser() ? 'Sign out' : 'Login' }}
               </button>
-              <ul class="col-3">
-                <li class="nav-item">
-                  <router-link to="/">Home</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link to="/profile">Profile</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link to="/trending">Trending Topics</router-link>
-                </li>
-              </ul>
-            </div>
-            <!-- Button to toggle sidebar (Only for smaller windows) -->
-            <button @click="toggleSidebar" class="toggle-btn">
-              {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
-            </button>
+              <li class="nav-item">
+                <router-link to="/">Home</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/profile">Profile</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/trending">Trending Topics</router-link>
+              </li>
+            </ul>
+          </div>
           <div id="Home">
             <router-link to="/"></router-link>
           </div>
@@ -35,6 +31,10 @@
           </div>
         </b-col>
       </b-row>
+      <!-- Button to toggle sidebar (Only for smaller windows) -->
+      <button @click="toggleSidebar" class="toggle-btn">
+        {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
+      </button>
     </b-container>
   </div>
 </template>
@@ -92,8 +92,10 @@ export default {
 </script>
 
 <style>
+
 .col-1 {
   width: 15%;
+  min-height: 100vh;
   padding: 0;
 }
 
@@ -127,9 +129,8 @@ export default {
   background-color: #121212;
   color: white;
   padding: 20px;
-  min-height: 100vh;
+  min-height: 100%;
   transition: transform 0.3s ease-in-out;
-
   left: 0;
   top: 0;
 }
@@ -199,9 +200,46 @@ export default {
 }
 
 /* Responsive layout for smaller screens */
-@media (max-width: 780px) {
+@media (max-width: 1200px) {
+  .col-1 {
+    width: 20%;
+  }
+  .col-2 {
+    width: 80%;
+  }
+}
+
+@media (max-width: 992px) {
+  .col-1 {
+    width: 25%;
+  }
+  .col-2 {
+    width: 75%;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-1 {
+    width: 100%;
+    position: absolute; 
+    transform: translateX(-100%);
+  }
+
+  .col-2 {
+    width: 100%;
+    margin-top: 10%;
+  }
+
   .toggle-btn {
-    display: block;
+    display: block; /* Show toggle button on smaller screens */
+  }
+
+  .sidebar.hidden {
+    transform: translateX(-100%); /* Hide sidebar */
+  }
+
+  .sidebar:not(.hidden) {
+    transform: translateX(0); /* Show sidebar */
   }
 }
 </style>
