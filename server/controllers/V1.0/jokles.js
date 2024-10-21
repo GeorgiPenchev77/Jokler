@@ -7,8 +7,25 @@ const Jokle = require("../../models/jokle.js")
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
 app.get('/', async function (req, res, next) {
+    let filter = req.query.type;
+    let sortBy = req.query.sortBy;
+    let sortOrder = req.query.order === 'desc' ? -1 : 1;
+
     try {
-        let jokles = await Jokle.find();
+        let query = Jokle.find().populate("madeBy"); // Create a query to execute depending on the needs
+
+        if (filter) {
+            query = query.where('type').equals(filter); // Apply filtering to query
+        }
+
+        if (sortBy) {
+            let sortAttribute = {};
+            sortAttribute[sortBy] = sortOrder;
+            query = query.sort(sortAttribute); // Apply sorting to the query
+        }
+
+        let jokles = await query.exec();
+
         return res.json(jokles);
     } 
     catch (err) {
@@ -20,7 +37,23 @@ app.get('/:id', async function (req, res, next) {
     let id = req.params.id;
 
     try {
-        let jokle = await Jokle.findById(id).populate("comments madeBy hashtags");
+        let jokle = await Jokle.findById(id).populate("madeBy");
+        if (jokle == null) {
+            return res.status(404).json({ "message": "Jokle not found" });
+        }
+
+        return res.json(jokle);
+    }
+    catch (err) {
+        return next(err);
+    }
+});
+
+app.get('/:id/comments', async function (req, res, next) {
+    let id = req.params.id; 
+
+    try {
+        let jokle = await Jokle.findById(id).populate("comments").exec();
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }

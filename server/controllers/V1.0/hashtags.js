@@ -21,14 +21,34 @@ app.post('/', async function (req, res, next) {
 //-----------------------------------------------------------------GET-------------------------------------------------------------------------------//
 
 app.get('/', async function (req, res, next) {
+    let sortBy = req.query.sortBy;
+    let sortOrder = req.query.order === 'desc' ? -1 : 1;
+
     try {
-        let tags = await Hashtag.find({});
+        let tags;
+
+        if (sortBy) {
+           
+            tags = await Hashtag.aggregate([
+                {
+                    $addFields: { postCount: { $size: "$related_posts" } }  // Add field with the number of posts
+                },
+                {
+                    $sort: { postCount: sortOrder }  // Sort by 'postCount' field in ascending/descending order
+                }
+            ]);
+        } else {
+            tags = await Hashtag.find({});
+        }
+
         return res.json(tags);
     } 
     catch (err) {
         return next(err);
     }
 });
+
+
 
 //get all posts that include a certain hashtag
 app.get('/:tag', async function (req, res, next) {
