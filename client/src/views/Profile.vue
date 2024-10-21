@@ -1,18 +1,14 @@
 <template>
   <div>
-    <h1>Your Profile</h1>
-    <p>Welcome {{getCurrentUser()}} to your profile </p>
-    <!-- Profile content -->
-    <div>
-      Name
+
+    <div class="greeting">
+      <h1>Welcome to your profile, {{getCurrentUser()}}!</h1>
     </div>
-    <div>
-      <input v-model="username" placeholder="Change username">
-      <button @click="saveUsername">Save</button>
-    </div>
-    <div>
-      Password
-    </div>
+
+    <div class="actions">
+      <div class="title">
+      Password Settings:
+      </div>
     <div>
       <div>
         <input
@@ -39,19 +35,23 @@
       </button>
       <button v-if="changingPassword" @click="saveNewPassword">Save New Password</button>
     </div>
+
+  </div>
     <ProfilePageJokle/>
   </div>
+
 </template>
 
 <script setup>
 import ProfilePageJokle from '@/components/ProfilePageItem.vue'
+import Cookies from 'js-cookie'
 import { useRouter } from 'vue-router'
 import { Api } from '@/Api'
 import { ref } from 'vue'
 
 const password = ref('Loading...')
 const passwordVisible = ref(false)
-const newPassword = ref( '') // Store the new password to be set
+const newPassword = ref('') // Store the new password to be set
 const changingPassword = ref(false) // State to manage change password mode
 
 const router = useRouter()
@@ -59,6 +59,11 @@ const router = useRouter()
 function togglePasswordVisibility() {
   passwordVisible.value = !passwordVisible.value
   getCurrentUserPassword()
+}
+
+function getCurrentUser() {
+  const user = Cookies.get('username')
+  return user
 }
 
 async function getCurrentUserPassword() {
@@ -91,15 +96,6 @@ function toggleChangePassword() {
 </script>
 
 <script>
-import Cookies from 'js-cookie'
-import ProfilePageJokle from '@/components/ProfilePageItem.vue'
-
-function getCurrentUser() {
-  const user = Cookies.get('username')
-  return user
-}
-
-
 export default {
   components: { ProfilePageJokle },
   data() {
@@ -111,11 +107,24 @@ export default {
   name: 'Profile',
   methods: {
     navigateTo(page) {
-      this.$router.push({ name: page });
-    },
-    saveUsername(){
-      // Check if the input-username is the same as current username. Save new username if they are not the same
+      this.$router.push({ name: page })
     }
   }
 }
 </script>
+
+<style scoped>
+.greeting {
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 1%;
+}
+
+.title {
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+}
+</style>
