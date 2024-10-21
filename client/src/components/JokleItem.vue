@@ -10,21 +10,23 @@
     </div>
 
     <div class="jokle-content">
-      <p>{{ jokle.content }}</p>
+      <p v-html="formatContent(jokle.content)"></p>
     </div>
+
+    <div class="divider"></div>
 
     <div class="jokle-actions">
       <div class="icon">
-        <button class="btn" @click="$emit('show-comments', jokle)"><img src="/comment-icon.jpg" alt="Show Comments"  contain width="25px" height="25px"/>{{ jokle.comments?.length }}</button>
+        <button class="btn" @click="$emit('show-comments', jokle)"><img src="/comment-icon.png" alt="Show Comments"  contain width="25px" height="25px"/>{{ jokle.comments?.length }}</button>
       </div>
       <div class="icon">
         <button class="btn" @click="$emit('dislike-jokle', jokle)"><img src="/dislike-icon.jpg" alt="Dislikes Jokle" contain width="25px" height="25px"/>{{ jokle.dislikes }}</button>
       </div>
       <div class="icon">
-        <button class="btn" @click="$emit('rejokle', jokle)"><img src="/rejokle-icon.jpg" alt="Rejokle" contain width="25px" height="25px"/> {{ jokle.rejokles }}</button>
+        <button class="btn" @click="$emit('rejokle', jokle)"><img src="/rejokle-icon.png" alt="Rejokle" contain width="25px" height="25px"/> {{ jokle.rejokles }}</button>
       </div>
       <div class="icon">
-        <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpeg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
+        <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
       </div>
     </div>
   </div>
@@ -41,103 +43,100 @@ export default {
     }
   },
   methods: {
-    formatDate(dateStr) {
-      const date = new Date(dateStr)
-      const day = String(date.getDate()).padStart(2, '0')
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const year = date.getFullYear()
-      const hours = String(date.getHours()).padStart(2, '0')
-      const minutes = String(date.getMinutes()).padStart(2, '0')
-      return `${day}/${month}/${year} ${hours}:${minutes}`
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'short', day: 'numeric' }
+      return new Date(date).toLocaleDateString(undefined, options)
+    },
+    formatContent(content) {
+      return content.replace(/\n/g, '<br/>')
     }
   }
 }
 </script>
 
 <style scoped>
-/* Jokle item layout */
 .jokle-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #fff;
+  background-color: #333; /* Dark card background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
 }
 
-/* jokle header layout */
 .jokle-header {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .profile-picture {
-  width: 48px;
-  height: 48px;
   border-radius: 50%;
-  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 .jokle-info {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+  margin-left: 15px;
 }
 
 .username {
-  color: gray;
-}
-
-.jokle-date {
-  color: gray;
-}
-
-/* jokle content */
-.jokle-content {
-  margin: 8px 0;
   font-size: 16px;
-  font-family: 'Courier New', Courier, monospace;
+  color: #00b8d9;
 }
 
-/* jokle actions layout */
+.date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.jokle-content {
+  margin-bottom: 15px;
+}
+
+.jokle-content p {
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2); /* Subtle divider */
+  margin: 10px 0;
+}
+
 .jokle-actions {
   display: flex;
   justify-content: space-around;
-  color: gray;
+  margin-top: 10px;
 }
 
 .icon {
-  cursor: pointer;
   display: flex;
   align-items: center;
-}
-
-/* Comments section */
-.comments-section {
-  margin-top: 10px;
-  background: #f9f9f9;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.new-comment {
-  margin-top: 10px;
-}
-
-.new-comment textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 4px;
+  background-color:rgba(0, 0, 0, 0.2);
 }
 
 .btn {
-  padding: 4px 4px;
-  background-color: rgb(162, 152, 177);
+  background-color: #00b8d9;
   color: white;
   border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #009fb3;
+}
+
+img {
+  margin-right: 5px;
 }
 </style>

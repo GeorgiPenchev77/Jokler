@@ -47,7 +47,21 @@ export default {
 .jokle-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px; /* Increased gap for cleaner separation */
   padding: 20px;
+  color: white;
+}
+
+.jokle-list > * {
+  background-color: #333; /* Dark background for each card */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jokle-list > *:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 </style>

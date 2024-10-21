@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="header">
-      <h2>Recently In Gotham</h2>
+      <h2>Recently Around The World</h2>
 
       <div class="sort-dropdown">
         <button class="btn" @click="toggleDropdown">Sort By</button>
         <div v-if="dropdownVisible" class="dropdown-menu">
-          <button @click="sortJokles('date', 'asc')">Date: Newest</button>
-          <button @click="sortJokles('date', 'desc')">Date: Oldest</button>
+          <button @click="sortJokles('date', 'asc')">Date: Oldest</button>
+          <button @click="sortJokles('date', 'desc')">Date: Newest</button>
           <button @click="sortJokles('comments', 'asc')">Comments: Lowest to Highest</button>
           <button @click="sortJokles('comments', 'desc')">Comments: Highest to Lowest</button>
           <button @click="sortJokles('dislikes', 'asc')">Dislikes: Lowest to Highest</button>
@@ -124,49 +124,62 @@ export default {
 </script>
 
 <style scoped>
-/* General layout */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  border-bottom: 2px solid #00b8d9; /* Accent color */
 }
 
+h2 {
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Sort Dropdown */
 .sort-dropdown {
   position: relative;
-  display: inline-block;
-}
-
-.dropdown-menu {
-  position: absolute;
-  background-color: white;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 200px; /* Ensure the dropdown has enough width */
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0; /* Add padding for aesthetics */
-}
-
-.dropdown-menu button {
-  padding: 8px 12px;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  width: 100%; /* Make sure the buttons take full width */
-}
-
-.dropdown-menu button:hover {
-  background-color: #f1f1f1;
 }
 
 .btn {
   padding: 8px 12px;
-  background-color: darkcyan;
+  background-color: #00b8d9; /* Theme color */
   color: white;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
+.btn:hover {
+  background-color: #0097b2; /* Darker shade on hover */
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: #333; /* Dark dropdown background */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  color: #00b8d9; /* Theme color for buttons */
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.dropdown-menu button:hover {
+  background-color: #444; /* Hover background color */
+  color: #00b8d9; /* Keep button color consistent */
+}
 </style>
