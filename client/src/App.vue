@@ -75,7 +75,7 @@ export default {
     currentSizeSettings() {
       if (window.innerWidth > 768) {
         // Show sidebar by  when when the window is bigger/full size
-        this.isSidebarHidden = false;
+        // this.isSidebarHidden = false;
         let sidebar = document.getElementById("bar")
         if (sidebar.classList.contains('collapse')) {
           sidebar.classList.remove('collapse')
@@ -83,7 +83,7 @@ export default {
         }
       } else {
         // Hide sidebar by default everytime the window goes small
-        this.isSidebarHidden = true;
+        // this.isSidebarHidden = true;
         let sidebar = document.getElementById("bar")
         if (sidebar.classList.contains('collapse.show')) {
           sidebar.classList.remove('collapse.show')
@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     // Listener when the screen rezises (e.g want the sidebar to be visible when going back bigger window even after pressing hide sidebar in the smaller window)
-    //window.addEventListener('resize', this.currentSizeSettings);
+    window.addEventListener('resize', this.currentSizeSettings);
   },
   watch: {
     // Check settings whenever we navigate to new page
@@ -129,16 +129,24 @@ export default {
 }
 
 .col-4 {
+  position: sticky;
   display: none;
-  min-width: 30px;
+  min-width: 60px;
   min-height: 100vh;
   width: 0%;
   padding: 0;
   background-color: #121212;
 }
 
+.col-4 button {
+  padding: 0;
+  position: sticky;
+  top: 0;
+}
+
 /* Sidebar toggle button */
 .toggle-btn {
+  padding: 0;
   display: none;
   width: 100%;
   background-color: #00000000;
@@ -239,14 +247,6 @@ export default {
 @media (max-width: 768px) {
   .toggle-btn {
     display: block; /* Show toggle button on smaller screens */
-  }
-
-  .sidebar.hidden {
-    transform: translateX(-100%); /* Hide sidebar */
-  }
-
-  .sidebar:not(.hidden) {
-    transform: translateX(0); /* Show sidebar */
   }
   .col-1 {
     width: 30%
