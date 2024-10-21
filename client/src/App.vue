@@ -1,8 +1,11 @@
 <template>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  </head>
   <div id="app">
     <b-container fluid>
-      <b-row>
-        <b-col id = "bar" class="col-1">
+      <b-row  class="flex-nowrap">
+        <b-col id="bar" class="col-1 collapse.show collapse-horizontal" >
             <!-- Sidebar Navigation -->
           <div class="sidebar" :class="{ hidden: isSidebarHidden }">
             <ul class="col-3">
@@ -24,6 +27,12 @@
             <router-link to="/"></router-link>
           </div>
         </b-col>
+        <b-col class="col-4">
+          <!-- Button to toggle sidebar (Only for smaller windows) -->
+          <button @click="toggleSidebar" class="toggle-btn" data-bs-toggle="collapse" data-bs-target="#bar">
+            <span class="bi bi-layout-sidebar"></span>
+          </button>
+        </b-col>
         <b-col class="col-2">
           <!-- Render the content of the current page view -->
           <div class="main-content">
@@ -31,10 +40,6 @@
           </div>
         </b-col>
       </b-row>
-      <!-- Button to toggle sidebar (Only for smaller windows) -->
-      <button @click="toggleSidebar" class="toggle-btn">
-        {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
-      </button>
     </b-container>
   </div>
 </template>
@@ -71,9 +76,19 @@ export default {
       if (window.innerWidth > 780) {
         // Show sidebar by  when when the window is bigger/full size
         this.isSidebarHidden = false;
+        let sidebar = document.getElementById("bar")
+        if (sidebar.classList.contains('collapse')) {
+          sidebar.classList.remove('collapse')
+          sidebar.classList.add('collapse.show')
+        }
       } else {
         // Hide sidebar by default everytime the window goes small
         this.isSidebarHidden = true;
+        let sidebar = document.getElementById("bar")
+        if (sidebar.classList.contains('collapse.show')) {
+          sidebar.classList.remove('collapse.show')
+          sidebar.classList.add('collapse')
+        }
       }
     }
   },
@@ -109,19 +124,25 @@ export default {
   width: 100%;
 }
 
+.col-4 {
+  display: none;
+  min-width: 30px;
+  width: 0%;
+  padding: 0;
+  background-color: #121212;
+}
+
 /* Sidebar toggle button */
 .toggle-btn {
   display: none;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  background-color: #00a0bf;
+  width: 100%;
+  background-color: #00000000;
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 5px; /* Separate from other items */
+  font-size: 36px;
+  font-weight: bold;
 }
 
 /* Sidebar layout */
@@ -164,7 +185,7 @@ export default {
 
 .sidebar ul li {
   margin: 20px 0;
-  transition: all 0.3s ease;
+  //transition: all 0.3s ease;
 }
 
 .sidebar ul li:hover {
@@ -182,14 +203,6 @@ export default {
 
 .sidebar ul li a:hover {
   color: #00a0bf;
-}
-
-.sidebar {
-  transform: translateX(-100%);
-}
-
-.sidebar:not(.hidden) {
-  transform: translateX(0);
 }
 
 /* Main content layout */
@@ -219,17 +232,6 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .col-1 {
-    width: 100%;
-    position: absolute; 
-    transform: translateX(-100%);
-  }
-
-  .col-2 {
-    width: 100%;
-    margin-top: 10%;
-  }
-
   .toggle-btn {
     display: block; /* Show toggle button on smaller screens */
   }
@@ -240,6 +242,16 @@ export default {
 
   .sidebar:not(.hidden) {
     transform: translateX(0); /* Show sidebar */
+  }
+  .col-1 {
+    width: 30%
+  }
+  .col-4 {
+    width: 10%;
+    display: block;
+  }
+  .col-2 {
+    width: 90%
   }
 }
 </style>
