@@ -103,7 +103,11 @@ export default {
       user: {}, // Store user data here
     }
   },
-
+  mounted() {
+    if(!getCurrentUser()){
+      this.$router.push('/login')
+    }
+  },
   name: 'Profile',
   methods: {
     navigateTo(page) {
@@ -172,3 +176,4 @@ export default {
 }
 
 </style>
+
