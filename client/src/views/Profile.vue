@@ -56,6 +56,10 @@ const changingPassword = ref(false) // State to manage change password mode
 
 const router = useRouter()
 
+if (!getCurrentUser()) {
+  router.push('/login')
+}
+
 function togglePasswordVisibility() {
   passwordVisible.value = !passwordVisible.value
   getCurrentUserPassword()
@@ -104,9 +108,7 @@ export default {
     }
   },
   mounted() {
-    if(!getCurrentUser()){
-      this.$router.push('/login')
-    }
+
   },
   name: 'Profile',
   methods: {
