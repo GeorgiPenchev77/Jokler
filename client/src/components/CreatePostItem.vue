@@ -6,21 +6,28 @@
         placeholder="What is on your mind?"
         v-model="jokleContent"
       ></textarea>
-  
+
       <!-- Button to create the post -->
-      <button class="btn create-btn" @click="createPost">Create Jokle</button>
+      <button class="btn create-btn" @click="createPost">{{!this.isComment ? "Create" : "Comment"}} Jokle</button>
     </div>
   </template>
-  
+
   <script>
   import { Api } from '@/Api'
   import Cookies from 'js-cookie'
-  
+
   export default {
     name: 'CreatePostItem',
     data() {
       return {
         jokleContent: '', // Holds user input for content
+      }
+    },
+    props: {
+      isComment: {
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     methods: {
@@ -39,12 +46,22 @@
           return
         }
         try {
-          const response = await Api.post(`/users/${username}/posts`, {
-            content: this.jokleContent,
-            madeBy: username
-          })
-          console.log('Jokle Created Successfully', response.data)
-  
+          if(!this.isComment){
+            const response = await Api.post(`/users/${username}/posts`, {
+              content: this.jokleContent,
+              madeBy: username
+            })
+            console.log('Jokle Created Successfully', response.data)
+          } else {
+            const response = await Api.post(`/users/${username}/posts/${this.$route.params.id}`, {
+              content: this.jokleContent,
+              madeBy: username
+            })
+            console.log('Jokle Commented Successfully', response.data)
+            location.reload()
+          }
+
+
           // Clear the input fields after successful post
           this.jokleContent = ''
         } catch (error) {

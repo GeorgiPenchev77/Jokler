@@ -37,7 +37,7 @@ app.get('/:id', async function (req, res, next) {
     let id = req.params.id;
 
     try {
-        let jokle = await Jokle.findById(id);
+        let jokle = await Jokle.findById(id).populate("madeBy");
         if (jokle == null) {
             return res.status(404).json({ "message": "Jokle not found" });
         }
