@@ -70,11 +70,11 @@ The Jokler App provides a distinctive experience that will not only amuse users 
 
 ### Pages
 
-* Home page - A typical home page where users can see recommended or trending posts, activities, stories, etc.
-* User Profile page - A page where users can interact, edit and preview their own profile.
+* Home page - A typical home page where users can see trending posts, activities, stories, etc.
+* User Profile page - A page where users can edit their own profile, as well as see all of their posts.
 * Post page - A page where users can look at a post, its comments, reactions, etc.
-* Search page - A page where users can use key-word search in order to find specific users, posts, comments, etc.
-* Trending Hashtags page - A page where users can find trending, popular topics and the posts related to them.
+* Trending Hashtags page - A page where users can find trending, popular topics.
+* Log in and Sign up pages - Pages, where users can create accounts and log in into the system.
 
 ### Entity-Relationship (ER) Diagram
 
