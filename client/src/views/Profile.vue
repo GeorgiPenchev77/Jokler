@@ -1,21 +1,21 @@
 <template>
-  <div>
 
     <div class="greeting">
       <h1>Welcome to your profile, {{getCurrentUser()}}!</h1>
     </div>
 
     <div class="actions">
+
       <div class="title">
       Password Settings:
       </div>
-    <div>
-      <div>
+
+      <div class="password-input">
         <input
             v-if="!changingPassword"
             v-model="currentPassword"
             :placeholder="passwordVisible ? password : '****'"
-            class="input-field"
+            class="input-field password-input"
             :type="passwordVisible ? 'text' : 'password'"
             readonly
           />
@@ -23,22 +23,22 @@
             v-else
             v-model="newPassword"
             placeholder="Enter new password"
-            class="input-field"
+            class="input-field password-input"
             type="password"
           />
       </div>
-      <button v-if="!changingPassword" @click="togglePasswordVisibility">
+      <button class="btn" v-if="!changingPassword" @click="togglePasswordVisibility">
         {{ passwordVisible ? 'Hide' : 'Show' }}
       </button>
-      <button @click="toggleChangePassword">
+      <button class="btn" @click="toggleChangePassword">
         {{ changingPassword ? 'Cancel' : 'Change Password' }}
       </button>
-      <button v-if="changingPassword" @click="saveNewPassword">Save New Password</button>
+      <button class="btn" v-if="changingPassword" @click="saveNewPassword">
+        Save New Password
+      </button>
     </div>
 
-  </div>
     <ProfilePageJokle/>
-  </div>
 
 </template>
 
@@ -122,9 +122,53 @@ export default {
   padding: 1%;
 }
 
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 40%;
+  margin-left: 1%;
+}
+
 .title {
-  color: #000000;
+  color: #00b8d9;
   font-size: 18px;
   font-weight: bold;
+  margin-left: 5%;
 }
+
+.password-input {
+  gap: 15px;
+  padding: 5px;
+  background-color: #ede2e2;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 2% auto;
+  width: 75%;
+}
+
+.input-field {
+  width: 100%;
+  display: inherit;
+  color:  black;
+}
+
+.btn {
+  padding: 8px;
+  background-color: #00b8d9;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 50%;
+  align-self: center;
+}
+
 </style>
