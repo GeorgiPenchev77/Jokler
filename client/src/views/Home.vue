@@ -52,6 +52,7 @@ export default {
       try {
         const response = await Api.delete('/posts')
         console.log(response.data)
+        alert('You Deleted All Posts')
       } catch (error) {
         console.error('You cannot destroy us!', error)
       }
@@ -70,15 +71,13 @@ export default {
   padding: 1%;
 }
 
-#MasterDeleteButton {
-  padding: 10px;
-  border: 2px solid darkred;
-  background-color: rgb(54, 14, 14);
-}
-
 #MasterDeleteButton button {
-  color: red;
-  box-shadow: inset 0 0 5px darkred;
+  padding: 2px;
+  border: 2px solid rgb(250, 34, 34);
+  background-color: rgb(255, 44, 44);
+  margin-bottom: 2%;
+  margin-top: 2%;
+  width: 150px;
 }
 
 </style>

@@ -181,9 +181,12 @@ img {
 .editing-area{
   width: 100%;
   height: auto;
-  resize: none;
-  outline: none;
-  box-shadow: none;
-  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  align-self: center;
+  font-size: 16px;
+  border: solid;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ede2e2;
 }
 </style>
