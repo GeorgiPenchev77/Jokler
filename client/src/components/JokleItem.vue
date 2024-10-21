@@ -1,16 +1,34 @@
 <script setup>
+import { ref } from 'vue'
 import Cookies from 'js-cookie'
 
+// Define emit function using `defineEmits`
+const emit = defineEmits(['save-jokle'])
+
 function getCurrentRole() {
-  const role = Cookies.get('role')
-  return role
+  return Cookies.get('role')
+}
+
+function getCurrentUser() {
+  return Cookies.get('username')
+}
+
+const isEditing = ref(false)
+const editableContent = ref('')
+
+function toggleEditMode(jokle) {
+  if (isEditing.value) {
+    // Emit updated content to the parent component when 'Save' is clicked
+    emit('save-jokle', { jokle, newContent: editableContent.value })
+  } else {
+    editableContent.value = jokle.content // Populate the textarea with current content for editing
+  }
+  isEditing.value = !isEditing.value
 }
 </script>
 
-
 <template>
   <div class="jokle-item">
-
     <div class="jokle-header">
       <img class="profile-picture" :src="jokle.madeBy?.profilePic || '/default-profile-picture.jpg'" alt="Profile Picture" />
       <div class="jokle-info">
@@ -20,14 +38,15 @@ function getCurrentRole() {
     </div>
 
     <div class="jokle-content">
-      <p v-html="formatContent(jokle.content)"></p>
+      <p v-if="!isEditing">{{ formatContent(jokle.content) }}</p>
+      <textarea v-if="isEditing" v-model="editableContent" rows="5"></textarea>
     </div>
 
     <div class="divider"></div>
 
     <div class="jokle-actions">
       <div class="icon">
-        <button class="btn" @click="$emit('show-comments', jokle)"><img src="/comment-icon.png" alt="Show Comments"  contain width="25px" height="25px"/>{{ jokle.comments?.length }}</button>
+        <button class="btn" @click="$emit('show-comments', jokle)"><img src="/comment-icon.png" alt="Show Comments" contain width="25px" height="25px"/>{{ jokle.comments?.length }}</button>
       </div>
       <div class="icon">
         <button class="btn" @click="$emit('dislike-jokle', jokle)"><img src="/dislike-icon.jpg" alt="Dislikes Jokle" contain width="25px" height="25px"/>{{ jokle.dislikes }}</button>
@@ -37,6 +56,12 @@ function getCurrentRole() {
       </div>
       <div class="icon" v-if="getCurrentRole() === 'admin'">
         <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
+      </div>
+      <div class="icon" v-if="getCurrentUser() === jokle.madeBy?.username">
+        <button class="btn" @click="toggleEditMode(jokle)">
+          <img src="/edit-icon.png" alt="Edit Jokle" contain width="30px" height="25px"/>
+          {{ isEditing ? 'Save' : 'Edit' }}
+        </button>
       </div>
     </div>
   </div>
@@ -62,6 +87,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>

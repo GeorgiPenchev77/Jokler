@@ -8,6 +8,7 @@
       @dislike-jokle="handleDislikeJokle"
       @rejokle="handleRejokle"
       @delete-jokle="handleDeleteJokle"
+      @save-jokle="handleSaveJokle"
     />
   </div>
 </template>
@@ -38,6 +39,10 @@ export default {
     },
     handleDeleteJokle(jokle) {
       this.$emit('delete-jokle', jokle)
+    },
+    handleSaveJokle({ jokle, newContent }) {
+      // Emit the save-jokle event with the updated content up to the parent component
+      this.$emit('save-jokle', { jokle, newContent })
     }
   }
 }

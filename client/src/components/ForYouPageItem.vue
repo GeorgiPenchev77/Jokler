@@ -25,6 +25,7 @@
       @dislike-jokle="addDislike"
       @rejokle="addRejokle"
       @delete-jokle="deleteJokle"
+      @save-jokle="editJokle"
     />
 
   </div>
@@ -112,6 +113,17 @@ export default {
         this.getAllJokles()
       } catch (error) {
         console.error('Error rejokling:', error)
+      }
+    },
+    async editJokle({ jokle, newContent }) {
+      try {
+        const response = await Api.put(`/posts/${jokle._id}`, {
+          content: newContent
+        })
+        console.log('Edited Successfully', response.data)
+        jokle.content = newContent
+      } catch (error) {
+        console.error('Error editing:', error)
       }
     },
     async switchPage(jokle) {
