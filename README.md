@@ -62,11 +62,7 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-The Jokler App is the first social media platform that was purposefully created with an unusual and unwelcoming User Interface. Our project's mission is to draw attention to a crucial problem in the online experience of today's world: the various ways large corporations exploit dark design patterns in order to manipulate users for corporate profit.
-
-Our Social Media application will serve as completely functional platform where You will be able to connect with your friends, share experiences and more. The other half of the experience though, will be provided by our uniquely crafted UI & UX. They will openly incorporate dark and anti design patterns, as well as, specially crafted tooltips with information on their effects and purpose. By immersing users in a practical demonstration of these manipulative techniques, this dual-purpose design offers a unique chance to teach and promote deeper awareness through first-hand experience, while still retaining the functionality of a typical Social Media.
-
-The Jokler App provides a distinctive experience that will not only amuse users but also provide them with the ability to understand the various ways in which technology can influence their choices.
+The Jokler App is a social media application that allows you to connect with your friends and outside world, share your opinions and engage in conversations. Our product is a standalone social media that lets users have full freedom over what they want to say. The design of our application and the UI take a unusual approach on the standard idea of retaining users' attention using manipulative tactics.  
 
 ### Pages
 
