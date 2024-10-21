@@ -141,7 +141,7 @@ export default {
 
 .divider {
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.2); /* Subtle divider */
+  background-color: rgba(255, 255, 255, 0.2);
   margin: 10px 0;
 }
 

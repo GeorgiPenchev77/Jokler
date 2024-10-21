@@ -7,6 +7,8 @@
         v-model="jokleContent"
       ></textarea>
 
+      <div class="divider"></div>
+
       <!-- Button to create the post -->
       <button class="btn create-btn" @click="createPost">{{!this.isComment ? "Create" : "Comment"}} Jokle</button>
     </div>
@@ -73,43 +75,55 @@
 
 </script>
   <style scoped>
-  .post-input {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-  }
-  .content-input {
-    width: 100%;
-    padding: 10px;
-    min-height: 100px;
-    resize: none;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .type-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .create-btn {
-    padding: 10px 20px;
-    background-color: darkcyan;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  .create-btn:hover {
-    background-color: teal;
-  }
+ .post-input {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: #1E1E1E; /* Matches the dark theme */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1%;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.content-input {
+  width: 100%;
+  min-height: fit-content;
+  align-self: center;
+  padding: 15px;
+  resize: vertical;
+  font-size: 16px;
+  border: solid;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #3b3b3b;
+}
+
+.content-input::placeholder {
+  color: #b3b3b3;
+}
+
+.divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 10px 0;
+}
+
+.create-btn {
+  padding: 12px;
+  background-color: #00b8d9;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+  background-color: #009fb3;
+}
   </style>

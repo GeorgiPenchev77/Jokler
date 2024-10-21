@@ -2,17 +2,21 @@
   <div class="page-container">
     <div class="greeting">
       <div v-if="getCurrentUser()">
-        <h1>Greetings, {{getCurrentUser()}}</h1>
+        <h1>Welcome, {{getCurrentUser()}}</h1>
       </div>
     </div>
 
     <!-- Main content area -->
   <div class="content">
-      <div id="MasterDeleteButton">
+
+      <div v-if="getUserRole()==='admin'" id="MasterDeleteButton">
         <button @click="deleteAllPosts">Emergency Button</button>
       </div>
+
         <CreatePostItem/>
+
         <ForYouPageItem/>
+
   </div>
 
 </div>
@@ -41,6 +45,9 @@ export default {
       const user = Cookies.get('username')
       return user
     },
+    getUserRole() {
+      return Cookies.get('role')
+    },
     async deleteAllPosts() {
       try {
         const response = await Api.delete('/posts')
@@ -59,6 +66,8 @@ export default {
   color: #000000;
   font-size: 24px;
   font-weight: bold;
+  font-style: italic;
+  padding: 1%;
 }
 
 #MasterDeleteButton {
