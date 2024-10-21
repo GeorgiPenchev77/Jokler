@@ -1,3 +1,13 @@
+<script setup>
+import Cookies from 'js-cookie'
+
+function getCurrentRole() {
+  const role = Cookies.get('role')
+  return role
+}
+</script>
+
+
 <template>
   <div class="jokle-item">
 
@@ -25,7 +35,7 @@
       <div class="icon">
         <button class="btn" @click="$emit('rejokle', jokle)"><img src="/rejokle-icon.png" alt="Rejokle" contain width="25px" height="25px"/> {{ jokle.rejokles }}</button>
       </div>
-      <div class="icon">
+      <div class="icon" v-if="getCurrentRole() === 'admin'">
         <button class="btn" @click="$emit('delete-jokle', jokle)"><img src="/delete-icon.jpg" alt="Delete Jokle" contain width="30px" height="25px"/></button>
       </div>
     </div>

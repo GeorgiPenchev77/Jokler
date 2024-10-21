@@ -17,6 +17,8 @@ const password = ref('')
 const message = ref('Welcome to Jokler')
 const errorStatus = ref(false)
 
+const adminLogin = ref(false)
+
 const header = computed(() => {
   if (loginTracker.value) {
     return loginHeader
@@ -27,22 +29,39 @@ const header = computed(() => {
 
 function loginToggle() {
   loginTracker.value = !loginTracker.value
+  adminLogin.value = false
 }
 
 async function login() {
-  Api.post('/login/password', { username: username.value, password: password.value }).then((res) => {
-    errorStatus.value = false
-    message.value = 'Login successful!'
-    console.log(res)
-    setCurrentUser(res.data.username)
-    setTimeout(() => {
-      router.replace('/').then(() => { location.reload() })
-    }, 1000)
-  }).catch((err) => {
-    console.log(err)
-    errorStatus.value = true
-    message.value = err.response.data.message
-  })
+  if (!adminLogin.value) {
+    Api.post('/login/password', { username: username.value, password: password.value}).then((res) => {
+      errorStatus.value = false
+      message.value = 'Login successful!'
+      console.log(res)
+      setCurrentUser(res.data.username)
+      setTimeout(() => {
+        router.replace('/').then(() => { location.reload() })
+      }, 1000)
+    }).catch((err) => {
+      console.log(err)
+      errorStatus.value = true
+      message.value = err.response.data.message
+    })
+  } else {
+    Api.post('admin/login/password', { username: username.value, password: password.value }).then((res) => {
+      errorStatus.value = false
+      message.value = 'Login successful! Welcome admin' + username.value
+      console.log(res)
+      setCurrentUser(res.data.username, 'admin')
+      setTimeout(() => {
+        router.replace('/').then(() => { location.reload() })
+      }, 1000)
+    }).catch((err) => {
+      console.log(err)
+      errorStatus.value = true
+      message.value = err.response.data.message
+    })
+  }
 }
 async function signup() {
   const data = { 'username': username.value, 'password': password.value }
@@ -54,8 +73,9 @@ async function signup() {
   })
 }
 
-function setCurrentUser(username) {
+function setCurrentUser(username, role = 'user') {
   Cookies.set("username", username, '60s')
+  Cookies.set("role", role, '60s')
 }
 
 </script>
@@ -64,7 +84,7 @@ function setCurrentUser(username) {
 <div>
   <b-container fluid>
     <div>
-      <h1>{{header}}</h1>
+      <h1>{{header}} as {{adminLogin ? "Admin" : "User"}}</h1>
     </div>
     <div>
       <input v-model="username" placeholder="username">
@@ -76,7 +96,11 @@ function setCurrentUser(username) {
       <button @click="loginTracker ? login() : signup()">{{loginTracker ? "Log in" : "Sign up"}} </button>
     </div>
     <div>
-      <button @click="loginToggle">{{loginTracker ? "Sign up instead" : "Log in instead"}} </button>
+      <button @click="loginToggle">Want to {{loginTracker ? "Sign up" : "Log in"}}?</button>
+    </div>
+    <div v-if="loginTracker">
+      <input type="checkbox" id="adminToggle" value="True" v-model="adminLogin"/>
+      <label>{{loginTracker ? "Log in" : "Sign up"}} as admin instead?</label>
     </div>
     <div>
       <h2 :class="errorStatus ? 'error' : 'ok'">{{message}}</h2>
