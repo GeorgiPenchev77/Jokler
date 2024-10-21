@@ -1,35 +1,42 @@
 <template>
   <div id="app">
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" :class="{ hidden: isSidebarHidden }">
-      <button @click="handleAuthAction" class="auth-btn">
-          {{ getCurrentUser() ? 'Sign out' : 'Login' }}
-        </button>
-        <ul>
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/profile">Profile</router-link>
-          </li>
-          <li>
-            <router-link to="/trending">Trending Topics</router-link>
-          </li>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-1">
+            <!-- Sidebar Navigation -->
+          <div class="sidebar" :class="{ hidden: isSidebarHidden }">
+            <button @click="handleAuthAction" class="auth-btn">
+                {{ getCurrentUser() ? 'Sign out' : 'Login' }}
+              </button>
+              <ul class="nav">
+                <li class="nav-item">
+                  <router-link to="/">Home</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/profile">Profile</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/trending">Trending Topics</router-link>
+                </li>
+              </ul>
+            </div>
+            <!-- Button to toggle sidebar (Only for smaller windows) -->
+            <button @click="toggleSidebar" class="toggle-btn">
+              {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
+            </button>
+          <div id="Home">
+            <router-link to="/"></router-link>
+          </div>
+        </div>
+        <div class="col-2">
+          <!-- Render the content of the current page view -->
+          <div class="main-content">
+            <router-view />
+          </div>
+        </div>
       </div>
-      <!-- Button to toggle sidebar (Only for smaller windows) -->
-      <button @click="toggleSidebar" class="toggle-btn">
-        {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
-      </button>
-    <div id="Home">
-      <router-link to="/"></router-link>
-    </div>
-    <!-- Render the content of the current page view -->
-    <div class="main-content">
-      <router-view />
     </div>
   </div>
-
 </template>
 
 <script>
@@ -85,16 +92,35 @@ export default {
 </script>
 
 <style>
-<style>
-/* General app layout */
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  color: #121212;
-  text-align: center;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
+
+#app {
+  height: 100%; /* Make sure the app takes full height */
+  width: 100%;
+  display: flex; /* Make the app a flex container */
+}
+
+.container {
+  display: flex; /* Use flexbox for layout */
+  height: 100%; /* Full height for the container */
+  width: 100%;
+}
+
+.col-1 {
+  width: 15%;
+  padding: 0;
+}
+
+.col-2 {
+  width: 85%;
+  padding: 0;
+  background-color: #741c1c; /* Optional: for better visibility */
+}
+
+/* General app layout */
 
 /* Sidebar toggle button */
 .toggle-btn {
@@ -113,13 +139,12 @@ export default {
 
 /* Sidebar layout */
 .sidebar {
-  width: 220px;
   background-color: #121212;
   color: white;
   padding: 20px;
   min-height: 100vh;
   transition: transform 0.3s ease-in-out;
-  position: fixed;
+
   left: 0;
   top: 0;
 }
@@ -185,7 +210,6 @@ export default {
 .main-content {
   flex-grow: 1;
   justify-content: center;
-  margin-left: 220px;
   padding: 20px;
 }
 
