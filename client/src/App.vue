@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-1">
+        <div id = "bar" class="col-1">
             <!-- Sidebar Navigation -->
           <div class="sidebar" :class="{ hidden: isSidebarHidden }">
             <button @click="handleAuthAction" class="auth-btn">
                 {{ getCurrentUser() ? 'Sign out' : 'Login' }}
               </button>
-              <ul class="nav">
+              <ul class="col-3">
                 <li class="nav-item">
                   <router-link to="/">Home</router-link>
                 </li>
@@ -92,23 +92,6 @@ export default {
 </script>
 
 <style>
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-#app {
-  height: 100%; /* Make sure the app takes full height */
-  width: 100%;
-  display: flex; /* Make the app a flex container */
-}
-
-.container {
-  display: flex; /* Use flexbox for layout */
-  height: 100%; /* Full height for the container */
-  width: 100%;
-}
-
 .col-1 {
   width: 15%;
   padding: 0;
@@ -117,10 +100,12 @@ export default {
 .col-2 {
   width: 85%;
   padding: 0;
-  background-color: #741c1c; /* Optional: for better visibility */
+  background-color: #ffffff;
 }
 
-/* General app layout */
+.col-3 {
+  width: 100%;
+}
 
 /* Sidebar toggle button */
 .toggle-btn {
@@ -217,10 +202,6 @@ export default {
 @media (max-width: 780px) {
   .toggle-btn {
     display: block;
-  }
-
-  .main-content {
-    margin-left: 0;
   }
 }
 </style>
