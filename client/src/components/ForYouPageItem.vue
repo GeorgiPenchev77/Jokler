@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="for-you-page">
     <div class="header">
       <h2>Recently Around The World</h2>
 
@@ -124,12 +124,16 @@ export default {
 </script>
 
 <style scoped>
+.for-you-page{
+  padding: 20px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-bottom: 2px solid #00b8d9; /* Accent color */
+  padding: 10px 0;
+  border-bottom: 2px solid #00b8d9;
 }
 
 h2 {
@@ -138,14 +142,13 @@ h2 {
   font-weight: bold;
 }
 
-/* Sort Dropdown */
 .sort-dropdown {
   position: relative;
 }
 
 .btn {
   padding: 8px 12px;
-  background-color: #00b8d9; /* Theme color */
+  background-color: #00b8d9;
   color: white;
   border-radius: 5px;
   border: none;
@@ -154,32 +157,37 @@ h2 {
 }
 
 .btn:hover {
-  background-color: #0097b2; /* Darker shade on hover */
+  background-color: #0097b2;
 }
 
 .dropdown-menu {
   position: absolute;
-  background-color: #333; /* Dark dropdown background */
+  top: 100%;
+  right: 0;
+  background-color: #333;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  width: 200px;
+  width: 220px;
+  max-height: 200px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding: 10px 0;
+  border-radius: 5px;
 }
 
 .dropdown-menu button {
   padding: 8px 12px;
   background-color: transparent;
   border: none;
-  color: #00b8d9; /* Theme color for buttons */
+  color: #00b8d9;
   cursor: pointer;
   text-align: left;
   width: 100%;
 }
 
 .dropdown-menu button:hover {
-  background-color: #444; /* Hover background color */
-  color: #00b8d9; /* Keep button color consistent */
+  background-color: #444;
+  color: #00b8d9;
 }
 </style>

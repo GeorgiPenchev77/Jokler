@@ -56,7 +56,7 @@ export default {
 
 <style scoped>
 .jokle-item {
-  background-color: #333; /* Dark card background */
+  background-color: #1E1E1E; /* Dark card background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */

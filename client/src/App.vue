@@ -89,7 +89,7 @@ export default {
 /* General app layout */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  color: black;
+  color: #121212;
   text-align: center;
   font-size: 16px;
   display: flex;
@@ -99,7 +99,7 @@ export default {
 /* Sidebar toggle button */
 .toggle-btn {
   display: none;
-  position: fixed; 
+  position: fixed;
   top: 10px;
   left: 10px;
   z-index: 10;
@@ -114,7 +114,7 @@ export default {
 /* Sidebar layout */
 .sidebar {
   width: 220px;
-  background-color: #2C2C2C; 
+  background-color: #121212;
   color: white;
   padding: 20px;
   min-height: 100vh;

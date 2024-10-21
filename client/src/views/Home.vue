@@ -55,6 +55,12 @@ export default {
 </script>
 
 <style>
+.greeting{
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 #MasterDeleteButton {
   padding: 10px;
   border: 2px solid darkred;
