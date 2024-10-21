@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="container-fluid">
-      <div class="row">
-        <div id = "bar" class="col-1">
+    <b-container fluid>
+      <b-row>
+        <b-col id = "bar" class="col-1">
             <!-- Sidebar Navigation -->
           <div class="sidebar" :class="{ hidden: isSidebarHidden }">
             <button @click="handleAuthAction" class="auth-btn">
@@ -27,15 +27,15 @@
           <div id="Home">
             <router-link to="/"></router-link>
           </div>
-        </div>
-        <div class="col-2">
+        </b-col>
+        <b-col class="col-2">
           <!-- Render the content of the current page view -->
           <div class="main-content">
             <router-view />
           </div>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
