@@ -2,15 +2,12 @@
   <div id="app">
     <!-- Sidebar Navigation -->
     <div class="sidebar" :class="{ hidden: isSidebarHidden }">
+      <button @click="handleAuthAction" class="auth-btn">
+          {{ getCurrentUser() ? 'Sign out' : 'Login' }}
+        </button>
         <ul>
           <li>
             <router-link to="/">Home</router-link>
-          </li>
-          <li v-if="!getCurrentUser()">
-            <router-link to="/login">Login</router-link>
-          </li>
-          <li v-else>
-            <button @click="signOut">Sign out</button>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -49,6 +46,13 @@ export default {
       const user = Cookies.get('username')
       return user
     },
+    handleAuthAction() {
+      if (this.getCurrentUser()) {
+        this.signOut()
+      } else {
+        this.$router.push('/login') // Redirect to login page
+      }
+    },
     signOut() {
       Cookies.set('username', '')
       location.reload()
@@ -60,8 +64,7 @@ export default {
       if (window.innerWidth > 780) {
         // Show sidebar by  when when the window is bigger/full size
         this.isSidebarHidden = false;
-      }
-      else{
+      } else {
         // Hide sidebar by default everytime the window goes small
         this.isSidebarHidden = true;
       }
@@ -82,29 +85,36 @@ export default {
 </script>
 
 <style>
+<style>
+/* General app layout */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: black;
   text-align: center;
   font-size: 16px;
   display: flex;
-  justify-content: center; /* Horizontally center the entire content */
+  justify-content: center;
 }
 
+/* Sidebar toggle button */
 .toggle-btn {
   display: none;
-  position:fixed; /* Should be changed to follow the bar's edge */
+  position: fixed; 
   top: 10px;
   left: 10px;
-  z-index: 10; /* Stays on top */
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  z-index: 10;
+  background-color: #00a0bf;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
+/* Sidebar layout */
 .sidebar {
-  width: 250px;
-  background-color: #333;
+  width: 220px;
+  background-color: #2C2C2C; 
   color: white;
   padding: 20px;
   min-height: 100vh;
@@ -114,46 +124,79 @@ export default {
   top: 0;
 }
 
-.sidebar ul {
-  list-style-type: square;
+/* Authentication button (Login/Sign out) */
+.auth-btn {
+  display: block;
+  width: 100%;
+  background-color: #00b8d9;
+  color: white;
+  border: none;
   padding: 10px;
+  border-radius: 10px; /* Rounded edges */
+  cursor: pointer;
+  margin-bottom: 20px; /* Separate from other items */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.auth-btn:hover {
+  background-color: #00a0bf; /* Slightly darker on hover */
+}
+
+/* Sidebar links */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
   position: sticky;
   top: 20px;
 }
 
 .sidebar ul li {
-  margin: 20px 10px;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar ul li:hover {
+  transform: scale(1.05);
+  background-color: #444;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .sidebar ul li a {
   color: white;
   text-decoration: none;
+  font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+  color: #00a0bf;
 }
 
 .sidebar {
-    transform: translateX(-100%); /* Hide the bar completely when hidden. ps. might be modified later to match the toggle button) */
-  }
+  transform: translateX(-100%);
+}
 
 .sidebar:not(.hidden) {
   transform: translateX(0);
 }
 
+/* Main content layout */
 .main-content {
   flex-grow: 1;
   justify-content: center;
-  margin-left: 250px;
+  margin-left: 220px;
   padding: 20px;
 }
 
-/* Adjust page for sreens with size of =< 780px */
+/* Responsive layout for smaller screens */
 @media (max-width: 780px) {
-
   .toggle-btn {
     display: block;
   }
 
   .main-content {
-    margin-left: 0; /* No margin when sidebar is hidden */
+    margin-left: 0;
   }
 }
 </style>
