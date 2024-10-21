@@ -11,6 +11,7 @@
     "node": "18.x"
   },
   "dependencies": {
-    "backend-frontend": "file:"
+    "backend-frontend": "file:",
+    "express-session": "^1.18.1"
   }
 }

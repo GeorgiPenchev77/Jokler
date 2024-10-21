@@ -4,6 +4,9 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var passport = require('passport');
+var session = require('express-session');
+var cookies = require('cookie-parser')
 
 
 // Variables
@@ -29,6 +32,17 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+// Enable cookies parser
+app.use(cookies());
+
+// Initialize passport and session
+app.use(session({
+    secret: "nonchalant",
+    resave: false,
+    saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Import routes
 app.get('/api', function(req, res) {
@@ -38,10 +52,13 @@ var usersController = require('./controllers/V1.0/users');
 var postController = require('./controllers/V1.0/jokles');
 var adminController = require('./controllers/V1.0/admins');
 var hashtagController = require('./controllers/V1.0/hashtags');
-app.use('/api/users', usersController);
-app.use('/api/posts', postController);
-app.use('/api/admins', adminController);
-app.use('/api/hashtags', hashtagController);
+app.use('/api/V1.0/users', usersController);
+app.use('/api/V1.0/posts', postController);
+app.use('/api/V1.0/admins', adminController);
+app.use('/api/V1.0/hashtags', hashtagController);
+
+var authenticator = require('./authenticator');
+app.use('/api/V1.0', authenticator);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

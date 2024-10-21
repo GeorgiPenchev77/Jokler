@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "fd9a58a1-f751-4188-807d-216046494760",
+		"_postman_id": "db023633-1777-46d4-ad26-8ee13f8c4143",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38698635"
+		"_exporter_id": "38277047"
 	},
 	"item": [
 		{
@@ -308,30 +308,30 @@
 					"response": []
 				},
 				{
-					"name": "Get Users",
+					"name": "User 1 creates post 0",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
+									"pm.environment.set(\"jokle0_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"content\": \"How do I #cook a #fish?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,12 +339,195 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/users",
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
-								"users"
+								"users",
+								"{{user1}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 creates post 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jokle1_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"How do I cook a cow?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User 1 creates post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jokle2_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"How do I play football?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 creates post 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jokle3_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"How do I play football?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User 2 comments on post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jokle4_id\", pm.response.json().newJokle._id);\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"I dont know man, I like league of legends\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}/posts/{{jokle2_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}",
+								"posts",
+								"{{jokle2_id}}"
 							]
 						}
 					},
@@ -422,6 +605,143 @@
 							"path": [
 								"users",
 								"{{user0}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user1 posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user1 post 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts/{{jokle0_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts",
+								"{{jokle0_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user1 post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts/{{jokle2_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts",
+								"{{jokle2_id}}"
 							]
 						}
 					},
@@ -552,150 +872,9 @@
 						}
 					},
 					"response": []
-				}
-			],
-			"description": "Tests the correctness of the basic endpoints logic for the user entity. Tests the ability to:\n\n- create a user\n    \n- get all users\n    \n- get a specific user\n    \n- update users\n    \n- update a specific user\n    \n- delete a specific user"
-		},
-		{
-			"name": "Posts tests",
-			"item": [
-				{
-					"name": "User 1 creates post 0",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"jokle0_id\", pm.response.json().newJokle._id);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"public\",\r\n    \"content\": \"How do I #cook a #fish?\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}/posts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user1}}",
-								"posts"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "User 1 creates post 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"jokle1_id\", pm.response.json().newJokle._id);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"private\",\r\n    \"content\": \"How do I cook a cow?\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}/posts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user1}}",
-								"posts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "User 1 creates post 2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"jokle2_id\", pm.response.json().newJokle._id);\r",
-									"\r",
-									"pm.test(\"Response status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"private\",\r\n    \"content\": \"How do I play football?\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{testUrl}}/users/{{user1}}/posts",
-							"host": [
-								"{{testUrl}}"
-							],
-							"path": [
-								"users",
-								"{{user1}}",
-								"posts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get posts",
+					"name": "Delete user2 posts",
 					"event": [
 						{
 							"listen": "test",
@@ -710,11 +889,8 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -726,17 +902,115 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts",
+							"raw": "{{testUrl}}/users/{{user2}}/posts",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
+								"users",
+								"{{user2}}",
 								"posts"
 							]
 						}
 					},
 					"response": []
 				},
+				{
+					"name": "Delete user2(override)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-HTTP-Method-Override",
+								"value": "delete",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user2}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user1 post 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/users/{{user1}}/posts/{{jokle0_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"users",
+								"{{user1}}",
+								"posts",
+								"{{jokle0_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests the correctness of the basic endpoints logic for the user entity. Tests the ability to:\n\n- create a user\n    \n- get all users\n    \n- get a specific user\n    \n- update users\n    \n- update a specific user\n    \n- delete a specific user"
+		},
+		{
+			"name": "Posts tests",
+			"item": [
 				{
 					"name": "Get all posts",
 					"event": [
@@ -782,6 +1056,95 @@
 					"response": []
 				},
 				{
+					"name": "Get post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/posts/{{jokle2_id}}",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"posts",
+								"{{jokle2_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post 2 comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testUrl}}/posts/{{jokle1_id}}/comments",
+							"host": [
+								"{{testUrl}}"
+							],
+							"path": [
+								"posts",
+								"{{jokle1_id}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Change data for post 0",
 					"event": [
 						{
@@ -812,13 +1175,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{testUrl}}/posts/{{jokle0_id}}",
+							"raw": "{{testUrl}}/posts/{{jokle2_id}}",
 							"host": [
 								"{{testUrl}}"
 							],
 							"path": [
 								"posts",
-								"{{jokle0_id}}"
+								"{{jokle2_id}}"
 							]
 						}
 					},
@@ -1835,7 +2198,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Clean up the database to get rid of all of the unnecssarry entities created during the test."
 		}
 	],
 	"event": [
@@ -1863,7 +2227,7 @@
 	"variable": [
 		{
 			"key": "testUrl",
-			"value": "http://localhost:3001/api",
+			"value": "http://localhost:3001/api/V1.0",
 			"type": "string"
 		}
 	]

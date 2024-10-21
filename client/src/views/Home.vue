@@ -1,42 +1,83 @@
 <template>
-  <div>
-    <b-container fluid>
-      <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
-      <p class="fs-4">Welcome to your DIT342 Frontend Vue.js App</p>
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p class="col-xl-9">Message from the server:<br/>
-      {{ message }}</p>
-    </b-container>
+  <div class="page-container">
+    <div class="greeting">
+      <div v-if="getCurrentUser()">
+        <h1>Welcome, {{getCurrentUser()}}</h1>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+  <div class="content">
+
+      <div v-if="getUserRole()==='admin'" id="MasterDeleteButton">
+        <button @click="deleteAllPosts">Emergency Button</button>
+      </div>
+
+        <CreatePostItem/>
+
+        <ForYouPageItem/>
+
   </div>
+
+</div>
+
 </template>
 
-<script>
-// @ is an alias to /src
+<script setup>
+import ForYouPageItem from '@/components/ForYouPageItem.vue'
+import CreatePostItem from '@/components/CreatePostItem.vue'
+import Cookies from 'js-cookie'
 import { Api } from '@/Api'
+</script>
+
+<script>
 
 export default {
   name: 'home',
+  components: { ForYouPageItem },
   data() {
     return {
-      message: 'none'
+      selected: 'Home'
     }
   },
   methods: {
-    getMessage() {
-      Api.get('/')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
+    getCurrentUser() {
+      const user = Cookies.get('username')
+      return user
+    },
+    getUserRole() {
+      return Cookies.get('role')
+    },
+    async deleteAllPosts() {
+      try {
+        const response = await Api.delete('/posts')
+        console.log(response.data)
+        alert('You Deleted All Posts')
+      } catch (error) {
+        console.error('You cannot destroy us!', error)
+      }
     }
   }
 }
+
 </script>
 
 <style>
-.btn_message {
-  margin-bottom: 1em;
+.greeting{
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 1%;
 }
+
+#MasterDeleteButton button {
+  padding: 2px;
+  border: 2px solid rgb(250, 34, 34);
+  background-color: rgb(255, 44, 44);
+  margin-bottom: 2%;
+  margin-top: 2%;
+  width: 150px;
+}
+
 </style>
