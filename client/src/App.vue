@@ -73,7 +73,7 @@ export default {
       this.isSidebarHidden = !this.isSidebarHidden;
     },
     currentSizeSettings() {
-      if (window.innerWidth > 780) {
+      if (window.innerWidth > 768) {
         // Show sidebar by  when when the window is bigger/full size
         this.isSidebarHidden = false;
         let sidebar = document.getElementById("bar")
@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     // Listener when the screen rezises (e.g want the sidebar to be visible when going back bigger window even after pressing hide sidebar in the smaller window)
-    window.addEventListener('resize', this.currentSizeSettings);
+    //window.addEventListener('resize', this.currentSizeSettings);
   },
   watch: {
     // Check settings whenever we navigate to new page
@@ -107,6 +107,10 @@ export default {
 </script>
 
 <style>
+
+#app {
+  min-height: 100vh;
+}
 
 .col-1 {
   width: 15%;
@@ -127,6 +131,7 @@ export default {
 .col-4 {
   display: none;
   min-width: 30px;
+  min-height: 100vh;
   width: 0%;
   padding: 0;
   background-color: #121212;
@@ -185,7 +190,7 @@ export default {
 
 .sidebar ul li {
   margin: 20px 0;
-  //transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .sidebar ul li:hover {
