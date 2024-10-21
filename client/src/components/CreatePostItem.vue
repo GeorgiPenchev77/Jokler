@@ -90,7 +90,7 @@
 
 .content-input {
   width: 100%;
-  min-height: fit-content;
+  min-height: 150px;
   align-self: center;
   padding: 15px;
   resize: vertical;
