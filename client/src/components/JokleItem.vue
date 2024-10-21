@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import Cookies from 'js-cookie'
 
-// Define emit function using `defineEmits`
 const emit = defineEmits(['save-jokle'])
 
 function getCurrentRole() {
@@ -18,13 +17,13 @@ const editableContent = ref('')
 
 function toggleEditMode(jokle) {
   if (isEditing.value) {
-    // Emit updated content to the parent component when 'Save' is clicked
     emit('save-jokle', { jokle, newContent: editableContent.value })
   } else {
-    editableContent.value = jokle.content // Populate the textarea with current content for editing
+    editableContent.value = jokle.content
   }
   isEditing.value = !isEditing.value
 }
+
 </script>
 
 <template>
@@ -38,8 +37,10 @@ function toggleEditMode(jokle) {
     </div>
 
     <div class="jokle-content">
-      <p v-if="!isEditing">{{ formatContent(jokle.content) }}</p>
-      <textarea v-if="isEditing" v-model="editableContent" rows="5"></textarea>
+
+      <p v-if="!isEditing" v-html="formatContent(jokle.content)"></p>
+
+      <textarea class="jokle-content editing-area" v-if="isEditing" v-model="editableContent" rows="5"></textarea>
     </div>
 
     <div class="divider"></div>
@@ -174,5 +175,14 @@ export default {
 
 img {
   margin-right: 5px;
+}
+
+.editing-area{
+  width: 100%;
+  height: auto;
+  resize: none;
+  outline: none;
+  box-shadow: none;
+  background: rgb(255, 255, 255);
 }
 </style>
