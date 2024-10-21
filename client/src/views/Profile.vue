@@ -119,35 +119,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.page-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100vh;
-}
-
-.content {
-  flex: 1; /* Take up remaining space for the content area */
-  padding: 20px;
-  background-color: #fff;
-}
-
-.nav-item {
-  margin-bottom: 10px;
-}
-
-.nav-link {
-  display: block;
-  padding: 10px;
-  color: #007bff;
-  text-decoration: none;
-  border-radius: 4px;
-}
-
-.nav-link.active {
-  background-color: #007bff;
-  color: #fff;
-}
-</style>

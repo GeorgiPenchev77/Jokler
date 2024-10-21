@@ -1,35 +1,47 @@
 <template>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  </head>
   <div id="app">
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" :class="{ hidden: isSidebarHidden }">
-      <button @click="handleAuthAction" class="auth-btn">
-          {{ getCurrentUser() ? 'Sign out' : 'Login' }}
-        </button>
-        <ul>
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/profile">Profile</router-link>
-          </li>
-          <li>
-            <router-link to="/trending">Trending Topics</router-link>
-          </li>
-        </ul>
-      </div>
-      <!-- Button to toggle sidebar (Only for smaller windows) -->
-      <button @click="toggleSidebar" class="toggle-btn">
-        {{ isSidebarHidden ? 'Show Menu' : 'Hide Menu' }}
-      </button>
-    <div id="Home">
-      <router-link to="/"></router-link>
-    </div>
-    <!-- Render the content of the current page view -->
-    <div class="main-content">
-      <router-view />
-    </div>
+    <b-container fluid>
+      <b-row  class="flex-nowrap">
+        <b-col id="bar" class="col-1 collapse.show collapse-horizontal" >
+            <!-- Sidebar Navigation -->
+          <div class="sidebar" :class="{ hidden: isSidebarHidden }">
+            <ul class="col-3">
+              <button @click="handleAuthAction" class="auth-btn">
+                {{ getCurrentUser() ? 'Sign out' : 'Login' }}
+              </button>
+              <li class="nav-item">
+                <router-link to="/">Home</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/profile">Profile</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/trending">Trending Topics</router-link>
+              </li>
+            </ul>
+          </div>
+          <div id="Home">
+            <router-link to="/"></router-link>
+          </div>
+        </b-col>
+        <b-col class="col-4">
+          <!-- Button to toggle sidebar (Only for smaller windows) -->
+          <button @click="toggleSidebar" class="toggle-btn" data-bs-toggle="collapse" data-bs-target="#bar">
+            <span class="bi bi-layout-sidebar"></span>
+          </button>
+        </b-col>
+        <b-col class="col-2">
+          <!-- Render the content of the current page view -->
+          <div class="main-content">
+            <router-view />
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
-
 </template>
 
 <script>
@@ -61,18 +73,28 @@ export default {
       this.isSidebarHidden = !this.isSidebarHidden;
     },
     currentSizeSettings() {
-      if (window.innerWidth > 780) {
+      if (window.innerWidth > 768) {
         // Show sidebar by  when when the window is bigger/full size
         this.isSidebarHidden = false;
+        let sidebar = document.getElementById("bar")
+        if (sidebar.classList.contains('collapse')) {
+          sidebar.classList.remove('collapse')
+          sidebar.classList.add('collapse.show')
+        }
       } else {
         // Hide sidebar by default everytime the window goes small
         this.isSidebarHidden = true;
+        let sidebar = document.getElementById("bar")
+        if (sidebar.classList.contains('collapse.show')) {
+          sidebar.classList.remove('collapse.show')
+          sidebar.classList.add('collapse')
+        }
       }
     }
   },
   mounted() {
     // Listener when the screen rezises (e.g want the sidebar to be visible when going back bigger window even after pressing hide sidebar in the smaller window)
-    window.addEventListener('resize', this.currentSizeSettings);
+    //window.addEventListener('resize', this.currentSizeSettings);
   },
   watch: {
     // Check settings whenever we navigate to new page
@@ -85,41 +107,56 @@ export default {
 </script>
 
 <style>
-<style>
-/* General app layout */
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  color: #121212;
-  text-align: center;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
+  min-height: 100vh;
+}
+
+.col-1 {
+  width: 15%;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.col-2 {
+  width: 85%;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.col-3 {
+  width: 100%;
+}
+
+.col-4 {
+  display: none;
+  min-width: 30px;
+  min-height: 100vh;
+  width: 0%;
+  padding: 0;
+  background-color: #121212;
 }
 
 /* Sidebar toggle button */
 .toggle-btn {
   display: none;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  background-color: #00a0bf;
+  width: 100%;
+  background-color: #00000000;
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 5px; /* Separate from other items */
+  font-size: 36px;
+  font-weight: bold;
 }
 
 /* Sidebar layout */
 .sidebar {
-  width: 220px;
   background-color: #121212;
   color: white;
   padding: 20px;
-  min-height: 100vh;
+  min-height: 100%;
   transition: transform 0.3s ease-in-out;
-  position: fixed;
   left: 0;
   top: 0;
 }
@@ -173,30 +210,53 @@ export default {
   color: #00a0bf;
 }
 
-.sidebar {
-  transform: translateX(-100%);
-}
-
-.sidebar:not(.hidden) {
-  transform: translateX(0);
-}
-
 /* Main content layout */
 .main-content {
   flex-grow: 1;
   justify-content: center;
-  margin-left: 220px;
   padding: 20px;
 }
 
 /* Responsive layout for smaller screens */
-@media (max-width: 780px) {
+@media (max-width: 1200px) {
+  .col-1 {
+    width: 20%;
+  }
+  .col-2 {
+    width: 80%;
+  }
+}
+
+@media (max-width: 992px) {
+  .col-1 {
+    width: 25%;
+  }
+  .col-2 {
+    width: 75%;
+  }
+}
+
+@media (max-width: 768px) {
   .toggle-btn {
-    display: block;
+    display: block; /* Show toggle button on smaller screens */
   }
 
-  .main-content {
-    margin-left: 0;
+  .sidebar.hidden {
+    transform: translateX(-100%); /* Hide sidebar */
+  }
+
+  .sidebar:not(.hidden) {
+    transform: translateX(0); /* Show sidebar */
+  }
+  .col-1 {
+    width: 30%
+  }
+  .col-4 {
+    width: 10%;
+    display: block;
+  }
+  .col-2 {
+    width: 90%
   }
 }
 </style>
